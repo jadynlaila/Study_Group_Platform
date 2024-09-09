@@ -12,7 +12,7 @@ Hi, I like sports.
 Hi, I speak German.
 
 ### Valentino Valero
-Saludos! I'm a Multi-Disciplinary Engineer ( UI/UX Emphasis ) here at NAU. My main specialty is Frontend development so I'll be helping out with UI/UX based things. I'm familiar with C, Python, HTML, Figma, Assembly ( :( ), and React. Outside of this project, you can find me working on cars and working with 3D printers for other projects.
+Saludos! I'm a Multi-Disciplinary Engineer ( UI/UX Emphasis ) here at NAU. My main specialty is Frontend development so I'll be helping out with UI/UX based things. I'm familiar with C, Python, HTML, Figma, Assembly (Ew), and React. Outside of this project, you can find me working on cars and working with 3D printers for other projects.
 
 ### [ INSERT NAME HERE ]
 [ DESCRIPTION ]
