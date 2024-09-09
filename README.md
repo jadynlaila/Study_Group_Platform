@@ -3,7 +3,7 @@ This is the repository where the StudySphere project will be located.
 
 ## 01. Introductions
 ### Alexander Anthis
-Hello! I'm a Computer Science student at NAU, and I'm focusing my efforts towards backend software development. I am familiar with C, Python, Rust, and SQL, and I am currently working for NAU as a system adminstrator for the university supercomputer.
+Hello! I'm a Computer Science student at NAU, and I'm focusing my efforts towards backend software development. I am familiar with C, Python, Rust, and SQL, and I am currently working for NAU as a system administrator  for the university supercomputer.
 
 ### Rudra Amin
 Hi, I like sports.
