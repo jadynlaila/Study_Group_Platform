@@ -9,14 +9,13 @@ Hello! I'm a Computer Science student at NAU, and I'm focusing my efforts toward
 Hi, I like sports.
 
 ### Jack Lealos
-Hi, I speak German.
+Hi, I am an IGP student studying Software Engineering and German at NAU. I hope to work in formula one later in my career. I love to travel and play games. A few programming languages I am familiar with are C, Java, Python.
 
 ### Valentino Valero
-I do nerd things occasionally.
+Saludos! I'm a Multi-Disciplinary Engineer ( UI/UX Emphasis ) here at NAU. My main specialty is Frontend development so I'll be helping out with UI/UX based things. I'm familiar with C, Python, HTML, Figma, Assembly (Ew), and React. Outside of this project, you can find me working on cars and working with 3D printers for other projects.
 
-### [ INSERT NAME HERE ]
-[ DESCRIPTION ]
-
+### Jadyn Calhoun
+Hi! I'm a junior Computer Science student at NAU. I love web development and thinking through complex problems. I enjoy hanging out with friends and making music!
 ## 02. Availability
 Not everyone will be able to make every single meeting, so in order to maximize the amount of people in the meetings, multiple meetings per week will be held. Additionally, it is noted that more effort will be put into the setup of the project during it's initial creation. Meetings will usually be held in the Engineering building.
 
