@@ -1,3 +1,4 @@
+![IMAGE](https://github.com/jadynlaila/Study_Group_Platform/blob/main/S%20%2B%20study%20COPY.jpg)
 # StudySphere
 This is the repository where the StudySphere project will be located.
 
