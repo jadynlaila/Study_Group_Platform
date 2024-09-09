@@ -4,6 +4,8 @@ This is the repository where the StudySphere project will be located.
 ## 01. Introductions
 ### Alexander Anthis
 Hello I'm a frog.
+### Rudra Amin
+Hi, I like sports.
 
 ### \[YOUR NAME HERE]
 \[YOUR INTRODUCTION HERE]
