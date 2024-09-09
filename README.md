@@ -3,9 +3,11 @@ This is the repository where the StudySphere project will be located.
 
 ## 01. Introductions
 ### Alexander Anthis
-Hello I'm a frog.
+Hello! I'm a Computer Science student at NAU, and I'm focusing my efforts towards backend software development. I am familiar with C, Python, Rust, and SQL, and I am currently working for NAU as a system adminstrator for the university supercomputer.
+
 ### Rudra Amin
 Hi, I like sports.
+
 ### Jack Lealos
 Hi, I speak German.
 
@@ -24,7 +26,7 @@ For each meeting, everyone will be shifted down one role. The available meeting 
 So if you were Team Leader this meeting, you would be the Minute-Taker next meeting.
 
 ## 04. Meeting Scheduling
-***TODO***
+Our group will be holding multiple meetings per week due to limit member availability. The primary meeting will be held on Saturdays at 11am and subsequent meetings throughout the week will be held as needed.
 
 !(LINK SCHEDULING IMAGE HERE LATER)[]
 
