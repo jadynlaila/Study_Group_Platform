@@ -16,8 +16,9 @@ I do nerd things occasionally.
 
 ### [ INSERT NAME HERE ]
 [ DESCRIPTION ]
+
 ## 02. Availability
-Not everyone will be able to make every single meeting, so in order to maximize the amount of people in the meetings, multiple meetings per week will be held. Additionally, it is noted that more effort will be put into the setup of the project during it's initial creation.
+Not everyone will be able to make every single meeting, so in order to maximize the amount of people in the meetings, multiple meetings per week will be held. Additionally, it is noted that more effort will be put into the setup of the project during it's initial creation. Meetings will usually be held in the Engineering building.
 
 ## 03. Roles for each week
 For each meeting, everyone will be shifted down one role. The available meeting roles are:
@@ -30,7 +31,9 @@ So if you were Team Leader this meeting, you would be the Minute-Taker next meet
 ## 04. Meeting Scheduling
 Our group will be holding multiple meetings per week due to limit member availability. The primary meeting will be held on Saturdays at 11am and subsequent meetings throughout the week will be held as needed.
 
-!(LINK SCHEDULING IMAGE HERE LATER)[]
+Our estimated tracker spreadsheet [is available as a Google Docs spreadsheet](https://docs.google.com/spreadsheets/d/1hYp8FGm6eDtyWx9X4aZaYG_4264jqLZbFvZ-MnFxVMM/edit?usp=sharing).
+
+![Preview of the Estimation Tracker spreadsheet](res/estimation-tracker-preview.png)
 
 ## 05. Decision Making Process
 When a decision needs to be made, it will be put to a majority vote. If a tie occurs, a coin flip will determine the winner.
