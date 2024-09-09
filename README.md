@@ -9,7 +9,7 @@ Hello! I'm a Computer Science student at NAU, and I'm focusing my efforts toward
 Hi, I like sports.
 
 ### Jack Lealos
-Hi, I speak German.
+Hi, I am an IGP student studying Software Engineering and German at NAU. I hope to work in formula one later in my career. I love to travel and play games. A few programming languages I am familiar with are C, Java, Python.
 
 ### Valentino Valero
 Saludos! I'm a Multi-Disciplinary Engineer ( UI/UX Emphasis ) here at NAU. My main specialty is Frontend development so I'll be helping out with UI/UX based things. I'm familiar with C, Python, HTML, Figma, Assembly (Ew), and React. Outside of this project, you can find me working on cars and working with 3D printers for other projects.
