@@ -16,6 +16,7 @@ Saludos! I'm a Multi-Disciplinary Engineer ( UI/UX Emphasis ) here at NAU. My ma
 
 ### Jadyn Calhoun
 Hi! I'm a junior Computer Science student at NAU. I love web development and thinking through complex problems. I enjoy hanging out with friends and making music!
+
 ## 02. Availability
 Not everyone will be able to make every single meeting, so in order to maximize the amount of people in the meetings, multiple meetings per week will be held. Additionally, it is noted that more effort will be put into the setup of the project during it's initial creation. Meetings will usually be held in the Engineering building.
 
