@@ -9,8 +9,8 @@ Hi, I like sports.
 ### Jack Lealos
 Hi, I speak German.
 
-### \[YOUR NAME HERE]
-\[YOUR INTRODUCTION HERE]
+### Valentino Valero
+I do nerd things occasionally.
 
 ## 02. Availability
 Not everyone will be able to make every single meeting, so in order to maximize the amount of people in the meetings, multiple meetings per week will be held. Additionally, it is noted that more effort will be put into the setup of the project during it's initial creation.
