@@ -7,7 +7,7 @@ This is the repository where the StudySphere project will be located.
 Hello! I'm a Computer Science student at NAU, and I'm focusing my efforts towards backend software development. I am familiar with C, Python, Rust, and SQL, and I am currently working for NAU as a system administrator  for the university supercomputer.
 
 ### Rudra Amin
-Hi, I like sports.
+Hi, I am a computer engineering student at NAY. I am familiar with Python, C, Swift, and machine learning with TensorFlow. I am currently a student tech for the NAU IT. I like sports. I hope to live in New York City one day.
 
 ### Jack Lealos
 Hi, I am an IGP student studying Software Engineering and German at NAU. I hope to work in formula one later in my career. I love to travel and play games. A few programming languages I am familiar with are C, Java, Python.
