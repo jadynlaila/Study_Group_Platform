@@ -7,6 +7,8 @@ Hello! I'm a Computer Science student at NAU, and I'm focusing my efforts toward
 
 ### Rudra Amin
 Hi, I like sports.
+### Jack Lealos
+Hi, I speak German.
 
 ### Jack Lealos
 Hi, I speak German.
