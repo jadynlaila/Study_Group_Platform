@@ -6,6 +6,8 @@ This is the repository where the StudySphere project will be located.
 Hello I'm a frog.
 ### Rudra Amin
 Hi, I like sports.
+### Jack Lealos
+Hi, I speak German.
 
 ### \[YOUR NAME HERE]
 \[YOUR INTRODUCTION HERE]
