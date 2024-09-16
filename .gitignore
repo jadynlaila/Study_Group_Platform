@@ -12,3 +12,5 @@ StudySphereServer/**/*.rs.bk
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 StudySphereServer/*.pdb
+StudySphereServer/Cargo.lock
+StudySphereServer/target/.rustc_info.json
