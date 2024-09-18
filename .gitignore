@@ -14,3 +14,5 @@ StudySphereServer/**/*.rs.bk
 StudySphereServer/*.pdb
 StudySphereServer/Cargo.lock
 StudySphereServer/target/.rustc_info.json
+StudySphereServer/Cargo.lock
+StudySphereServer/target/.rustc_info.json

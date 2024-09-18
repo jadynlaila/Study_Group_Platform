@@ -1,13 +1,11 @@
 mod api;
 
-use api::task::{
-    get_task
-}; // more will be added here later
+use crate::api::task::get_task; // more will be added here later
 
 use actix_web::{
     HttpServer,
     App,
-    
+    middleware::Logger
 };
 
 #[actix_web::main]
@@ -20,7 +18,9 @@ async fn main() -> std::io::Result<()> {
         let logger = Logger::default();
         App::new()
         .wrap(logger)
-        .app_data()
         .service(get_task)
     })
+    .bind(("127.0.0.1", 80))?
+    .run()
+    .await
 }
