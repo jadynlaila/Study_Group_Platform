@@ -1,0 +1,23 @@
+{
+  "name": "study_sphere_backend_server",
+  "version": "0.0.1",
+  "description": "The backend server for the Study Sphere project",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "../.git"
+  },
+  "keywords": [
+    "study",
+    "sphere",
+    "api",
+    "server",
+    "backend",
+    "mongo"
+  ],
+  "author": "Alexander Anthis, Jadyn Calhoun, Rudra Amin",
+  "license": "GPL-3.0-or-later"
+}

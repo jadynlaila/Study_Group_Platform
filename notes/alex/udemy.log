@@ -1,0 +1,30 @@
+# Udemy Course Log
+
+## Course 1 (NodeJS)
+
+### General
+Name of Course: Build NodeJS applications with Mongodb
+Course URL: https://nau.udemy.com/course/node-js-mongo-db-2018/learn/lecture/11147032
+
+### List of Pages/Activities/Videos and stuff
+
+#### What is nodejs?
+- Two actors
+  - Server
+    - Responds to requests from Client
+    - A web server will return a "page"
+  - Client
+    - Both browser and user are considered a Client
+- Browser can monitor time between requests and responses
+- Any backend can recieve and return a response
+  - NodeJS is a backend that runs javascript code outside a browser.
+
+#### Creating our first server
+- 
+
+### Assignments Done
+- 
+
+### What I've produced
+
+
