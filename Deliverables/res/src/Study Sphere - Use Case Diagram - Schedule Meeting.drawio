@@ -1,0 +1,43 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8">
+  <diagram name="Page-1" id="9UVsAq16OEgGH-QT-e9c">
+    <mxGraphModel dx="2074" dy="2299" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JgWOOsWS1i2mkN9p8RnF-62" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="250" y="-290" width="460" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="JgWOOsWS1i2mkN9p8RnF-55" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="JgWOOsWS1i2mkN9p8RnF-62" vertex="1">
+          <mxGeometry width="450" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="JgWOOsWS1i2mkN9p8RnF-60" value="Study Group System" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1" parent="JgWOOsWS1i2mkN9p8RnF-62" vertex="1">
+          <mxGeometry x="159.9999365079365" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="JgWOOsWS1i2mkN9p8RnF-54" value="" style="group" parent="JgWOOsWS1i2mkN9p8RnF-62" vertex="1" connectable="0">
+          <mxGeometry x="30" y="45" width="360" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="JgWOOsWS1i2mkN9p8RnF-41" value="Schedule meeting" style="ellipse;whiteSpace=wrap;html=1;" parent="JgWOOsWS1i2mkN9p8RnF-54" vertex="1">
+          <mxGeometry width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="JgWOOsWS1i2mkN9p8RnF-48" value="Display suggested optimal times" style="ellipse;whiteSpace=wrap;html=1;" parent="JgWOOsWS1i2mkN9p8RnF-54" vertex="1">
+          <mxGeometry x="245" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="JgWOOsWS1i2mkN9p8RnF-49" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;verticalAlign=bottom;dashed=1;labelBackgroundColor=none;rounded=0;" parent="JgWOOsWS1i2mkN9p8RnF-54" source="JgWOOsWS1i2mkN9p8RnF-41" target="JgWOOsWS1i2mkN9p8RnF-48" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="170" as="sourcePoint" />
+            <mxPoint x="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JgWOOsWS1i2mkN9p8RnF-3" value="User" style="shape=umlActor;html=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="180" y="-240" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JgWOOsWS1i2mkN9p8RnF-42" value="" style="edgeStyle=none;html=1;endArrow=none;verticalAlign=bottom;rounded=0;" parent="1" source="JgWOOsWS1i2mkN9p8RnF-3" target="JgWOOsWS1i2mkN9p8RnF-41" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="230" y="260" as="sourcePoint" />
+            <mxPoint x="390" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
