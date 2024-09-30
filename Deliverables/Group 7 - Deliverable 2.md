@@ -83,7 +83,8 @@
 * Student deletes group
 
 **Interface Sketch:**  
-**![][image4]**  
+
+![Use Case for creating a new study group](res/deliverable_2-create_group.png) 
 ---
 
 # 7. User Stories
