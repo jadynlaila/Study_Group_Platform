@@ -73,17 +73,17 @@ The system informs the student and they are instructed to try again
 
 **Jadyn**: 
 
-* # As a student with a busy schedule, I want in-app schedule optimization so that we can easily find times to study.
+* As a student with a busy schedule, I want in-app schedule optimization so that we can easily find times to study.
 
   * Priority: High  
   * Estimated Hours: 13
 
-* # As a student who has a hard time talking to people in class, I want finding groups to be as easy as possible so I can meet people to study with without as much pressure.
+* As a student who has a hard time talking to people in class, I want finding groups to be as easy as possible so I can meet people to study with without as much pressure.
 
   * Priority: High
   * Estimated Hours: 5
 
-# 
+
 
 # 8. Issue Tracker
 
