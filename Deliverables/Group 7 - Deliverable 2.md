@@ -53,14 +53,14 @@
 5. The student can now sign in 
 
 **Alternate scenarios:**   
-      2a. The student did not provide all necessary information
+2a. The student did not provide all necessary information
 
-1. The system informs the student and they are instructed to try again
+The system informs the student and they are instructed to try again
 
-     2b. The student provides invalid information (ex. improper password, username, or    
-           email formatting)
+2b. The student provides invalid information (ex. improper password, username, or
+email formatting)
 
-* The system informs the student and they are instructed to try again
+The system informs the student and they are instructed to try again
 
 
 **Interface Sketch:**  
