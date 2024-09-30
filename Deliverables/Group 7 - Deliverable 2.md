@@ -95,7 +95,7 @@
   * Estimated Hours: 5 hours  
 * As a student, I want to be able to look up study groups by course so that I can find students in my classes.  
   * Priority: Medium  
-  * Estimated Hours: 7 hours
+  * Estimated Hours: 8 hours
 
 
 # 8. Issue Tracker
