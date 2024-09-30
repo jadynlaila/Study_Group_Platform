@@ -62,13 +62,13 @@
 
 # 7. User Stories
 **Jack**  
-As a student, I want to be able to connect with other students so that we can communicate times to meet and study.  
-Priority: High  
-Estimated Hours: 8  
+- As a student, I want to be able to connect with other students so that we can communicate times to meet and study.  
+    - Priority: High  
+    - Estimated Hours: 8  
 
-As a student, I want to have a group calendar so that everyone in the group is able to see when events are scheduled  .  
-Priority: Medium  
-Estimated Hours: 3  
+- As a student, I want to have a group calendar so that everyone in the group is able to see when events are scheduled  .  
+    - Priority: Medium  
+    - Estimated Hours: 3  
 
 
 # 8. Issue Tracker
