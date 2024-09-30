@@ -54,8 +54,8 @@
   * A request is made to the database
   * The students data is uploaded to the database
   * The student can now sign in 
+  
 **Alternate scenarios:**
-
   * The student did not provide all necessary information
   *The system informs the student and they are instructed to try again
     a. The student provides invalid information (ex. improper password, username, or  
