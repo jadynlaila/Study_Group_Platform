@@ -40,20 +40,20 @@
 
 * Meeting is scheduled
 
-**Alternate scenarios:** 
+**Alternate scenarios:**
 
 * Meeting is not scheduled  
 * One or more members do not attend meeting
 
-**Interface Sketch:**  
+**Interface Sketch:**
 ![Schedule Meeting Interface Diagram](res/deliverable_2-schedule_meeting.png)
 
 # 7. User Stories
-**Alex**: 
+**Alex**:
 
 * As a student, I want to be able to find students in my class section so that I can meet people who are on the same page as me.  
-  * Priority: Medium  
-  * Estimated Hours: 3  
+  * Priority: Medium
+  * Estimated Hours: 3
 * As a student, I want to be able to communicate well with my group mates so that we can keep our conversations organized.  
   * Priority: High
   * Estimated Hours: 8
