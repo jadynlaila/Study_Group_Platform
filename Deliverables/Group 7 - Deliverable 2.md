@@ -34,7 +34,14 @@
 
 
 # 7. User Stories
+**Alex**: 
 
+* As a student, I want to be able to find students in my class section so that I can meet people who are on the same page as me.  
+  * Priority: Medium  
+  * Estimated Hours: 3  
+* As a student, I want to be able to communicate well with my group mates so that we can keep our conversations organized.  
+  * Priority: High  
+  * Estimated Hours: 8
 
 # 8. Issue Tracker
 
