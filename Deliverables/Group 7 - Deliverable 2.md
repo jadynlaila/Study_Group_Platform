@@ -53,15 +53,23 @@
 
 ## 6.2 Use Case Descriptions and Interface Sketch
 **Use Case Description:** Delete Account
+
 **Actor:** User
+
 **Trigger:** Student wishes to end use of Study Sphere and delete their account
+
 **Pre-Conditions:**
+
 - User must have an account.
 - User must be logged in.
 - User must have access to password.
+- 
 **Post-Conditions:**
+  
 - Must be approved by Administrator
+- 
 **Success Scenario:**
+  
 1. Student has an account
 2. Student successfully logs in
 3. Student has access to account password
@@ -70,11 +78,15 @@
 6. Admin Approves account removal request
 7. User is logged out
 8. Users data is removed
-**Alternate scenarios:** 
+9. 
+**Alternate scenarios:**
+
 1a. Student does not have acan ccount and therefore cannot delete account.
 3a. Student does not have password and therefore cannot delete account.
-2a. Student is unable to log in and thus cannot delete account,
+2a. Student is unable to log in and thus cannot delete account.
+
 **Interface Sketch:**
+
 ![image of use case](res/D2_delete.png)
 
 
