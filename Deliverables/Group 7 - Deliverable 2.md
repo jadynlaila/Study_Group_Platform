@@ -14,6 +14,11 @@
 
 
 # 2. Stakeholders
+**Users:** students who will be using the app to join and interact in the study groups. Their feedback will guide future updates and how the app is received for other students.
+
+**Developers:** Frontend and Backend developers responsible for building the website. They ensure a user-friendly interface that performs tasks efficiently.
+
+**Competitors**: Companies or similar products to ours: Discord, LinkedIn, Social media platforms. Their features will help our website’s unique value proposition.
 
 
 # 3. Functional Requirements (features)
@@ -30,7 +35,38 @@
 ## 6.1 Use Case Diagram
 
 
+
 ## 6.2 Use Case Descriptions and Interface Sketch
+
+**Use Case Description:** Create an account
+
+**Actor:** Student
+
+**Trigger:** The student wants to sign up
+
+**Pre-Conditions:** The student selects “Sign Up”
+
+**Post-Condition:** A new student account is created
+
+**Success Scenario:**
+  * The student enters their full name, display name, password, email, number (optional), and their school
+  * The program ensures the student answered all necessary questions
+  * A request is made to the database
+  * The students data is uploaded to the database
+  * The student can now sign in 
+  
+**Alternate scenarios:**
+  * The student did not provide all necessary information
+  * The system informs the student and they are instructed to try again
+  
+    a. The student provides invalid information (ex. improper password, username, or  
+           email formatting)
+           
+  * The system informs the student and they are instructed to try again
+
+**Interface Sketch:**
+
+![Rudra's use case diagram](res/deliverable_2-log_in.png)
 
 **Use Case Description:** Search for New Groups   
 **Actor:** User  
@@ -60,7 +96,18 @@
 **Interface Sketch:**  
 ![Use case Serch Group Diagram](res/Study%20Sphere%20-%20UseCaseSearchGroup.drawio.png)
 
+
 # 7. User Stories
+**Rudra:**
+
+* As a student I want a group dashboard so I can join groups related to my classes.
+  * Priority: High
+  * Estimated Hours: 12
+  
+* As a student I want to create a group option so I can make my own groups.
+  * Priority: High
+  * Estimated Hours: 6
+
 **Jack**  
 - As a student, I want to be able to connect with other students so that we can communicate times to meet and study.  
     - Priority: High  
@@ -69,7 +116,6 @@
 - As a student, I want to have a group calendar so that everyone in the group is able to see when events are scheduled  .  
     - Priority: Medium  
     - Estimated Hours: 3  
-
 
 # 8. Issue Tracker
 
