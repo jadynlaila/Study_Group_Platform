@@ -46,11 +46,11 @@
 **Post-Condition:** A new student account is created  
 **Success Scenario:**
 
-* The student enters their full name, display name, password, email, number (optional), and their school  
-* The program ensures the student answered all necessary questions  
-* A request is made to the database  
-* The students data is uploaded to the database  
-* The student can now sign in 
+1. The student enters their full name, display name, password, email, number (optional), and their school  
+2. The program ensures the student answered all necessary questions  
+3. A request is made to the database  
+4. The students data is uploaded to the database  
+5. The student can now sign in 
 
 **Alternate scenarios:**   
       2a. The student did not provide all necessary information
