@@ -75,12 +75,17 @@
 # 5. MVP
 Our MVP includes:
 - Homepage: Will provide a welcoming user interface with , where users can navigate to key features like login sign up profiles, chats, groups etc
+  - Ensure that users are able to see their current group chats, join more, and update their profiles. 
 - Login/signup page: Easy to use 
-- User settings
+  - User settings
+  - Testing protocol: Ensure that users can create and sign into accounts without much hassle
 - Groups page (create/join groups) 
-- Group settings
+  - Group settings
+  - Testing protocol: Ensure that users can create, join, delete, and leave groups and that they are able to effectively communicate within them as well as manage them.
 - Calendar (this feature is what we decided to add after the interviews)
+  - Testing protocol: Ensure users can upload their availability and have it shown on the group calendar, as well as schedule events to the calendar. 
 - Chat Feature
+  - Testing protocol: Ensure two users or more can communicate through group chats efficiently.
 
 # 6. Use Cases 
 
@@ -155,17 +160,17 @@ Our MVP includes:
 **Alternate scenarios:**   
 
 2a. Not signed in
-1. Student is not signed in, so prompted to sign in  
+  1. Student is not signed in, so prompted to sign in  
 
 3a. User doesnt like group choices
-1. Student does not successfully find a group  
+  1. Student does not successfully find a group  
 
 4a. Spelling error
-1.Student misspells group name  
+   1.Student misspells group name  
 
 
 5a. No groups found
-1. System finds no groups matching search  
+  1. System finds no groups matching search  
 
 **Interface Sketch:**  
 ![Use case Serch Group Diagram](res/Study%20Sphere%20-%20UseCaseSearchGroup.drawio.png)
@@ -188,12 +193,11 @@ Our MVP includes:
 **Alternate scenarios:**   
 2a. The student did not provide all necessary information
 
-The system informs the student and they are instructed to try again
+2b.The system informs the student and they are instructed to try again
 
-2b. The student provides invalid information (ex. improper password, username, or
-email formatting)
+2c. The student provides invalid information (ex. improper password, username, or email formatting)
 
-The system informs the student and they are instructed to try again
+2d. The system informs the student and they are instructed to try again
 
 
 **Interface Sketch:**  
@@ -210,9 +214,9 @@ The system informs the student and they are instructed to try again
 
 **Pre-Conditions:**
 
-- User must have an account.
-- User must be logged in.
-- User must have access to password.
+1a. User must have an account.
+1b. User must be logged in.
+1c. User must have access to password.
   
 **Post-Conditions:**
   
@@ -220,21 +224,19 @@ The system informs the student and they are instructed to try again
   
 **Success Scenario:**
   
-1. Student has an account
-2. Student successfully logs in
-3. Student has access to account password
-4. Student initiates account removal request
-5. System pushes request to administrator
-6. Admin Approves account removal request
-7. User is logged out
-8. Users data is removed
+2a. Student has an account
+2b. Student successfully logs in
+2c. Student has access to account password
+2d. Student initiates account removal request
+2e. System pushes request to administrator
+2f. Admin Approves account removal request
+2g. User is logged out
+2h. Users data is removed
    
 **Alternate scenarios:**
 
 1a. Student does not have acan ccount and therefore cannot delete account.
-
 2a. Student is unable to log in and thus cannot delete account.
-
 3a. Student does not have password and therefore cannot delete account.
 
 **Interface Sketch:**
@@ -263,16 +265,15 @@ The system informs the student and they are instructed to try again
 
 1a. Student is not signed in, so prompted to sign in
 
-1.The system informs user and prompts to sign in 
-
+   1. The system informs user and prompts to sign in 
 
 1b. Student does not successfully complete steps to create group  
 
-1.The system asks user to fill information accordingly and try again
+   1. The system asks user to fill information accordingly and try again
 
 2a. Student deletes group
 
-1.The system shows group as no longer available and suggests to look for more groups.
+   1. The system shows group as no longer available and suggests to look for more groups.
 
 **Interface Sketch:**  
 
