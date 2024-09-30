@@ -28,7 +28,7 @@
 # 6. Use Cases
 
 ## 6.1 Use Case Diagram
-
+* Rudra Amin * 
 
 ## 6.2 Use Case Descriptions and Interface Sketch
 
