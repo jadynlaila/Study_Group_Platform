@@ -59,8 +59,9 @@
   * The system informs the student about wrong credentials and suggests resetting them.
      2b. The student didn’t find a group to join for their course
   * The user creates a new group for the course so other students can join.
-Interface Sketch:
-![Rudra's use case diagram](Deliverables/res/deliverable_2-join_study_group.png)
+  
+**Interface Sketch:**
+![Rudra's use case diagram](res/deliverable_2-join_study_group.png)
 
 
 # 7. User Stories
