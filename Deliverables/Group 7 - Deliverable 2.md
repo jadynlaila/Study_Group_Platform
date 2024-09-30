@@ -39,10 +39,26 @@
 # 6. Use Cases
 
 ## 6.1 Use Case Diagram
-
+![Use Case Diagram Image](res/deliverable_2-use_case_diagram.png)
 
 
 ## 6.2 Use Case Descriptions and Interface Sketch
+**Use Case Description:** Schedule Meeting  
+**Actor:** User/Student  
+**Trigger:** A user within a study group wants to schedule a meeting with other group members  
+**Pre-Conditions:** None  
+**Post-Condition:** Display suggested optimal meeting times  
+**Success Scenario:**
+
+1a. Meeting is scheduled
+
+**Alternate scenarios:**
+
+2a. Meeting is not scheduled  
+2b. One or more members do not attend meeting
+
+**Interface Sketch:**
+![Schedule Meeting Interface Diagram](res/deliverable_2-schedule_meeting.png)
 
 **Use Case Description:** Create an account
 
@@ -55,10 +71,10 @@
 **Post-Condition:** A new student account is created
 
 **Success Scenario:**
-  * The student enters their full name, display name, password, email, number (optional), and their school
-  * The program ensures the student answered all necessary questions
-  * A request is made to the database
-  * The students data is uploaded to the database
+  1a. The student enters their full name, display name, password, email, number (optional), and their school
+  1b. The program ensures the student answered all necessary questions
+  1c. A request is made to the database
+  1d. The students data is uploaded to the database
   * The student can now sign in 
   
 **Alternate scenarios:**
@@ -164,7 +180,17 @@ The system informs the student and they are instructed to try again
   * Priority: High
   * Estimated Hours: 5
 
+**Alex**:
 
+* As a student, I want to be able to find students in my class section so that I can meet people who are on the same page as me.  
+  * Priority: Medium
+  * Estimated Hours: 3
+
+* As a student, I want to be able to communicate well with my group mates so that we can keep our conversations organized.  
+  * Priority: High
+  * Estimated Hours: 8
 
 # 8. Issue Tracker
+[GitHub Repo Issues](https://github.com/jadynlaila/Study_Group_Platform/issues?q=is%3Aopen+is%3Aissue+label%3A%22user+story%22)
 
+![Screenshot of GitHub Issues](res/deliverable_2-github_issues.png)
