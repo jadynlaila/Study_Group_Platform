@@ -2,7 +2,7 @@
 
 *Group 7*
 
-# 1\. Positioning
+# 1. Positioning
 
 ## 1.1 Problem Statement
 
@@ -28,15 +28,6 @@
 **Value Proposition:** “Study Smarter Together” \- Empowers students to collaborate by simplifying the process of finding and connecting with study groups, enhancing academic success.
 
 **Customer Segment:**  College students who are looking for study groups
-
-## 1.1 Problem Statement
-
-
-## 1.2 Product Position Statement
-
-
-## 1.3 Value Proposition and Customer Segment
-
 
 # 2. Stakeholders
 **Users:** students who will be using the app to join and interact in the study groups. Their feedback will guide future updates and how the app is received for other students.
@@ -80,8 +71,16 @@
  **Importance:** ideally this product should grow in terms of user traffic, allowing more groups to be joined and increasing the overall efficiency of accommodating users in their academic studies. Scalability is essential for the continuation of accommodation and keeping performance up to par.
 
  **Verifiability:** The system should be easily scalable in the case we run out of resources, such as increasing ram or storage capacity. This also includes room for new features to be easily implemented if needed overtime.
-# 5. MVP
 
+# 5. MVP
+Our MVP includes:
+- Homepage: Will provide a welcoming user interface with , where users can navigate to key features like login sign up profiles, chats, groups etc
+- Login/signup page: Easy to use 
+- User settings
+- Groups page (create/join groups) 
+- Group settings
+- Calendar (this feature is what we decided to add after the interviews)
+- Chat Feature
 
 # 6. Use Cases 
 
@@ -165,7 +164,7 @@
 1.Student misspells group name  
 
 
-5a.No groups found
+5a. No groups found
 1. System finds no groups matching search  
 
 **Interface Sketch:**  
