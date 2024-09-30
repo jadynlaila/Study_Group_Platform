@@ -38,12 +38,12 @@
 **Post-Condition:** Display suggested optimal meeting times  
 **Success Scenario:**
 
-* Meeting is scheduled
+1) Meeting is scheduled
 
 **Alternate scenarios:**
 
-* Meeting is not scheduled  
-* One or more members do not attend meeting
+2a) Meeting is not scheduled  
+2b) One or more members do not attend meeting
 
 **Interface Sketch:**
 ![Schedule Meeting Interface Diagram](res/deliverable_2-schedule_meeting.png)
