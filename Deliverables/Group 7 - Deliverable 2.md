@@ -57,9 +57,11 @@
   
 **Alternate scenarios:**
   * The student did not provide all necessary information
-  *The system informs the student and they are instructed to try again
+  * The system informs the student and they are instructed to try again
+  
     a. The student provides invalid information (ex. improper password, username, or  
            email formatting)
+           
   * The system informs the student and they are instructed to try again
 
 **Interface Sketch:**
