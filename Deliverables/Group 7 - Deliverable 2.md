@@ -50,10 +50,18 @@
 # 5. MVP
 
 
-# 6. Use Cases
+# 6. Use Cases 
+
+
+## 6.1 Use Case Diagram
+
+
+## 6.2 Use Case Descriptions and Interface Sketch
+
+---
 
 **Use Case Description:** Create Study Group  
-**Actor:** User  
+**Actor:** User/ Student  
 **Trigger:** Student want to create a new study group  
 **Pre-Conditions:**
 
@@ -76,12 +84,7 @@
 
 **Interface Sketch:**  
 **![][image4]**  
-
-## 6.1 Use Case Diagram
-
-
-## 6.2 Use Case Descriptions and Interface Sketch
-
+---
 
 # 7. User Stories
 # **Daira**: 
