@@ -1,6 +1,6 @@
 # Deliverable 2
 
-## Group 7
+*Group 7*
 
 # 1. Positioning
 
@@ -31,29 +31,30 @@
 6. Study group chats that are customizable (background color, chat icon/picture) and allow for efficient communication between students
 
 # 4. Non-functional Requirements
-1. Performance
 
-    **Importance:** Performance ensures that users have a positive experience interacting with the web application with benefits like quick loading of information, snappy feel, and increasing that real-time interaction feel that one would need for a study group.
+## 1. Performance
 
-    **Verifiability:** System should maintain a response time of less than 5 seconds for most interactions a user will encounter, the most important being group chat interactions. Under a load of X users, this will be very important to maintain.
+ **Importance:** Performance ensures that users have a positive experience interacting with the web application with benefits like quick loading of information, snappy feel, and increasing that real-time interaction feel that one would need for a study group.
 
-2. Security
+ **Verifiability:** System should maintain a response time of less than 5 seconds for most interactions a user will encounter, the most important being group chat interactions. Under a load of X users, this will be very important to maintain.
 
-    **Importance:** This application handles information that would be considered sensitive ( College, email, schedule, name, etc. ). Such information needs to be protected from nefarious or unauthorized individuals, ensuring the user's trust in the product.
+## 2. Security
 
-    **Verifiability:** The system should undergo data penetration testing and use encryption for crucial user data. Passwords should also be hashed.
+ **Importance:** This application handles information that would be considered sensitive ( College, email, schedule, name, etc. ). Such information needs to be protected from nefarious or unauthorized individuals, ensuring the user's trust in the product.
 
-3. Compatibility
+ **Verifiability:** The system should undergo data penetration testing and use encryption for crucial user data. Passwords should also be hashed.
 
-    **Importance:** This platform must be comfortably accessible across most commonly used devices from computers with different OS’s, browsers, and mobile devices. This allows more students to use the product which is ideal due to its nature.
+## 3. Compatibility
 
-    **Verifiability:** The web application should be compatible with the top 3 commonly used browsers and work across mobile and tablet devices.
+ **Importance:** This platform must be comfortably accessible across most commonly used devices from computers with different OS’s, browsers, and mobile devices. This allows more students to use the product which is ideal due to its nature.
 
-4. Upscaling potential ( new features & accommodation for high traffic )
+ **Verifiability:** The web application should be compatible with the top 3 commonly used browsers and work across mobile and tablet devices.
 
-    **Importance:** ideally this product should grow in terms of user traffic, allowing more groups to be joined and increasing the overall efficiency of accommodating users in their academic studies. Scalability is essential for the continuation of accommodation and keeping performance up to par.
+## 4. Upscaling potential ( new features & accommodation for high traffic )
 
-    **Verifiability:** The system should be easily scalable in the case we run out of resources, such as increasing ram or storage capacity. This also includes room for new features to be easily implemented if needed overtime.
+ **Importance:** ideally this product should grow in terms of user traffic, allowing more groups to be joined and increasing the overall efficiency of accommodating users in their academic studies. Scalability is essential for the continuation of accommodation and keeping performance up to par.
+
+ **Verifiability:** The system should be easily scalable in the case we run out of resources, such as increasing ram or storage capacity. This also includes room for new features to be easily implemented if needed overtime.
 # 5. MVP
 
 
@@ -81,6 +82,8 @@
 
 **Interface Sketch:**
 ![Schedule Meeting Interface Diagram](res/deliverable_2-schedule_meeting.png)
+
+---
 
 **Use Case Description:** Create an account
 
@@ -112,6 +115,8 @@
 
 ![Rudra's use case diagram](res/deliverable_2-log_in.png)
 
+---
+
 **Use Case Description:** Search for New Groups   
 **Actor:** User  
 **Trigger:** Student wants to find new groups to join.   
@@ -140,6 +145,7 @@
 **Interface Sketch:**  
 ![Use case Serch Group Diagram](res/Study%20Sphere%20-%20UseCaseSearchGroup.drawio.png)
 
+---
 
 **Use Case Description:** Create an account  
 **Actor:** Student  
@@ -168,6 +174,8 @@ The system informs the student and they are instructed to try again
 **Interface Sketch:**  
    
 ![Jadyn's use case diagram](res/deliverable_2-create_account.png)
+
+---
 
 **Use Case Description:** Delete Account
 
@@ -208,6 +216,7 @@ The system informs the student and they are instructed to try again
 
 ![image of use case](res/D2_delete.png)
 
+---
 
 # 7. User Stories
 **Rudra:**
