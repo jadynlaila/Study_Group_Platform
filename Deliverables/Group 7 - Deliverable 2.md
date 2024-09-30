@@ -38,7 +38,7 @@
 
 ## 6.2 Use Case Descriptions and Interface Sketch
 
-** Use Case Description:** The is logged into their account and they join a study group
+** Use Case Description:** The student is logged into their account and they join a study group
 **Actor:** Student
 **Trigger:** The student is in need of a study group
 **Pre-Conditions:** The user must sign in with their credentials
@@ -55,6 +55,7 @@
      2b. The student didn’t find a group to join for their course
   * The user creates a new group for the course so other students can join.
 Interface Sketch:
+![Rudra's use case diagram](res/deliverable_2-use_case_diagram_rudra.png)
 
 
 # 7. User Stories
