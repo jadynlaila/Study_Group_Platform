@@ -65,7 +65,7 @@
 
 **Interface Sketch:**  
    
- **![][image1]**
+![Jadyn's use case diagram](res/deliverable_2-create_account.png)
 
 
 # 7. User Stories
