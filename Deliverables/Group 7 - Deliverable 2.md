@@ -63,11 +63,11 @@
 - User must have an account.
 - User must be logged in.
 - User must have access to password.
-- 
+  
 **Post-Conditions:**
   
 - Must be approved by Administrator
-- 
+  
 **Success Scenario:**
   
 1. Student has an account
@@ -78,11 +78,13 @@
 6. Admin Approves account removal request
 7. User is logged out
 8. Users data is removed
-9. 
+   
 **Alternate scenarios:**
 
 1a. Student does not have acan ccount and therefore cannot delete account.
+
 3a. Student does not have password and therefore cannot delete account.
+
 2a. Student is unable to log in and thus cannot delete account.
 
 **Interface Sketch:**
