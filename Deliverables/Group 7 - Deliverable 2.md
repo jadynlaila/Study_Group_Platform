@@ -38,38 +38,42 @@
 
 ## 6.2 Use Case Descriptions and Interface Sketch
 
-**Use Case Description:** The student is logged into their account and they join a study group
+**Use Case Description:** Create an account
 
 **Actor:** Student
 
-**Trigger:** The student is in need of a study group
+**Trigger:** The student wants to sign up
 
-**Pre-Conditions:** The user must sign in with their credentials
+**Pre-Conditions:** The student selects “Sign Up”
 
-**Post-Conditions:** The user is in a study group
+**Post-Condition:** A new student account is created
 
-**Success Scenario:** 
-  * The student logs into the website with their credentials
-  * The program directs them to the groups dashboard
-  * The student looks for their course study group
-  * Once the student finds a group they want to join, they select join group
-  * The student is now in a group
-  * Alternate Scenarios: 
-     2a. The student is entering the wrong credentials
-  * The system informs the student about wrong credentials and suggests resetting them.
-     2b. The student didn’t find a group to join for their course
-  * The user creates a new group for the course so other students can join.
-  
+**Success Scenario:**
+  * The student enters their full name, display name, password, email, number (optional), and their school
+  * The program ensures the student answered all necessary questions
+  * A request is made to the database
+  * The students data is uploaded to the database
+  * The student can now sign in 
+**Alternate scenarios:**
+
+  * The student did not provide all necessary information
+  *The system informs the student and they are instructed to try again
+    a. The student provides invalid information (ex. improper password, username, or  
+           email formatting)
+  * The system informs the student and they are instructed to try again
+
 **Interface Sketch:**
 
-![Rudra's use case diagram](res/deliverable_2-join_study_group.png)
+![Rudra's use case diagram](res/deliverable_2-log_in.png)
 
 
 # 7. User Stories
-** Rudra: **
+**Rudra:**
+
 * As a student I want a group dashboard so I can join groups related to my classes.
   * Priority: High
   * Estimated Hours: 12
+  
 * As a student I want to create a group option so I can make my own groups.
   * Priority: High
   * Estimated Hours: 6
