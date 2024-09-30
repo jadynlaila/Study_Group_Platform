@@ -73,14 +73,23 @@
 
 **Success Scenario:**
 
-* Student successfully creates study groups  
-* Other students are able to join
+1. Student successfully creates study groups  
+2. Other students are able to join
 
 **Alternate scenarios:** 
 
-* Student is not signed in, so prompted to sign in  
-* Student does not successfully complete steps to create group  
-* Student deletes group
+1a. Student is not signed in, so prompted to sign in
+
+1.The system informs user and prompts to sign in 
+
+
+1b. Student does not successfully complete steps to create group  
+
+1.The system asks user to fill information accordingly and try again
+
+2a. Student deletes group
+
+1.The system shows group as no longer available and suggests to look for more groups.
 
 **Interface Sketch:**  
 
