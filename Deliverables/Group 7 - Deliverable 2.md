@@ -61,6 +61,7 @@
   * The user creates a new group for the course so other students can join.
   
 **Interface Sketch:**
+
 ![Rudra's use case diagram](res/deliverable_2-join_study_group.png)
 
 
