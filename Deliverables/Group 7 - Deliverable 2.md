@@ -83,9 +83,9 @@
 
 1a. Student does not have acan ccount and therefore cannot delete account.
 
-3a. Student does not have password and therefore cannot delete account.
-
 2a. Student is unable to log in and thus cannot delete account.
+
+3a. Student does not have password and therefore cannot delete account.
 
 **Interface Sketch:**
 
