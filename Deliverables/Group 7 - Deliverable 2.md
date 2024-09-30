@@ -59,4 +59,6 @@
   * Estimated Hours: 8
 
 # 8. Issue Tracker
+[GitHub Repo Issues](https://github.com/jadynlaila/Study_Group_Platform/issues?q=is%3Aopen+is%3Aissue+label%3A%22user+story%22)
 
+![Screenshot of GitHub Issues](res/deliverable_2-github_issues.png)
