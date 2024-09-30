@@ -28,10 +28,25 @@
 # 6. Use Cases
 
 ## 6.1 Use Case Diagram
-
+![Use Case Diagram Image](res/deliverable_2-use_case_diagram.png)
 
 ## 6.2 Use Case Descriptions and Interface Sketch
+**Use Case Description:** Schedule Meeting  
+**Actor:** User/Student  
+**Trigger:** A user within a study group wants to schedule a meeting with other group members  
+**Pre-Conditions:** None  
+**Post-Condition:** Display suggested optimal meeting times  
+**Success Scenario:**
 
+* Meeting is scheduled
+
+**Alternate scenarios:** 
+
+* Meeting is not scheduled  
+* One or more members do not attend meeting
+
+**Interface Sketch:**  
+![Schedule Meeting Interface Diagram](res/deliverable_2-schedule_meeting.png)
 
 # 7. User Stories
 **Alex**: 
@@ -40,7 +55,7 @@
   * Priority: Medium  
   * Estimated Hours: 3  
 * As a student, I want to be able to communicate well with my group mates so that we can keep our conversations organized.  
-  * Priority: High  
+  * Priority: High
   * Estimated Hours: 8
 
 # 8. Issue Tracker
