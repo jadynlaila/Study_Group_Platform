@@ -1,10 +1,12 @@
 const asyncHandler = require("express-async-handler")
+const Goal = require('../models/GroupModel');
 
 // @desc    Get Goals
 // @route   GET /api/goals
 // @access  Private
 const getGoals = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: "congrats u got your goals" })
+    const goals = await Goal.find()
+    res.status(200).json({ goals });
 })
 
 // @desc    Set Goal
@@ -15,8 +17,10 @@ const setGoal = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error("u suck lol")
     }
-    
-    res.status(200).json({ message: "Set a goal" })
+    const goal = await Goal.create({
+        text: req.body.text
+    })
+    res.status(200).json(goal)
 })
 
 // @desc    Update Goal

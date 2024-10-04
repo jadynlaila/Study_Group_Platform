@@ -22,6 +22,9 @@ const MessageSchema = new Schema ({
         type: Schema.Types.ObjectId, 
         ref: "Student"
     }
+},
+{
+    timestamps: true
 })
 
 module.exports = mongoose.model("Message", MessageSchema)

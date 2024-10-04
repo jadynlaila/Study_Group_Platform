@@ -8,7 +8,7 @@
 
 const mongoose = require('mongoose');
 
-const GroupSchema = new Schema({
+const GroupSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'must enter a group name'],
@@ -31,19 +31,19 @@ const GroupSchema = new Schema({
         default: 0
     },
     members: [{ 
-        type: Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId, 
         ref: "Student"
     }],
     owner: {
-        type: Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId, 
         ref: "Student"
     },
     administrators: [{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Student"
     }],
     messages: [{
-        type: Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId, 
         ref: "Message"
     }]
 })
