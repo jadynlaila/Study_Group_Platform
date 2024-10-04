@@ -6,15 +6,13 @@
 const mongoose = require('mongoose');
 
 const MessageSchema = new Schema ({
-    //! cannot send message while empty
-    //! required ?
-    //! type can also be png
-    //! character limit
-    //! file size limit
+    //! keep in mind:
+    //! messages cannot be sent while empty
+    //! and we need a character limit
+    //! this will need to be addressed in the 'send message' function
     content: {
         type: String
     },
-    //! date and time
     time: {
         type: Date,
         value: Date,
@@ -26,3 +24,4 @@ const MessageSchema = new Schema ({
     }
 })
 
+module.exports = mongoose.model("Message", MessageSchema)

@@ -9,27 +9,26 @@
 const mongoose = require('mongoose');
 
 const GroupSchema = new Schema({
-    //!change pattern
     name: {
         type: String,
         required: [true, 'must enter a group name'],
-        pattern: /[a-zA-Z]+/g
+        pattern: /(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})/
     },
     description: {
         type: String,
     },
-    //! pattern?
     courses: {
         type: String
     },
     majors: {
         type: String
     },
-    memberLimit: [
-        //!
-    ],
+    memberLimit: {
+        type: Number
+    },
     memberCount: {
-       //! 
+        type: Number,
+        default: 0
     },
     members: [{ 
         type: Schema.Types.ObjectId, 
