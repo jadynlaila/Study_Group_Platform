@@ -13,12 +13,12 @@ const getGoals = asyncHandler(async (req, res) => {
 // @route   POST /api/goals
 // @access  Private
 const setGoal = asyncHandler(async (req, res) => {
-    if (!req.body.message) {
+    if (!req.body.name) {
         res.status(400)
         throw new Error("u suck lol")
     }
     const goal = await Goal.create({
-        text: req.body.text
+        name: req.body.name
     })
     res.status(200).json(goal)
 })
@@ -27,14 +27,24 @@ const setGoal = asyncHandler(async (req, res) => {
 // @route   PUT /api/goals
 // @access  Private
 const updateGoal = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: `Updated goal ${req.params.id}` })
+    const goal = await Goal.findById(req.params.id)
+
+    if (!goal){
+        res.status(400);
+        throw new Error('Group not found');
+    }
+
+    const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {new: true})
+
+    res.status(200).json(updatedGoal)
 })
 
 // @desc    Delete Goals
 // @route   DELETE /api/goals
 // @access  Private
 const deleteGoal = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: `Deleted goal ${req.params.id}` })
+    const deletedGoal = await Goal.findByIdAndDelete(req.params.id);
+    res.status(200).json(deletedGoal)
 })
 
 module.exports = {
