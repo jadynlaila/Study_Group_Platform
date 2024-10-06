@@ -6,7 +6,10 @@
 *Grading criteria (5 points): The description should be clear, concise, and well-written, free of typos and grammar problems. The use of bold, italic, and underline should be coherent with the model presented in Section 2---all classes, attributes, and associations from the model should appear in the text consistently with the model.*
 
 **[insert description here]**
-this is my testing message daira- hehe
+
+A key requirement in Study Sphere is managing **user settings**, this requirement allows students to manage their profile information. Through **user settings** a student can view *username* and can manage information like *name, email, university and profile picture.* This feature is critical for accommodating different user needs and preferences, allowing students to customize their interaction with **groups, message threads,** and other platform features. Personalizing these settings ensures a flexible user experience. 
+
+Another essential feature requirement involves managing **group settings**. This functionality allows students to customize key aspects of any **group** they create or join, including setting a *group name*, providing a *group description*, and determining the *member limit*. Additionally, users can view the *Group ID* and the *Member IDs* of group participants, ensuring each **group** is tailored to meet specific study needs. This capability fosters a safe, organized, and collaborative space, where members can engage effectively in their academic pursuits.
 
 
 # Model
