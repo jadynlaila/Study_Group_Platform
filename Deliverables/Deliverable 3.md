@@ -5,7 +5,9 @@
 
 *Grading criteria (5 points): The description should be clear, concise, and well-written, free of typos and grammar problems. The use of bold, italic, and underline should be coherent with the model presented in Section 2---all classes, attributes, and associations from the model should appear in the text consistently with the model.*
 
-**[insert description here]**
+* Our project focuses on the problem of difficulty in connecting with peers for study collaboration affects college students across various disciplines, particularly those in larger universities who may feel isolated or unsure about finding study groups. The impact of this problem is diminished academic performance, increased stress, and lost opportunities for social interaction and skill development, which can lead to lower retention rates and a lack of community among students. The product is for college students who struggle to find and connect with study groups for collaborative learning. The name of the product is StudySphere which is a web platform that simplifies the process of discovering, joining and scheduling study groups to enhance academic success and build community. Unlike traditional social media platforms or general messaging apps. Our product focuses specifically on connecting students based on their courses and study needs, fostering a supportive academic environment. StudySphere empowers students to collaborate by simplifying the process of finding and connecting with study groups, enhancing academic success aligning with our slogan "Study Smarter Together”.
+
+
 
 
 # Model
