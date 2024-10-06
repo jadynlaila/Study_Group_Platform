@@ -5,7 +5,8 @@
 
 *Grading criteria (5 points): The description should be clear, concise, and well-written, free of typos and grammar problems. The use of bold, italic, and underline should be coherent with the model presented in Section 2---all classes, attributes, and associations from the model should appear in the text consistently with the model.*
 
-**[insert description here]**
+studysphere offers **group chats** that are modmerately customizable in order to enhance the overall user experience and allow for efficient communication between students ( the main purpose of the product ). Each **group chat** allows the **owner** or **administrators** to modify **attributes** such as *group profile picture, group description, group title, members, member count limit, calendar updates, the deletion of the group, the creation of the group, and background color*. These groupchats provide real time communication between **student accounts** and **groups**, enabling users to communicate effectively, plan meetings or study sessions, and most importantly making friends within their community
+
 
 
 # Model
@@ -25,3 +26,5 @@
 *Grading criteria: You should correctly use the UML specification. Your model should have the minimum number of classes. Your domain should be adequately modeled. The model should avoid unnecessary complexity, repetition, lack of cohesion, and coupling. The classes should be at an adequate abstraction level.*
 
 **[insert model here]**
+
+![pictureSettings](res/pictureSettings.png)
