@@ -13,7 +13,7 @@ Platform security is at the forefront of our design in order to keep user data s
 
 **[LEADING PARAGRAPHS HERE]**
 
-Scalability is important to the future of our project. In order to serve a potentially growing userbase, the system must be architected to minimize the maintenance overhead that comes with mismatched scaling expectations. Failure to do so may result in unanticipated system errors and/or downtime, which would decrease the reliability of the system.
+Scalability is important to the future of our project. In order to serve a potentially growing user base, the system must be structured to minimize the maintenance overhead that comes with mismatched scaling expectations. Failure to do so may result in unanticipated system errors and/or downtime, which would decrease the reliability of the system.
 
 **[OTHER PARAGRAPHS HERE]**
 
