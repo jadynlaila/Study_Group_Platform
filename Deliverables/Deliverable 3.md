@@ -5,8 +5,17 @@
 
 *Grading criteria (5 points): The description should be clear, concise, and well-written, free of typos and grammar problems. The use of bold, italic, and underline should be coherent with the model presented in Section 2---all classes, attributes, and associations from the model should appear in the text consistently with the model.*
 
-**[insert description here]**
+**[INTRO PARAGRAPH HERE]**
 
+**[OTHER PARAGRAPHS HERE]**
+
+Platform security is at the forefront of our design in order to keep user data secure. The system must disallow unauthenticated users from interacting with the system. Additionally, authentication must be handled in a secure manner with the *password* being properly encoded/hashed/encrypted both during transmission and when it is being stored.
+
+**[LEADING PARAGRAPHS HERE]**
+
+Scalability is important to the future of our project. In order to serve a potentially growing user base, the system must be structured to minimize the maintenance overhead that comes with mismatched scaling expectations. Failure to do so may result in unanticipated system errors and/or downtime, which would decrease the reliability of the system.
+
+**[OTHER PARAGRAPHS HERE]**
 
 # Model
 *Provide the conceptual model of your system as a UML class diagram. Represent proper cardinalities (multiplicities) for all associations. Also include the association names.* 
