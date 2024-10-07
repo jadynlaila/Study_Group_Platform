@@ -5,9 +5,21 @@
 
 *Grading criteria (5 points): The description should be clear, concise, and well-written, free of typos and grammar problems. The use of bold, italic, and underline should be coherent with the model presented in Section 2---all classes, attributes, and associations from the model should appear in the text consistently with the model.*
 
+A key requirement in Study Sphere is managing **user settings**, this requirement allows students to manage their profile information. Through **user settings** a student can view *username* and can manage information like *name, email, university and profile picture.* This feature is critical for accommodating different user needs and preferences, allowing students to customize their interaction with **groups, message threads,** and other platform features. Personalizing these settings ensures a flexible user experience. 
+
 StudySphere offers **group chats** that are moderately customizable in order to enhance the overall user experience and allow for efficient communication between students ( the main purpose of the product ). Each **group chat** allows the **owner** or **administrators** to modify **attributes** such as *group profile picture, group description, group title, members, member count limit, calendar updates, the deletion of the group, the creation of the group, and background color*. These **group chats** provide real time communication between **student accounts** and **groups**, enabling **users** to communicate effectively, plan meetings or study sessions, and most importantly making friends within their community.
 
+Another essential feature requirement involves managing **group settings**. This functionality allows students to customize key aspects of any **group** they create or join, including setting a *group name*, providing a *group description*, and determining the *member limit*. Additionally, users can view the *Group ID* and the *Member IDs* of group participants, ensuring each **group** is tailored to meet specific study needs. This capability fosters a safe, organized, and collaborative space, where members can engage effectively in their academic pursuits.
 
+**[OTHER PARAGRAPHS HERE]**
+
+For the non-functional requirements, performance is critical to ensure smooth interactions with the platform. The user experience relies on *low latency* and consistent guaranteed performance,as it directly impacts usability and user satisfaction. The system should maintain a response time of less than 5 seconds for chat and other high-priority interactions. Performance is especially emphasized in user stories like "Jack's" need to communicate with group members and schedule times efficiently.
+
+Platform security is at the forefront of our design in order to keep user data secure. The system must disallow unauthenticated users from interacting with the system. Additionally, authentication must be handled in a secure manner with the *password* being properly encoded/hashed/encrypted both during transmission and when it is being stored.
+
+Scalability is important to the future of our project. In order to serve a potentially growing user base, the system must be structured to minimize the maintenance overhead that comes with mismatched scaling expectations. Failure to do so may result in unanticipated system errors and/or downtime, which would decrease the reliability of the system.
+
+Compatibility across devices is essential to ensure that the platform is accessible by students using different systems, whether on mobile,or desktops. Multi-device functionality allows a seamless user experience regardless of device and browser, allowing for better access. Compatibility and better accessibility is directly in line with our goal of making study groups more widespread and easier to find.
 
 # Model
 *Provide the conceptual model of your system as a UML class diagram. Represent proper cardinalities (multiplicities) for all associations. Also include the association names.* 
@@ -26,5 +38,3 @@ StudySphere offers **group chats** that are moderately customizable in order to 
 *Grading criteria: You should correctly use the UML specification. Your model should have the minimum number of classes. Your domain should be adequately modeled. The model should avoid unnecessary complexity, repetition, lack of cohesion, and coupling. The classes should be at an adequate abstraction level.*
 
 **[insert model here]**
-
-![pictureSettings](res/pictureSettings.png)
