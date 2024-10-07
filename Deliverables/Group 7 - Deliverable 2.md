@@ -73,7 +73,19 @@
  **Verifiability:** The system should be easily scalable in the case we run out of resources, such as increasing ram or storage capacity. This also includes room for new features to be easily implemented if needed overtime.
 
 # 5. MVP
-
+Our MVP includes:
+- Homepage: Will provide a welcoming user interface with , where users can navigate to key features like login sign up profiles, chats, groups etc
+  - Ensure that users are able to see their current group chats, join more, and update their profiles. 
+- Login/signup page: Easy to use 
+  - User settings
+  - Testing protocol: Ensure that users can create and sign into accounts without much hassle
+- Groups page (create/join groups) 
+  - Group settings
+  - Testing protocol: Ensure that users can create, join, delete, and leave groups and that they are able to effectively communicate within them as well as manage them.
+- Calendar (this feature is what we decided to add after the interviews)
+  - Testing protocol: Ensure users can upload their availability and have it shown on the group calendar, as well as schedule events to the calendar. 
+- Chat Feature
+  - Testing protocol: Ensure two users or more can communicate through group chats efficiently.
 
 # 6. Use Cases 
 
