@@ -9,7 +9,7 @@
 
 **[OTHER PARAGRAPHS HERE]**
 
-Platform security is at the forefront of our design in order to keep user data secure. The system must disallow unauthenticated users from interacting with the system. Additionally, authentication must be handled in a secure manner with the password being properly encoded/hashed/encrypted both during transmission and when it is being stored.
+Platform security is at the forefront of our design in order to keep user data secure. The system must disallow unauthenticated users from interacting with the system. Additionally, authentication must be handled in a secure manner with the *password* being properly encoded/hashed/encrypted both during transmission and when it is being stored.
 
 **[LEADING PARAGRAPHS HERE]**
 
