@@ -13,13 +13,13 @@ Another essential feature requirement involves managing **group settings**. This
 
 **[OTHER PARAGRAPHS HERE]**
 
-Platform security is at the forefront of our design in order to keep user data secure. The system must disallow unauthenticated users from interacting with the system. Additionally, authentication must be handled in a secure manner with the *password* being properly encoded/hashed/encrypted both during transmission and when it is being stored.
+For the non-functional requirements, performance is critical to ensure smooth interactions with the platform. The user experience relies on *low latency* and consistent guaranteed performance,as it directly impacts usability and user satisfaction. The system should maintain a response time of less than 5 seconds for chat and other high-priority interactions. Performance is especially emphasized in user stories like "Jack's" need to communicate with group members and schedule times efficiently.
 
-**[LEADING PARAGRAPHS HERE]**
+Platform security is at the forefront of our design in order to keep user data secure. The system must disallow unauthenticated users from interacting with the system. Additionally, authentication must be handled in a secure manner with the *password* being properly encoded/hashed/encrypted both during transmission and when it is being stored.
 
 Scalability is important to the future of our project. In order to serve a potentially growing user base, the system must be structured to minimize the maintenance overhead that comes with mismatched scaling expectations. Failure to do so may result in unanticipated system errors and/or downtime, which would decrease the reliability of the system.
 
-**[OTHER PARAGRAPHS HERE]**
+Compatibility across devices is essential to ensure that the platform is accessible by students using different systems, whether on mobile,or desktops. Multi-device functionality allows a seamless user experience regardless of device and browser, allowing for better access. Compatibility and better accessibility is directly in line with our goal of making study groups more widespread and easier to find.
 
 # Model
 *Provide the conceptual model of your system as a UML class diagram. Represent proper cardinalities (multiplicities) for all associations. Also include the association names.* 
