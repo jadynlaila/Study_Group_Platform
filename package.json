@@ -1,8 +1,40 @@
 {
   "dependencies": {
-    "dotenv": "^16.4.5",
+    "express-async-handler": "^1.2.0",
     "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
-  }
+  },
+  "name": "study_sphere",
+  "version": "0.0.1",
+  "description": "Study Sphere simplifies the process of connnecting students with study groups, making it easy to discover, join, and schedule collaborative meetups that boost academic success",
+  "main": "backend/server.js",
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "nodemon": "^3.1.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ".git"
+  },
+  "keywords": [
+    "study",
+    "sphere",
+    "connect",
+    "group",
+    "discover",
+    "join",
+    "schedule",
+    "calendar",
+    "collaborate"
+  ],
+  "author": "ur mom",
+  "license": "GPL-3.0-or-later"
 }
