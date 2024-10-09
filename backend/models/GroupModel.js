@@ -30,19 +30,22 @@ const GroupSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    members: [{ 
+    memberIDs: [{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Student"
     }],
-    owner: {
+    ownerID: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Student"
     },
-    administrators: [{
+    administratorIDs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Student"
     }],
-    messages: [{
+    profilePictureID: {
+        type: mongoose.Schema.Types.ObjectId
+    },
+    messageIDs: [{
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Message"
     }]
