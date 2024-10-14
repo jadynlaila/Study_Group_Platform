@@ -57,19 +57,55 @@ class Group {
         }
         this.ownerID = value;
     }
+
+    join(userID) {
+
+    }
+
+    delete() {
+
+    }
+
+    //* REQUIRES completion of Message class
+    sendMessage(message) {
+        console.warn("Function 'sendMessage' was called but the Message class isn't ready yet.")
+        
+        
+        
+        this.messageIDs.push(message.id)
+
+        this.save()
+    }
+    
+    //* REQUIRES completion of Message class
+    deleteMessage(messageID) {
+        console.warn("Function 'sendMessage' was called but the Message class isn't ready yet.")
+        
+        mongoose.delete(messageID)
+        this.messageIDs.find((currentID) => currentID === messageID)
+
+        this.save()
+    }
+
+    save() {
+        // check if currententry already exists
+    }
 }
 
 
+//! This should NOT be here, but in the User class instead
 function findUserFromID(userID) {
     return mongoose.findById(userID);
 }
 
 
+//! This should NOT be here, but in the User class instead
 function findUserFromUsername(username) {
     return mongoose.findOne({ username: `${username}` });
 }
 
 
+//! This should NOT be here, but in the User class instead
 function userIsReal(userID) {
     if (!findUserFromID(userID)) {
         return false;
