@@ -4,6 +4,7 @@
 
 
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const MessageSchema = new Schema ({
     //! keep in mind:
