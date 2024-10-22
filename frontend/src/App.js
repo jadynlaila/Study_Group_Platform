@@ -23,3 +23,4 @@ function App() {
 }
 
 export default App;
+// This is what is imprted when calling app.js inside the html.js file.1
