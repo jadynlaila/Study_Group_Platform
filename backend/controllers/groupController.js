@@ -2,113 +2,158 @@
 // Requires //
 const mongoose = require("mongoose")
 
-// Global Variables //
+// Global Constants //
+const MAX_MESSAGE_LENGTH = 2000
 
+const createGroup = asyncHandler((req, res) => {
+    try {
 
-// Classes //
-class Group {
-    constructor(name, description, courses, majors,
-        memberLimit, memberCount, ownerID, 
-        memberIDs, administratorIDs, profilePictureID, messageIDs) {
+    } catch (e) {
 
-        // set the class attributes
-        this.name = name;
-        this.description = description;
-        this.courses = courses;
-        this.majors = majors;
-        this.memberLimit = memberLimit;
-        this.memberCount = memberCount;
-        this.ownerID = ownerID;
-        this.memberIDs = memberIDs;
-        this.administratorIDs = administratorIDs;
-        this.profilePictureID = profilePictureID;
-        this.messageIDs = messageIDs;
     }
+})
 
-    // Getters //
+const getGroup = asyncHandler((req, res) => {
+    try {
+        // Obtain the parameters (userID, groupID)
+
+        // Verify that the parameters are not empty
+
+        // Verify that the user and group exist
+
+        // Obtain the group from Mongo
+
+        // Check if we actually got a group back
+
+        // Make sure the user is in the group
+
+        // Send/Return the group object
+
+    } catch (e) {
+
+    }
+})
+
+const updateGroup = asyncHandler((req, res) => {
+    try {
+        // Obtain the parameters 
+        /* 
+            Required:
+                userID groupID
+            Optional: 
+                name description profilePictureID courses
+                majors memberLimit memberCount memberIDs
+                ownerID administratorIDs messageIDs meetingIDs
+        */
+
+        // Verify that the required parameters are not empty
+
+        // Verify that the user exists
+
+        // Verify that the group exists
+
+        // Check user permissions
+
+        // Send data to Mongo
+    } catch (e) {
+
+    }
+})
+
+const deleteGroup = asyncHandler((req, res) => {
+    req.status(501).json({ message: "Deleting a group has not been implemented yet." })
+
+    try {
+        // Obtain the parameters (userID, groupID)
+
+        // Verify that the parameters are not empty
+
+        // Check that the user and group exist
+
+        // Obtain the group from Mongo
+
+        // Check the user's permissions
+
+        // Delete the group in Mongo
+
+        // Return a success code
+    } catch (e) {
+
+    }
+})
+
+const joinGroup = asyncHandler((req, res) => {
+    try {
+        // Obtain the parameters (userID, groupID)
+
+        // Verify that all parameters are not empty
+
+        // Check if the user exists
+
+        // Check if the group exists
+
+        // Check if the user is already in the group
+
+        // Send the data to Mongo
+
+        // Obtain the new group data from Mongo
+
+        // Verify that the user is in the group
+
+        // Send back a status code
+    } catch (e) {
+
+    }
+})
 
 
-    // Setters //
+const getMessages = asyncHandler((req, res) => {
+    try {
+        // Obtain the parameters (userID, groupID)
 
-    set name(value) {
-        if (!value.isWellFormed()) {
-            throw new Error("Name contains invalid characters");
+        // Verify that the parameters are not empty
+
+        // Check if the group exists
+        // *(Does this need to happen here? Mongo probably will just send back an empty object.)*
+
+        // Get the group from Mongo
+
+        // Check if the grabbed group is valid
+
+        // Check if the user is in the group
+
+        // Send/Return the messages
+
+    } catch (e) {
+
+    }
+})
+
+const sendMessage = asyncHandler((req, res) => {
+    try {
+        // Obtain the parameters (groupID, message)
+        const groupID = 0
+        const message = ""
+
+        // Verify that the parameters are not empty
+
+        // Make sure the group exists
+        // *This is necessary here as we don't want to create a group from a message*
+
+        // Make sure the message length is valid
+        if (message.length >= MAX_MESSAGE_LENGTH) {
+            throw new Error(`Message length of ${message.length} is longer than the limit of ${MAX_MESSAGE_LENGTH}.`)
         }
-        this.name = value;
-    }
 
-    set description(value) {
-        if (!value.isWellFormed()) {
-            throw new Error("Description contains invalid characters");
-        }
-        this.description = value;
-    }
+        // Send the data to Mongo
 
-    set memberCount(value) {
-        if (value > this.memberLimit) {
-            throw new Error(`Member count ${value} is bigger than the current limit of ${this.memberLimit}`);
-        }
-        this.memberCount = value;
-    }
+        // *I'm going to ignore verifying that the message was sent.*
 
-    set ownerID(value) {
-        if (!userIsReal(value)) {
-            throw new Error(`User "${value}" could not be found!`);
-        }
-        this.ownerID = value;
-    }
-
-    join(userID) {
+    } catch (e) {
 
     }
+})
 
-    delete() {
-
-    }
-
-    //* REQUIRES completion of Message class
-    sendMessage(message) {
-        console.warn("Function 'sendMessage' was called but the Message class isn't ready yet.")
-        
-        
-        
-        this.messageIDs.push(message.id)
-
-        this.save()
-    }
-    
-    //* REQUIRES completion of Message class
-    deleteMessage(messageID) {
-        console.warn("Function 'sendMessage' was called but the Message class isn't ready yet.")
-        
-        mongoose.delete(messageID)
-        this.messageIDs.find((currentID) => currentID === messageID)
-
-        this.save()
-    }
-
-    save() {
-        // check if currententry already exists
-    }
-}
-
-
-//! This should NOT be here, but in the User class instead
-function findUserFromID(userID) {
-    return mongoose.findById(userID);
-}
-
-
-//! This should NOT be here, but in the User class instead
-function findUserFromUsername(username) {
-    return mongoose.findOne({ username: `${username}` });
-}
-
-
-//! This should NOT be here, but in the User class instead
-function userIsReal(userID) {
-    if (!findUserFromID(userID)) {
-        return false;
-    }
-    return true;
-}
+const deleteMessage = asyncHandler((req, res) => {
+    req.status(501).json({ message: "Deleting a message has not been implemented yet." })
+})
