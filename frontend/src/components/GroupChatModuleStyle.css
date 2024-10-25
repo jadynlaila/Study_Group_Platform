@@ -1,0 +1,57 @@
+/* GroupChatModule.css */
+.container {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: row; /* Align items in a row */
+  height: 90vh; /* Full height */
+}
+
+.groupChatContainer {
+  width: 20%; /* 1/5 of the screen width */
+  border-right: 1px solid #4a4a4a; /* Dark gray divider */
+  padding: 10px;
+  background-color: #2a2a2a; /* Darker background for contrast */
+}
+
+.searchContainer {
+  margin-bottom: 10px;
+}
+
+.searchInput {
+  width: 90%; /* Full width */
+  border: 2px solid #9000ff; /* Purple border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px;
+  background-color: #393939; /* Slightly lighter background for input */
+  color: #e0e0e0; /* Light text color */
+}
+
+.listContent {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+}
+
+.groupChatItem {
+  padding: 15px;
+  border-bottom: 1px solid #4a4a4a; /* Dark gray divider between items */
+}
+
+.groupChatName {
+  font-size: 18px; /* Font size for group names */
+  background: none; /* Remove button background */
+  border: none; /* Remove button border */
+  cursor: pointer; /* Pointer cursor */
+  color: #22aad0; /* Light blue for group names */
+  text-align: left; /* Align text to the left */
+}
+
+.groupChatName:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+.chatContainer {
+  flex: 1; /* Take the remaining space */
+  padding: 16px;
+  background-color: #1b1b1b; /* Dark background for chat area */
+  display: flex; /* Use flexbox for chat content */
+  flex-direction: column; /* Stack elements vertically */
+}
