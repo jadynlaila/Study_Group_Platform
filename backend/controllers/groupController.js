@@ -149,24 +149,48 @@ const joinGroup = asyncHandler(async (req, res) => {
     }
 })
 
-
 const getMessages = asyncHandler(async (req, res) => {
     try {
         // Obtain the parameters (userID, groupID)
+        const {
+            userID,
+            groupID
+        } = req.body
 
         // Verify that the parameters are not empty
+        if (!userID) {
+            return req.status(400).json({ error: "Required parameter 'userID' not provided" })
+        }
+        if (!groupID) {
+            return req.status(400).json({ error: "Required parameter 'groupID' not provided" })
+        }
 
         // Check if the group exists
         // *(Does this need to happen here? Mongo probably will just send back an empty object.)*
 
-        // Get the group from Mongo
+        // Get the user and group from Mongo
+        const resultUser = await Student.findById(userID)
+        const resultGroup = await Group.findById(groupID)
 
         // Check if the grabbed group is valid
+        if (!resultUser?.username) {
+            return req.status(403).json({ error: `Student with ID ${userID} was not found` })
+        }
+        if (!resultGroup?.name) {
+            return req.status(403).json({ error: `Student with ID ${userID} was not found` })
+        }
 
         // Check if the user is in the group
+        if (!resultGroup.memberIDs.includes(resultUser._id)) {
+            return req.status(403).json({ error: "User is not a member of the group" })
+        }
 
         // Send/Return the messages
-
+        message = []
+        for (message in resultGroup.memberIDs) {
+            messages += req.get(`/send/?id=${message}`)
+        }
+        res.status(200).json()
     } catch (e) {
 
     }
@@ -200,3 +224,14 @@ const sendMessage = asyncHandler(async (req, res) => {
 const deleteMessage = asyncHandler(async (req, res) => {
     req.status(501).json({ error: "Deleting a message has not been implemented yet." })
 })
+
+module.exports = {
+    createGroup,
+    getGroup,
+    updateGroup,
+    deleteGroup,
+    joinGroup,
+    getMessages,
+    sendMessage,
+    deleteMessage
+}
