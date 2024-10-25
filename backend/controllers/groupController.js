@@ -1,6 +1,9 @@
 
 // Requires //
 const mongoose = require("mongoose")
+const asyncHandler = require("express-async-handler")
+const Group = require('../models/GroupModel')
+const Student = require('../models/StudentModel')
 
 // Global Constants //
 const MAX_MESSAGE_LENGTH = 2000
@@ -13,28 +16,49 @@ const createGroup = asyncHandler((req, res) => {
     }
 })
 
-const getGroup = asyncHandler((req, res) => {
+const getGroup = asyncHandler(async (req, res) => {
     try {
         // Obtain the parameters (userID, groupID)
+        console.log(req.body)
+        const {
+            userID,
+            groupID
+        } = req.body
 
         // Verify that the parameters are not empty
-
-        // Verify that the user and group exist
-
-        // Obtain the group from Mongo
-
-        // Check if we actually got a group back
+        if (!userID) {
+            return req.status(400).json({ error: "Required parameter 'userID' not provided" })
+        }
+        if (!groupID) {
+            return req.status(400).json({ error: "Required parameter 'groupID' not provided" })
+        }
+        
+        // Obtain the user and group from Mongo
+        const resultUser = await Student.findById(userID)
+        const resultGroup = await Group.findById(groupID)
+        
+        // Check if we actually got a user and group back
+        if (!resultUser?.username) {
+            return req.status(403).json({ error: `Student with ID ${userID} was not found` })
+        }
+        if (!resultGroup?.name) {
+            return req.status(403).json({ error: `Student with ID ${userID} was not found` })
+        }
 
         // Make sure the user is in the group
+        if (!resultGroup.memberIDs.includes(resultUser._id)) {
+            return req.status(403).json({ error: "User is not a member of the group" })
+        }
 
         // Send/Return the group object
-
+        res.status(200).json(resultGroup)
+    
     } catch (e) {
-
+        return req.status(500).json({ error: e })
     }
 })
 
-const updateGroup = asyncHandler((req, res) => {
+const updateGroup = asyncHandler(async (req, res) => {
     try {
         // Obtain the parameters 
         /* 
@@ -60,8 +84,8 @@ const updateGroup = asyncHandler((req, res) => {
     }
 })
 
-const deleteGroup = asyncHandler((req, res) => {
-    req.status(501).json({ message: "Deleting a group has not been implemented yet." })
+const deleteGroup = asyncHandler(async (req, res) => {
+    req.status(501).json({ error: "Deleting a group has not been implemented yet." })
 
     try {
         // Obtain the parameters (userID, groupID)
@@ -82,7 +106,7 @@ const deleteGroup = asyncHandler((req, res) => {
     }
 })
 
-const joinGroup = asyncHandler((req, res) => {
+const joinGroup = asyncHandler(async (req, res) => {
     try {
         // Obtain the parameters (userID, groupID)
 
@@ -107,7 +131,7 @@ const joinGroup = asyncHandler((req, res) => {
 })
 
 
-const getMessages = asyncHandler((req, res) => {
+const getMessages = asyncHandler(async (req, res) => {
     try {
         // Obtain the parameters (userID, groupID)
 
@@ -129,7 +153,7 @@ const getMessages = asyncHandler((req, res) => {
     }
 })
 
-const sendMessage = asyncHandler((req, res) => {
+const sendMessage = asyncHandler(async (req, res) => {
     try {
         // Obtain the parameters (groupID, message)
         const groupID = 0
@@ -154,6 +178,6 @@ const sendMessage = asyncHandler((req, res) => {
     }
 })
 
-const deleteMessage = asyncHandler((req, res) => {
-    req.status(501).json({ message: "Deleting a message has not been implemented yet." })
+const deleteMessage = asyncHandler(async (req, res) => {
+    req.status(501).json({ error: "Deleting a message has not been implemented yet." })
 })
