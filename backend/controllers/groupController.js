@@ -69,8 +69,27 @@ const updateGroup = asyncHandler(async (req, res) => {
                 majors memberLimit memberCount memberIDs
                 ownerID administratorIDs messageIDs meetingIDs
         */
+        const {
+            userID,
+            groupID,
+            name,
+            description,
+            profilePictureID,
+            courses,
+            majors,
+            memberLimit,
+            memberCount,
+            memberIDs,
+            ownerID,
+            administratorIDs,
+            messageIDs,
+            meetingIDs
+        } = req.body
 
         // Verify that the required parameters are not empty
+        if (!userID) {
+            
+        }
 
         // Verify that the user exists
 
