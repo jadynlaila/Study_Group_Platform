@@ -51,7 +51,7 @@ const getGroup = asyncHandler(async (req, res) => {
         }
 
         // Send/Return the group object
-        res.status(200).json(resultGroup)
+        return res.status(200).json(resultGroup)
     
     } catch (e) {
         return req.status(500).json({ error: e })
@@ -196,42 +196,11 @@ const getMessages = asyncHandler(async (req, res) => {
     }
 })
 
-const sendMessage = asyncHandler(async (req, res) => {
-    try {
-        // Obtain the parameters (groupID, message)
-        const groupID = 0
-        const message = ""
-
-        // Verify that the parameters are not empty
-
-        // Make sure the group exists
-        // *This is necessary here as we don't want to create a group from a message*
-
-        // Make sure the message length is valid
-        if (message.length >= MAX_MESSAGE_LENGTH) {
-            throw new Error(`Message length of ${message.length} is longer than the limit of ${MAX_MESSAGE_LENGTH}.`)
-        }
-
-        // Send the data to Mongo
-
-        // *I'm going to ignore verifying that the message was sent.*
-
-    } catch (e) {
-
-    }
-})
-
-const deleteMessage = asyncHandler(async (req, res) => {
-    req.status(501).json({ error: "Deleting a message has not been implemented yet." })
-})
-
 module.exports = {
     createGroup,
     getGroup,
     updateGroup,
     deleteGroup,
     joinGroup,
-    getMessages,
-    sendMessage,
-    deleteMessage
+    getMessages
 }
