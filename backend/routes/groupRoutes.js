@@ -9,16 +9,16 @@ const {
     getMessages
 } = require("../controllers/groupController")
 
-router.route("/:studentID/:groupID")
+router.route("/:groupID/:studentID")
     .get(getGroup)
     .post(updateGroup)
     .put(createGroup)
     .delete(deleteGroup)
 
-router.route("/messages/:studentID/:groupID")
+router.route("/messages/:groupID/:studentID")
     .get(getMessages)
 
-router.route("/join/:studentID/:groupID")
+router.route("/join/:groupID/:studentID")
     .put(joinGroup)
 
 module.exports = router

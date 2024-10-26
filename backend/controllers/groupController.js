@@ -18,31 +18,37 @@ const createGroup = asyncHandler((req, res) => {
 
 const getGroup = asyncHandler(async (req, res) => {
     try {
-        // Obtain the parameters (userID, groupID)
+        // Obtain the parameters (studentID, groupID)
         console.log(req.body)
         const {
-            userID,
-            groupID
+            groupID,
+            studentID
         } = req.params
 
+        console.log(groupID)
+        console.log(studentID)
+
         // Verify that the parameters are not empty
-        if (!userID) {
-            return res.status(400).json({ error: "Required parameter 'userID' not provided" })
+        if (!studentID) {
+            return res.status(400).json({ error: "Required parameter 'studentID' not provided" })
         }
         if (!groupID) {
             return res.status(400).json({ error: "Required parameter 'groupID' not provided" })
         }
         
         // Obtain the user and group from Mongo
-        const resultUser = await Student.findById(userID)
+        const resultUser = await Student.findById(req.params.studentID)
         const resultGroup = await Group.findById(groupID)
         
+        console.log(`resultUser: ${resultUser}`)
+        console.log(`resultGroup: ${resultGroup}`)
+
         // Check if we actually got a user and group back
         if (!resultUser?.username) {
-            return res.status(403).json({ error: `Student with ID ${userID} was not found` })
+            return res.status(403).json({ error: `Student with ID ${studentID} was not found` })
         }
         if (!resultGroup?.name) {
-            return res.status(403).json({ error: `Student with ID ${userID} was not found` })
+            return res.status(403).json({ error: `Student with ID ${studentID} was not found` })
         }
 
         // Make sure the user is in the group
@@ -63,14 +69,14 @@ const updateGroup = asyncHandler(async (req, res) => {
         // Obtain the parameters 
         /* 
             Required:
-                userID groupID
+                studentID groupID
             Optional: 
                 name description profilePictureID courses
                 majors memberLimit memberCount memberIDs
                 ownerID administratorIDs messageIDs meetingIDs
         */
         const {
-            userID,
+            studentID,
             groupID,
             name,
             description,
@@ -87,7 +93,7 @@ const updateGroup = asyncHandler(async (req, res) => {
         } = req.params
 
         // Verify that the required parameters are not empty
-        if (!userID) {
+        if (!studentID) {
             
         }
 
@@ -107,7 +113,7 @@ const deleteGroup = asyncHandler(async (req, res) => {
     req.status(501).json({ error: "Deleting a group has not been implemented yet." })
 
     try {
-        // Obtain the parameters (userID, groupID)
+        // Obtain the parameters (studentID, groupID)
 
         // Verify that the parameters are not empty
 
@@ -128,7 +134,7 @@ const deleteGroup = asyncHandler(async (req, res) => {
 
 const joinGroup = asyncHandler(async (req, res) => {
     try {
-        // Obtain the parameters (userID, groupID)
+        // Obtain the parameters (studentID, groupID)
 
         // Verify that all parameters are not empty
 
@@ -152,15 +158,15 @@ const joinGroup = asyncHandler(async (req, res) => {
 
 const getMessages = asyncHandler(async (req, res) => {
     try {
-        // Obtain the parameters (userID, groupID)
+        // Obtain the parameters (studentID, groupID)
         const {
-            userID,
+            studentID,
             groupID
         } = req.params
 
         // Verify that the parameters are not empty
-        if (!userID) {
-            return req.status(400).json({ error: "Required parameter 'userID' not provided" })
+        if (!studentID) {
+            return req.status(400).json({ error: "Required parameter 'studentID' not provided" })
         }
         if (!groupID) {
             return req.status(400).json({ error: "Required parameter 'groupID' not provided" })
@@ -170,15 +176,15 @@ const getMessages = asyncHandler(async (req, res) => {
         // *(Does this need to happen here? Mongo probably will just send back an empty object.)*
 
         // Get the user and group from Mongo
-        const resultUser = await Student.findById(userID)
+        const resultUser = await Student.findById(studentID)
         const resultGroup = await Group.findById(groupID)
 
         // Check if the grabbed group is valid
         if (!resultUser?.username) {
-            return req.status(403).json({ error: `Student with ID ${userID} was not found` })
+            return req.status(403).json({ error: `Student with ID ${studentID} was not found` })
         }
         if (!resultGroup?.name) {
-            return req.status(403).json({ error: `Student with ID ${userID} was not found` })
+            return req.status(403).json({ error: `Student with ID ${studentID} was not found` })
         }
 
         // Check if the user is in the group
