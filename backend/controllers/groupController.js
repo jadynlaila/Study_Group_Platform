@@ -120,6 +120,7 @@ const deleteGroup = asyncHandler(async (req, res) => {
         // Delete the group in Mongo
 
         // Return a success code
+        
     } catch (e) {
 
     }
