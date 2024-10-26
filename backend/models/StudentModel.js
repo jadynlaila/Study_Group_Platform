@@ -48,7 +48,7 @@ const StudentSchema = mongoose.Schema({
         pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
     },
     groups: [{
-        type: Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId, 
         ref: "Group"
     }],
     profilePicURL: {  },
