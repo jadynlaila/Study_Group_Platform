@@ -13,11 +13,11 @@ const sendMessage = async (req, res) => {
             participants: { $all: [senderID, groupID]},
         })
 
-        /* what if the gorup
+        // what if the group
          if (!groupChat){
              res.status(500).json({ error: "Group chat doesn't exist" });
         }
-        */    
+           
     } catch (error) {
         console.log("Error in sendMessage controller: ", error.message)
         res.status(500).json({ error: "Internal server error" });

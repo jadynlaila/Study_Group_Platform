@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
 const { errorHandler } = require("./middleware/errorMiddleware")
+const { protectRoute } = require("./middleware/protectRoute")
 const connectDB = require("./config/db");
 const port = process.env.PORT || 6789;
 const Message = require("./routes/messageRoutes");
