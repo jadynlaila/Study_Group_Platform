@@ -1,9 +1,13 @@
 const express = require("express");
-const { sendMessage } = require("../controllers/messageController.js");
+const { sendMessage, deleteMessage } = require("../controllers/messageController.js");
 const { protectRoute } = require("../middleware/protectRoute.js");
 
 const router = express.Router();
 
-router.post("/send/:id", protectRoute, sendMessage)
+// Route for sending a message
+router.post("/send/:studentID/:groupID", sendMessage);
+
+// Route for deleting a message
+router.delete("/delete/:id", deleteMessage);
 
 module.exports = router;

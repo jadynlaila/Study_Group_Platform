@@ -14,14 +14,14 @@ const MessageSchema = new Schema ({
     content: {
         type: String
     },
-    time: {
-        type: Date,
-        value: Date,
-        required: [true, 'message needs date']
-    },
     author: {
         type: Schema.Types.ObjectId, 
         ref: "Student"
+    },
+
+    groupID: {
+        type: Schema.Types.ObjectId, 
+        ref: "Group"
     }
 },
 {

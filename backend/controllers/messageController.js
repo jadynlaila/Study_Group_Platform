@@ -1,28 +1,27 @@
 const asyncHandler = require("express-async-handler")
 const Message = require('../models/MessageModel.js');
-
 const group = require('../models/GroupModel.js');
 
 const sendMessage = async (req, res) => {
     try{
+
         const {message} = req.body;
-        const {id: groupID} = req.params;
-        const senderID = req.student._id;
+        const {groupID, studentID} = req.params;
 
         let groupChat = await group.findOne({
-            participants: { $all: [senderID, groupID]},
+            participants: { $all: [studentID, groupID]},
         })
 
-        // what if the group
+        // what if the group doesn't exist
          if (!groupChat){
              res.status(500).json({ error: "Group chat doesn't exist" });
         }
 
         // Create the new message
         const newMessage = new Message({
-            content: messageContent,
-            sender: senderID,
-            group: groupID,
+            content: message,
+            author: studentID,
+            groupID: groupID,
         });
 
         // Save the message to the database
@@ -54,6 +53,12 @@ const deleteMessage = async (req,res) => {
             return res.status(404).json({ error: 'Message not found' });
         }
 
+        // Find the group associated with the message
+        const group = await Group.findById(message.groupID);  
+        if (!group) {
+            return res.status(404).json({ error: 'Group not found' });
+        }
+
         // Check if the user is the sender or an admin in the group
         isSender = message.author.toString() == senderID.toString()
 
@@ -79,6 +84,6 @@ const deleteMessage = async (req,res) => {
     }
 };
 
-module.exports = {sendMessage}
+module.exports = {sendMessage, deleteMessage}
 
 // test case print message

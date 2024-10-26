@@ -1,9 +1,9 @@
 const { sendMessage } = require('./messageController');
 const Message = require('../models/MessageModel');
 const Group = require('../models/GroupModel');
-const httpMocks = require('node-mocks-http');
+// const httpMocks = require('node-mocks-http');
 const mongoose = require('mongoose');
-const { sendMessage, deleteMessage } = require('./messageController');
+// const { sendMessage, deleteMessage } = require('./messageController');
 
 jest.mock('../models/MessageModel');
 jest.mock('../models/GroupModel');
