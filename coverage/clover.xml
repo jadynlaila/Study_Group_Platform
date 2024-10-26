@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1729924951677" clover="3.2.0">
-  <project timestamp="1729924951677" name="All files">
-    <metrics statements="40" coveredstatements="13" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0" elements="48" coveredelements="13" complexity="0" loc="40" ncloc="40" packages="2" files="3" classes="3"/>
+<coverage generated="1729929277898" clover="3.2.0">
+  <project timestamp="1729929277898" name="All files">
+    <metrics statements="52" coveredstatements="14" conditionals="10" coveredconditionals="0" methods="3" coveredmethods="0" elements="65" coveredelements="14" complexity="0" loc="52" ncloc="52" packages="2" files="3" classes="3"/>
     <package name="controllers">
-      <metrics statements="33" coveredstatements="6" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="45" coveredstatements="7" conditionals="10" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="messageController.js" path="/Users/rudraamin/Documents/CS_386/Study_Group_Platform/backend/controllers/messageController.js">
-        <metrics statements="33" coveredstatements="6" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="45" coveredstatements="7" conditionals="10" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -31,14 +31,26 @@
         <line num="52" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="53" count="0" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
-        <line num="59" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
+        <line num="58" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="65" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="66" count="0" type="stmt"/>
         <line num="70" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
         <line num="76" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="81" count="1" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="95" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="103" count="0" type="stmt"/>
+        <line num="107" count="1" type="stmt"/>
       </file>
     </package>
     <package name="models">

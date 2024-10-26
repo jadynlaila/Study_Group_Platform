@@ -92,9 +92,9 @@ const getMessage = async (req,res) => {
         // Find the message in the database
         const message = await Message.findById(id).populate('author', 'username');
 
+        // what if message doesn't exsist
         if (!message) {
-            return res.status(404).json({ error: "Message not found" }); // Handle case where message does not exist
-        }
+            return res.status(404).json({ error: "Message not found" }); 
 
         // Respond with the found message
         res.status(200).json(message);
