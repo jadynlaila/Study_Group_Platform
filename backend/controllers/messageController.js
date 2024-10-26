@@ -2,11 +2,9 @@ const asyncHandler = require("express-async-handler")
 const Message = require('../models/MessageModel.js');
 const group = require('../models/GroupModel.js');
 
-const sendMessage = async (req, res) => {
-    try{
-
-        const {message} = req.body;
-        const {groupID, studentID} = req.params;
+const sendMessage = asyncHandler(async (req, res) => {
+    try {
+        const { groupID, studentID, message } = req.body;
 
         let groupChat = await group.findOne({
             participants: { $all: [studentID, groupID]},
@@ -38,12 +36,11 @@ const sendMessage = async (req, res) => {
         console.log("Error in sendMessage controller: ", error.message)
         res.status(500).json({ error: "Internal server error" });
     }
-};
+});
 
-const deleteMessage = async (req,res) => {
+const deleteMessage = asyncHandler(async (req,res) => {
     try{
-        const{ id: messageID } = req.params;
-        const senderID = req.student._id;
+        const { messageID, senderID } = req.body;
 
         // Find the message
         const message = await Message.findById(messageID);
@@ -82,27 +79,27 @@ const deleteMessage = async (req,res) => {
         console.error('Error in deleteMessage controller:', error.message);
         res.status(500).json({ error: 'Internal server error' });
     }
-};
+});
 
-const getMessage = async (req,res) => {
+const getMessage = asyncHandler(async (req,res) => {
     try {
         // Get the message ID from the request parameters
-        const { id } = req.params;
+        const { messageID } = req.body;
 
         // Find the message in the database
-        const message = await Message.findById(id).populate('author', 'username');
+        const message = await Message.findById(messageID).populate('author', 'username');
 
         // what if message doesn't exsist
         if (!message) {
-            return res.status(404).json({ error: "Message not found" }); 
+            return res.status(404).json({ error: `Message  with id ${messageID} not found` });
+        }
 
         // Respond with the found message
         res.status(200).json(message);
-    } catch (error) {
-    console.log("Error in getMessage controller: ", error.message);
-    res.status(500).json({ error: "Internal server error" });
+    } catch (e) {
+        res.status(500).json({ error: e });
     }
-};   
+});
 
 module.exports = {sendMessage, deleteMessage, getMessage}
 

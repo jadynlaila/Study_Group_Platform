@@ -4,13 +4,10 @@ const { protectRoute } = require("../middleware/protectRoute.js");
 
 const router = express.Router();
 
-// Route for sending a message
-router.post("/send/:studentID/:groupID", sendMessage);
-
-// Route for deleting a message
-router.delete("/delete/:id", deleteMessage);
-
-// Route for getting a message by ID
-router.get("/:id", getMessage);
+// Route for interacting with a message
+router.route("/")
+    .get(getMessage)
+    .post(sendMessage)
+    .delete(deleteMessage)
 
 module.exports = router;
