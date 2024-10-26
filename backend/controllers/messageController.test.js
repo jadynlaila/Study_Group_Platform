@@ -24,11 +24,13 @@ describe('sendMessage', () => {
     const targetGroupID = "671d5733cc35a4ba93af2adf"
     
     it('should create and save a new message', async () => {
-        const response = await request(`${serverAddress}`).post("/").send({
+        const response = await request(`${serverAddress}/api/messages`).post("/").send({
             groupID: targetGroupID,
             studentID: targetStudentID,
             message: "Happy birthday"
         })
+
+        console.log(response.body)
 
         expect(response.statusCode).toBe(201)
         

@@ -1,18 +1,30 @@
 const asyncHandler = require("express-async-handler")
 const Message = require('../models/MessageModel.js');
-const group = require('../models/GroupModel.js');
+const Group = require('../models/GroupModel.js');
 
 const sendMessage = asyncHandler(async (req, res) => {
     try {
         const { groupID, studentID, message } = req.body;
 
-        let groupChat = await group.findOne({
-            participants: { $all: [studentID, groupID]},
-        })
+        console.log(`groupID: ${groupID}, studentID: ${studentID}, message: ${messageID}`)
 
+        // make sure the variables are populated
+        if (!groupID) {
+            return res.status(400).json({ error: "Group ID is required" });
+        }
+        
+        if (!studentID) {
+            return res.status(400).json({ error: "Student ID is required" });
+        }
+        
+        if (!message) {
+            return res.status(400).json({ error: "Message content is required" });
+        }
+        
         // what if the group doesn't exist
+        let groupChat = await Group.findById(groupID)
         if (!groupChat){
-            res.status(500).json({ error: "Group chat doesn't exist" });
+            return res.status(404).json({ error: "Group chat doesn't exist" });
         }
 
         // Create the new message
@@ -30,7 +42,7 @@ const sendMessage = asyncHandler(async (req, res) => {
         await groupChat.save();
         
         // Return the saved message in the response
-        res.status(201).json(newMessage);
+        return res.status(201).json(newMessage);
 
     } catch (error) {
         console.log("Error in sendMessage controller: ", error.message)

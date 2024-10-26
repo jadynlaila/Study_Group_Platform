@@ -7,8 +7,7 @@ const router = express.Router();
 // Route for interacting with a message
 router.route("/:messageID").get(getMessage)
 router.route("/")
-    .post(sendMessage)
+    .put(sendMessage)
     .delete(deleteMessage)
-
 
 module.exports = router;
