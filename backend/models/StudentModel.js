@@ -50,10 +50,12 @@ const StudentSchema = mongoose.Schema({
     },
     groups: [{
         type: mongoose.Schema.Types.ObjectId, 
-        ref: "Group"
+        ref: "Group",
     }],
     //! default pfp?
-    profilePicURL: {  },
+    profilePicURL: { 
+        type: String
+    },
 })
 const Student = mongoose.model("Student", StudentSchema)
 module.exports = Student;

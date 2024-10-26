@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler")
 const Student = require('../models/StudentModel');
 const StudentModel = require("../models/StudentModel");
 const mongoose = require("mongoose")
+const generateToken = require("../config/generateToken")
 
 //! add profile picture
 //! get picture
@@ -51,7 +52,9 @@ const setStudent = asyncHandler(async (req, res) => {
 
         studentExists = await Student.findOne({username: username.toLowerCase()})
         if (studentExists) return res.status(401).send("Username taken")
-
+        
+        const defaultProfilePic = `https://avatar.iran.liara.run/username?username=${firstName+lastName}`
+        
         let newStudent = new StudentModel({
             firstName,
             lastName,
@@ -62,7 +65,7 @@ const setStudent = asyncHandler(async (req, res) => {
             password,
             groups,
             //https://www.youtube.com/watch?v=HwCqsOis894 for pfp
-            profilePicURL
+            profilePicURL: profilePicURL != null ? profilePicURL : defaultProfilePic
         })
 
         //! need to hash password
@@ -72,13 +75,14 @@ const setStudent = asyncHandler(async (req, res) => {
             _id: newStudent._id,
             firstName: newStudent.firstName,
             lastName: newStudent.lastName,
-            school: newUser.school,
+            school: newStudent.school,
             displayName: newStudent.displayName,
             username: newStudent.username,
             email: newStudent.email,
             password: newStudent.password,
             groups: newStudent.groups,
-            profilePicURL: newStudent.profilePicURL
+            profilePicURL: newStudent.profilePicURL,
+            token: generateToken(newStudent._id)
         })
     } catch (err) {
         console.log("Error in newStudent function", err);
@@ -120,6 +124,8 @@ const updateStudent = asyncHandler(async (req, res) => {
 
     res.status(200).json(updatedStudent)
 })
+
+//! add group specific function
 
 const removeGroup = asyncHandler(async (req, res) => {
     try{
