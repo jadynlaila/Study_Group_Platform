@@ -1,8 +1,8 @@
 const asyncHandler = require("express-async-handler")
 const Student = require('../models/StudentModel');
-const StudentModel = require("../models/StudentModel");
 const mongoose = require("mongoose")
-const generateToken = require("../config/generateToken")
+const generateToken = require("../config/generateToken");
+const Group = require("../models/GroupModel");
 
 //! add profile picture
 //! get picture
@@ -16,8 +16,17 @@ const generateToken = require("../config/generateToken")
 // @route   GET /api/Students
 // @access  Private
 const getStudents = asyncHandler(async (req, res) => {
-    const students = await Student.find()
-    res.status(200).json({ students });
+    try{
+        const students = await Student.find()
+        res.status(200).json({ students });
+    }catch(err){
+        console.log("Error in getStudents function", err);
+        return res.status(500).json({ message: err.message });
+    }
+})
+
+const getStudentsInGroup = asyncHandler(async (req, res) => {
+    //TODO
 })
 
 // @desc    Set Student
@@ -55,7 +64,7 @@ const setStudent = asyncHandler(async (req, res) => {
         
         const defaultProfilePic = `https://avatar.iran.liara.run/username?username=${firstName+lastName}`
         
-        let newStudent = new StudentModel({
+        let newStudent = new Student({
             firstName,
             lastName,
             school,
@@ -82,7 +91,7 @@ const setStudent = asyncHandler(async (req, res) => {
             password: newStudent.password,
             groups: newStudent.groups,
             profilePicURL: newStudent.profilePicURL,
-            token: generateToken(newStudent._id)
+            // token: generateToken(newStudent._id)
         })
     } catch (err) {
         console.log("Error in newStudent function", err);
@@ -113,16 +122,20 @@ const setStudent = asyncHandler(async (req, res) => {
 // @route   PUT /api/goals
 // @access  Private
 const updateStudent = asyncHandler(async (req, res) => {
-    const student = await Student.findById(req.params.id)
+    try{
+        const student = await Student.findById(req.params.id)
 
-    if (!student){
-        res.status(400);
-        throw new Error('Student not found');
-    }
+        if (!student){
+            return res.status(400).send('Student not found');
+        }
 
     const updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
     res.status(200).json(updatedStudent)
+    }catch(err){ 
+        console.log("Error in updateStudent function", err);
+        return res.status(500).send(err.message);
+    }
 })
 
 //! add group specific function
@@ -130,17 +143,19 @@ const updateStudent = asyncHandler(async (req, res) => {
 const removeGroup = asyncHandler(async (req, res) => {
     try{
         const {studentId, groupId} = req.params;
-        if (!mongoose.Types.ObjectId.isValid(studentId) || !mongoose.Types.ObjectId.isValid(groupId) ){
-            return res.status(400).send("Invalid objectId format")
+        
+        const group = await Group.findById(groupId);
+        if (!group) {
+            return res.status(400).send("Group not found");
         }
+
         const student = await Student.findByIdAndUpdate(
             studentId,
             { $pull: {groups: groupId}},
             {new: true}
         )
         if (!student){
-            res.status(400); 
-            throw new Error('Student not found')
+            return res.status(400).send('Student not found');
         }
         res.status(200).json(student)
     }catch (err) {
@@ -153,10 +168,17 @@ const removeGroup = asyncHandler(async (req, res) => {
 // @route   DELETE /api/goals
 // @access  Private
 const deleteStudent = asyncHandler(async (req, res) => {
-    const deletedStudent = await Student.findByIdAndDelete(req.params.id);
-    res.status(200).json(deletedStudent)
-})
-
+    try {
+        const deletedStudent = await Student.findByIdAndDelete(req.params.id);
+        if (!deletedStudent) {
+            return res.status(400).send('Student not found'); // Handle not found case
+        }
+        res.status(200).json(deletedStudent);
+    } catch (err) {
+        console.log("Error in deleteStudent function", err);
+        return res.status(500).json({ message: err.message });
+    }
+});
 
 module.exports = {
     getStudents,

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for models/StudentModel.js</title>
+    <title>Code coverage report for models/GroupModel.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">models</a> StudentModel.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">models</a> GroupModel.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -114,22 +114,7 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,6 +123,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,74 +164,58 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// User Information
-// uid
-// username
-// encrypted password (transmitted as a hash)
-// active session tokens
-// name
-// university
-// profile picture path
-// email
-// display name
-// phone number
-// registered study groups
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// Study Groups
+// Id
+// Name
+// Description
+// members
+// group owner
+// Thread of messages
 &nbsp;
-const mongoose = require("mongoose");
-const StudentSchema = mongoose.Schema({
-    firstName: {
-        type:String,
-        required:[true, 'User must enter a first name'],
-        // pattern: /[a-zA-Z]+/g
-    },
-    lastName: {
-        type:String,
-        required:[true, 'User must enter a last name'],
-        // pattern: /[a-zA-Z]+/g
-    },
-    school: {
+const mongoose = require('mongoose');
+&nbsp;
+const GroupSchema = new mongoose.Schema({
+    name: {
         type: String,
-        required: [true, 'Student must enter a school']
+        required: [true, 'must enter a group name'],
+        pattern: /(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})/
     },
-    displayName: {
-        type:String,
-        // pattern: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/
-    },
-    username: {
+    description: {
         type: String,
-        required: [true, "Student must create a username"],
-        // pattern: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/
     },
-    email: {
-        type: String,
-        required: [true, 'Student must enter an email'],
-        unique: true,
-        // pattern: /(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-    },
-    //! message that tells them what they need for the password
-    password: {
-        type: String,
-        required: [true, "You must provide a password"],
-        // pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
-    },
-    groups: [{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "Group",
-    }],
-    //! default pfp?
-    profilePicURL: { 
+    courses: {
         type: String
     },
+    majors: {
+        type: String
+    },
+    memberLimit: {
+        type: Number
+    },
+    memberCount: {
+        type: Number,
+        default: 0
+    },
+    members: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Student"
+    }],
+    owner: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Student"
+    },
+    administrators: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Student"
+    }],
+    messages: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Message"
+    }]
 })
-const Student = mongoose.model("Student", StudentSchema)
-module.exports = Student;
+&nbsp;
+module.exports = mongoose.model("Group", GroupSchema);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
