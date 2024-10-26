@@ -9,3 +9,6 @@ package-lock.json
 node_modules
 *.bkp
 .env
+*.DS_Store*
+
+coverage/
