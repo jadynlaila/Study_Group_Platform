@@ -84,6 +84,26 @@ const deleteMessage = async (req,res) => {
     }
 };
 
-module.exports = {sendMessage, deleteMessage}
+const getMessage = async (req,res) => {
+    try {
+        // Get the message ID from the request parameters
+        const { id } = req.params;
+
+        // Find the message in the database
+        const message = await Message.findById(id).populate('author', 'username');
+
+        if (!message) {
+            return res.status(404).json({ error: "Message not found" }); // Handle case where message does not exist
+        }
+
+        // Respond with the found message
+        res.status(200).json(message);
+    } catch (error) {
+    console.log("Error in getMessage controller: ", error.message);
+    res.status(500).json({ error: "Internal server error" });
+    }
+};   
+
+module.exports = {sendMessage, deleteMessage, getMessage}
 
 // test case print message
