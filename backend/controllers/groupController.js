@@ -23,14 +23,14 @@ const getGroup = asyncHandler(async (req, res) => {
         const {
             userID,
             groupID
-        } = req.body
+        } = req.params
 
         // Verify that the parameters are not empty
         if (!userID) {
-            return req.status(400).json({ error: "Required parameter 'userID' not provided" })
+            return res.status(400).json({ error: "Required parameter 'userID' not provided" })
         }
         if (!groupID) {
-            return req.status(400).json({ error: "Required parameter 'groupID' not provided" })
+            return res.status(400).json({ error: "Required parameter 'groupID' not provided" })
         }
         
         // Obtain the user and group from Mongo
@@ -39,22 +39,22 @@ const getGroup = asyncHandler(async (req, res) => {
         
         // Check if we actually got a user and group back
         if (!resultUser?.username) {
-            return req.status(403).json({ error: `Student with ID ${userID} was not found` })
+            return res.status(403).json({ error: `Student with ID ${userID} was not found` })
         }
         if (!resultGroup?.name) {
-            return req.status(403).json({ error: `Student with ID ${userID} was not found` })
+            return res.status(403).json({ error: `Student with ID ${userID} was not found` })
         }
 
         // Make sure the user is in the group
         if (!resultGroup.memberIDs.includes(resultUser._id)) {
-            return req.status(403).json({ error: "User is not a member of the group" })
+            return res.status(403).json({ error: "User is not a member of the group" })
         }
 
         // Send/Return the group object
         return res.status(200).json(resultGroup)
     
     } catch (e) {
-        return req.status(500).json({ error: e })
+        return res.status(500).json({ error: e })
     }
 })
 
@@ -84,7 +84,7 @@ const updateGroup = asyncHandler(async (req, res) => {
             administratorIDs,
             messageIDs,
             meetingIDs
-        } = req.body
+        } = req.params
 
         // Verify that the required parameters are not empty
         if (!userID) {
@@ -156,7 +156,7 @@ const getMessages = asyncHandler(async (req, res) => {
         const {
             userID,
             groupID
-        } = req.body
+        } = req.params
 
         // Verify that the parameters are not empty
         if (!userID) {
