@@ -7,9 +7,7 @@ For this deliverable, you should have a fully functional software prototype that
 Structure your deliverable according to the following sections. See the Team Project Instructions for details about formatting. 
 
 1. Introduction
-Provide a short paragraph that describes your system. This paragraph should contain the value proposition and a description of the software's main features. Include a link to your project on GitHub at the end of the introduction.
-
-Grading criteria (1 point): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, and adequate use of language. The description should be consistent with the current state of the project. You should include the link to GitHub.
+StudySphere is an application designed to provide students with a simple, straightforward approach to creating, joining, and managing study groups. Our site makes it easier than ever to find other like-minded individuals looking to ‘study smarter together’! Groups are equipped with real-time messaging and optimized scheduling technology to service users who want to connect both virtually and in person! The current project can be found at the following link: [StudySphere GitHub Repository](https://github.com/jadynlaila/Study_Group_Platform)
 
 2. Implemented requirements
 List in this section each requirement and associated pull request each member implemented for this release. Follow the example below---include the description of the requirement, a link to the issue, a link to the pull request(s) that implement the requirement, who implemented the requirement, who approved it, and a print screen that depicts the implemented feature (if applicable). I expect that you implement features you specified in your MVP (c.f. D.2 Requirements). All implemented features should have an automated test to verify their correct functioning. 
@@ -43,9 +41,45 @@ A print screen showing the result of the execution of the automated tests
 Grading criteria (4 points): You should have an adequate number of automated tests. They should be well-written to exercise the main components of your system, covering the relevant inputs.
 
 4. Adopted technologies
-List the adopted technologies with a brief description and justification for choosing them.
+## JavaScript
+JavaScript is a versatile, high-level programming language primarily used for adding interactivity to web pages. It enables dynamic content, user engagement, and complex functionalities on both the client and server sides. There is a large community of people who work with this technology, so it also has extensive resources, support, and libraries available.
 
-Grading criteria (1 point): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, and adequate use of language.
+## CSS
+CSS is a stylesheet language that allows developers to apply styles, such as colors, fonts, and spacing to pages, creating visually appealing and responsive designs.
+
+## Node.js
+Node.js is a JavaScript runtime that allows for server-side development, providing a unified language across the stack. Its event-driven architecture is perfect for building scalable, real-time applications, making it a strong choice for connecting students on the StudySphere platform.
+
+## Express
+Express is a fast and minimalist web framework for Node.js. It provides simplified routing and middleware management, which is ideal for our organization.
+
+## Express Async Handler
+Express Async Handler is Express’s default error handler and assists in overall error management as well as the code’s readability.
+
+## JSON Web Token (JWT)
+JWT is essential for user authentication and session management. It creates tokens when a user logs in that will expire and sign them out after a defined amount of time passes.
+
+## MongoDB
+MongoDB is a NoSQL database that allows flexible, document-based data storage, making it easy to scale and adapt as the application grows.
+
+## Mongoose
+Mongoose is a library for MongoDB that makes working with the database data more structured and organized. Specifically, we use it to create models of the data and to verify that given IDs are valid MongoDB IDs.
+
+## React
+React is a JS library for building user interfaces that enables the creation of interactive, component-based UIs, perfect for the dynamic features of the platform.
+
+## Dotenv
+Dotenv is a module for managing environment variables that keeps sensitive configuration details secure and separate from the codebase.
+
+## Nodemon
+Nodemon is a utility that will automatically restart the server when changes are detected, helping assist in the development workflow.
+
+## Jest
+Jest is a JS testing framework that supports simple, effective, and (most importantly) readable testing.
+
+## Supertest
+Supertest is a library that helps with the testing of REST APIs, which the backend depends on.
+
 
 5. Learning/training
 Describe the strategies employed by the team to learn the adopted technologies. 
