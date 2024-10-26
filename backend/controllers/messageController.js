@@ -11,8 +11,8 @@ const sendMessage = asyncHandler(async (req, res) => {
         })
 
         // what if the group doesn't exist
-         if (!groupChat){
-             res.status(500).json({ error: "Group chat doesn't exist" });
+        if (!groupChat){
+            res.status(500).json({ error: "Group chat doesn't exist" });
         }
 
         // Create the new message
@@ -75,7 +75,7 @@ const deleteMessage = asyncHandler(async (req,res) => {
         // Send success response
         res.status(200).json({ message: 'Message deleted successfully' });
 
-    }catch (error) {
+    } catch (error) {
         console.error('Error in deleteMessage controller:', error.message);
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -84,7 +84,7 @@ const deleteMessage = asyncHandler(async (req,res) => {
 const getMessage = asyncHandler(async (req,res) => {
     try {
         // Get the message ID from the request parameters
-        const { messageID } = req.body;
+        const { messageID } = req.params;
 
         // Find the message in the database
         const message = await Message.findById(messageID).populate('author', 'username');
