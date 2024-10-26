@@ -1,80 +1,95 @@
+const { response } = require("express")
 
-// Requires //
-const mongoose = require("mongoose")
-const asyncHandler = require("express-async-handler")
-const Group = require('../models/GroupModel')
-const Student = require('../models/StudentModel')
+// requestuires //
+const mongoose = requestuire("mongoose")
+const asyncHandler = requestuire("express-async-handler")
+const Group = requestuire('../models/GroupModel')
+const Student = requestuire('../models/StudentModel')
 
 // Global Constants //
 const MAX_MESSAGE_LENGTH = 2000
 
-const createGroup = asyncHandler((req, res) => {
+const createGroup = asyncHandler(async (request, result) => {
     try {
+        // Deconstruct the JSON body into local vars
+        const {
+            name,
+            description,
+            courses,
+            majors,
+            memberLimit,
+            memberCount,
+            memberIDs,
+            ownerID,
+            administratorIDs,
+            profilePictureID,
+            messageIDs
+        } = request.body
 
+        // Check that the required parameters are here
+        if (!name) {
+            return result.status(400).json({ error: "Required variable 'name' not provided" })
+        }
+
+        // Check that the owner was provided
+        if (!ownerID) {
+            return result.status(400).json({ error: "Required variable 'ownerID' not provided" })
+        }
+
+        // Create a new group object
+        const newGroup = new Group({
+            name,
+            description,
+            courses,
+            majors,
+            memberLimit,
+            memberCount,
+            memberIDs,
+            ownerID,
+            administratorIDs,
+            profilePictureID,
+            messageIDs
+        });
+
+        // Save the new group to MongoDB
+        const savedGroup = await newGroup.save();
+
+        // Return the saved group object
+        return result.status(201).json(savedGroup);
     } catch (e) {
-
+        return result.status(500).json({ error: e.message });
     }
 })
 
-const getGroup = asyncHandler(async (req, res) => {
+const getGroup = asyncHandler(async (request, result) => {
     try {
-        // Obtain the parameters (studentID, groupID)
-        console.log(req.body)
-        const {
-            groupID,
-            studentID
-        } = req.params
-
-        console.log(groupID)
-        console.log(studentID)
+        // Deconstruct the JSON body
+        const groupID = request.body
 
         // Verify that the parameters are not empty
-        if (!studentID) {
-            return res.status(400).json({ error: "Required parameter 'studentID' not provided" })
-        }
         if (!groupID) {
-            return res.status(400).json({ error: "Required parameter 'groupID' not provided" })
+            return result.status(400).json({ error: "Required variable 'groupID' not provided" })
         }
         
         // Obtain the user and group from Mongo
-        const resultUser = await Student.findById(req.params.studentID)
-        const resultGroup = await Group.findById(groupID)
-        
-        console.log(`resultUser: ${resultUser}`)
-        console.log(`resultGroup: ${resultGroup}`)
+        const mongoGroup = await Group.findById(groupID)
 
         // Check if we actually got a user and group back
-        if (!resultUser?.username) {
-            return res.status(403).json({ error: `Student with ID ${studentID} was not found` })
-        }
-        if (!resultGroup?.name) {
-            return res.status(403).json({ error: `Student with ID ${studentID} was not found` })
-        }
-
-        // Make sure the user is in the group
-        if (!resultGroup.memberIDs.includes(resultUser._id)) {
-            return res.status(403).json({ error: "User is not a member of the group" })
+        if (!mongoGroup) {
+            return result.status(404).json({ error: `Group with ID ${groupID} was not found` });
         }
 
         // Send/Return the group object
-        return res.status(200).json(resultGroup)
+        return result.status(200).json(mongoGroup)
     
     } catch (e) {
-        return res.status(500).json({ error: e })
+        return result.status(500).json({ error: e })
     }
 })
 
-const updateGroup = asyncHandler(async (req, res) => {
+const updateGroup = asyncHandler(async (request, result) => {
     try {
-        // Obtain the parameters 
-        /* 
-            Required:
-                studentID groupID
-            Optional: 
-                name description profilePictureID courses
-                majors memberLimit memberCount memberIDs
-                ownerID administratorIDs messageIDs meetingIDs
-        */
+        // Deconstruct the JSON body
         const {
             studentID,
             groupID,
@@ -90,27 +105,42 @@ const updateGroup = asyncHandler(async (req, res) => {
             administratorIDs,
             messageIDs,
             meetingIDs
-        } = req.params
-
-        // Verify that the required parameters are not empty
-        if (!studentID) {
-            
-        }
-
-        // Verify that the user exists
+        } = request.body
 
         // Verify that the group exists
-
-        // Check user permissions
+        const mongoGroup = await Group.findById(groupID)
+        if (!mongoGroup) {
+            return result.status(404).json({ error: `Group with ID ${groupID} was not found` })
+        }
 
         // Send data to Mongo
-    } catch (e) {
+        const updatedGroup = await Group.findByIdAndUpdate(
+            groupID,
+            {
+                name,
+                description,
+                profilePictureID,
+                courses,
+                majors,
+                memberLimit,
+                memberCount,
+                memberIDs,
+                ownerID,
+                administratorIDs,
+                messageIDs,
+                meetingIDs
+            },
+            { new: true }   // return a copy of the updated group object
+        );
 
+        return result.status(200).json(updatedGroup);
+    } catch (e) {
+        return result.status(500).json({ error: e.message });
     }
 })
 
-const deleteGroup = asyncHandler(async (req, res) => {
-    req.status(501).json({ error: "Deleting a group has not been implemented yet." })
+const deleteGroup = asyncHandler(async (request, result) => {
+    return request.status(501).json({ error: "Deleting a group has not been implemented yet." })
 
     try {
         // Obtain the parameters (studentID, groupID)
@@ -128,78 +158,92 @@ const deleteGroup = asyncHandler(async (req, res) => {
         // Return a success code
         
     } catch (e) {
-
+        return result.status(500).json({ error: e.message });
     }
 })
 
-const joinGroup = asyncHandler(async (req, res) => {
+const joinGroup = asyncHandler(async (request, result) => {
     try {
-        // Obtain the parameters (studentID, groupID)
-
-        // Verify that all parameters are not empty
-
-        // Check if the user exists
-
-        // Check if the group exists
-
-        // Check if the user is already in the group
-
-        // Send the data to Mongo
-
-        // Obtain the new group data from Mongo
-
-        // Verify that the user is in the group
-
-        // Send back a status code
-    } catch (e) {
-
-    }
-})
-
-const getMessages = asyncHandler(async (req, res) => {
-    try {
-        // Obtain the parameters (studentID, groupID)
+        // Deconstruct the JSON body
         const {
             studentID,
             groupID
-        } = req.params
+        } = request.body
+
+        // Verify that all parameters are not empty
+        if (!studentID) {
+            return response.status(400).json({ error: "Required variable 'studentID' not provided"})
+        }
+
+        if (!groupID) {
+            return response.status(400).json({ error: "Required variable 'groupID' not provided" })
+        }
+
+        // Get the data from Mongo
+        const searchedStudent = Student.findById(studentID)
+        const searchedGroup = Group.findById(groupID)
+        
+        // Check if the query returned anything
+        if (!searchedStudent) {
+            return response.status(404).json({ error: `Student object with id ${studentID} not found`})
+        }
+
+        if (!searchedGroup) {
+            return response.status(404).json({ error: `Group object with id ${groupID} not found`})
+        }
+
+        // Check if the user is already in the group
+        if (
+            searchedGroup.memberIDs.includes(studentID) ||
+            searchedGroup.administratorIDs.includes(studentID) ||
+            searchedGroup.ownerID === studentID
+        ) {
+            return response.status().json({ error: "Student is already a member of the group" });
+        }
+
+        // Link the group and user objects
+        searchedGroup.memberIDs += studentID
+        searchedStudent.groups += groupID
+
+        // Save the data to mongo
+        await searchedGroup.save();
+        await searchedStudent.save();
+
+        // Send back a response
+        return response.status(201).json({ searchedGroup, searchedStudent })
+    } catch (e) {
+        return result.status(500).json({ error: e.message });
+    }
+})
+
+const getMessages = asyncHandler(async (request, result) => {
+    try {
+        // Deconstruct the JSON body
+        const groupID = request.body
 
         // Verify that the parameters are not empty
-        if (!studentID) {
-            return req.status(400).json({ error: "Required parameter 'studentID' not provided" })
-        }
         if (!groupID) {
-            return req.status(400).json({ error: "Required parameter 'groupID' not provided" })
+            return request.status(400).json({ error: "Required variable 'groupID' not provided" })
         }
-
-        // Check if the group exists
-        // *(Does this need to happen here? Mongo probably will just send back an empty object.)*
 
         // Get the user and group from Mongo
-        const resultUser = await Student.findById(studentID)
-        const resultGroup = await Group.findById(groupID)
-
-        // Check if the grabbed group is valid
-        if (!resultUser?.username) {
-            return req.status(403).json({ error: `Student with ID ${studentID} was not found` })
-        }
-        if (!resultGroup?.name) {
-            return req.status(403).json({ error: `Student with ID ${studentID} was not found` })
+        const searchedGroup = await Group.findById(groupID)
+        if (!searchedGroup) {
+            return request.status(403).json({ error: `Student with ID ${} was not found` })
         }
 
-        // Check if the user is in the group
-        if (!resultGroup.memberIDs.includes(resultUser._id)) {
-            return req.status(403).json({ error: "User is not a member of the group" })
-        }
+        // Convert the message IDs into an array of Message objects
+        const messages = await Promise.all(
+            searchedGroup.messageIDs.map(async (messageID) => {
+                const message = await Message.findById(messageID);
+                return message;
+            })
+        );
 
         // Send/Return the messages
-        message = []
-        for (message in resultGroup.memberIDs) {
-            messages += req.get(`/send/?id=${message}`)
-        }
-        res.status(200).json()
+        result.status(200).json(messages)
     } catch (e) {
-
+        return result.status(500).json({ error: e.message });
     }
 })
 

@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 const GroupSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'must enter a group name'],
+        required: [true, 'You must enter a group name'],
         pattern: /(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})/
     },
     description: {
@@ -36,7 +36,8 @@ const GroupSchema = new mongoose.Schema({
     }],
     ownerID: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: "Student"
+        ref: "Student",
+        required: [true, 'You must provide the group owner']
     },
     administratorIDs: [{
         type: mongoose.Schema.Types.ObjectId,

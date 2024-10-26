@@ -16,16 +16,3 @@ app.use("/api/student", require("./routes/studentRoutes"))
 app.use(errorHandler)
 
 app.listen(port, () => console.log(`Server has started on port ${port}`))
-
-// function sleep(ms) {
-//     return new Promise(resolve => setTimeout(resolve, ms));
-// }
-
-// async function printStuff() {
-//     for (let i = 0; i < 15; i++) {
-//         console.log(require("./routes/groupRoutes"))
-//         await sleep(i * 1000)
-//     }
-// }
-
-// printStuff()
