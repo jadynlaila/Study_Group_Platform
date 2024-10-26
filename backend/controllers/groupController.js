@@ -1,10 +1,10 @@
 const { response } = require("express")
 
-// requestuires //
-const mongoose = requestuire("mongoose")
-const asyncHandler = requestuire("express-async-handler")
-const Group = requestuire('../models/GroupModel')
-const Student = requestuire('../models/StudentModel')
+// requires //
+const mongoose = require("mongoose")
+const asyncHandler = require("express-async-handler")
+const Group = require('../models/GroupModel')
+const Student = require('../models/StudentModel')
 
 // Global Constants //
 const MAX_MESSAGE_LENGTH = 2000
@@ -18,14 +18,12 @@ const createGroup = asyncHandler(async (request, result) => {
             courses,
             majors,
             memberLimit,
-            memberCount,
-            memberIDs,
             ownerID,
-            administratorIDs,
-            profilePictureID,
-            messageIDs
+            profilePictureID
         } = request.body
 
+        console.log(`DEBUG createGroup body: ${JSON.stringify(request.body)}`)
+        
         // Check that the required parameters are here
         if (!name) {
             return result.status(400).json({ error: "Required variable 'name' not provided" })
@@ -36,6 +34,12 @@ const createGroup = asyncHandler(async (request, result) => {
             return result.status(400).json({ error: "Required variable 'ownerID' not provided" })
         }
 
+        // Check that the owner exists
+        const searchedOwner = Student.findById(ownerID)
+        if (!searchedOwner) {
+            result.status(404).json({ error: `User with ID ${ownerID} was not found`})
+        }
+
         // Create a new group object
         const newGroup = new Group({
             name,
@@ -43,12 +47,12 @@ const createGroup = asyncHandler(async (request, result) => {
             courses,
             majors,
             memberLimit,
-            memberCount,
-            memberIDs,
-            ownerID,
-            administratorIDs,
-            profilePictureID,
-            messageIDs
+            memberCount: 0,
+            memberIDs: [],
+            ownerID: new mongoose.Types.ObjectId(ownerID),
+            administratorIDs: [],
+            profilePictureID: profilePictureID ? new mongoose.Types.ObjectId(profilePictureID) : null,
+            messageIDs: []
         });
 
         // Save the new group to MongoDB
@@ -64,13 +68,15 @@ const createGroup = asyncHandler(async (request, result) => {
 const getGroup = asyncHandler(async (request, result) => {
     try {
         // Deconstruct the JSON body
-        const groupID = request.body
+        const {groupID} = request.body
 
+        console.log(`value of groupID: ${groupID}`)
+        
         // Verify that the parameters are not empty
         if (!groupID) {
             return result.status(400).json({ error: "Required variable 'groupID' not provided" })
         }
-        
+
         // Obtain the user and group from Mongo
         const mongoGroup = await Group.findById(groupID)
 
@@ -229,7 +235,7 @@ const getMessages = asyncHandler(async (request, result) => {
         // Get the user and group from Mongo
         const searchedGroup = await Group.findById(groupID)
         if (!searchedGroup) {
-            return request.status(403).json({ error: `Student with ID ${} was not found` })
+            return request.status(403).json({ error: `Group with ID ${groupID} was not found` })
         }
 
         // Convert the message IDs into an array of Message objects

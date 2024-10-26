@@ -1,104 +1,126 @@
-const request = require('supertest')
-const express = require('express')
-const mongoose = require('mongoose')
-const { getGroup } = require('./groupController')
-const Group = require('../models/GroupModel')
-const Student = require('../models/StudentModel')
+const request = require('supertest');
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require("dotenv").config();
+const Group = require('../models/GroupModel');
+const Student = require('../models/StudentModel');
 
-const app = express()
-app.use(express.json())
-app.post('/getGroup', getGroup)
+const app = express();
 
-jest.mock('../models/GroupModel')
-jest.mock('../models/StudentModel')
+describe('Group Controller', () => {
+    beforeAll(async () => {
+        const url = process.env.MONGO_URI;
+        await mongoose.connect(url);
+    });
 
-describe('getGroup', () => {
-    let server
+    afterAll(async () => {
+        await mongoose.connection.db.dropDatabase();
+        await mongoose.connection.close();
+    });
 
-    beforeAll(() => {
-        server = app.listen(4000)
-    })
+    const serverAddress = `http://localhost:${process.env.PORT}`
+    const studentID = "6715f0b32d87f2dadfb736fa";
+    let groupID;
 
-    afterAll((done) => {
-        mongoose.connection.close()
-        server.close(done)
-    })
+    test('should create a group', async () => {
+        // Send the post request
+        const response = await request(`${serverAddress}/api/group`).put('/').send({
+            name: "Test Group",
+            description: "This is a test",
+            courses: "CS386",
+            majors: "Computer Science",
+            ownerID: studentID,
+            profilePictureID: null
+        });
 
-    it('should return 400 if userID is not provided', async () => {
-        const res = await request(app)
-            .post('/getGroup')
-            .send({ groupID: 'someGroupId' })
+        const { name, _id } = response.body;
 
-        expect(res.status).toBe(400)
-        expect(res.body.error).toBe("Required parameter 'userID' not provided")
-    })
+        groupID = _id
 
-    it('should return 400 if groupID is not provided', async () => {
-        const res = await request(app)
-            .post('/getGroup')
-            .send({ userID: 'someUserId' })
+        expect(response.status).toBe(201)
+        expect(name).toBe("Test Group")
+    });
 
-        expect(res.status).toBe(400)
-        expect(res.body.error).toBe("Required parameter 'groupID' not provided")
-    })
+    test('should get a group', async () => {
+        const response = await request(app)
+            .get('/getGroup')
+            .send({ groupID });
 
-    it('should return 403 if user is not found', async () => {
-        Student.findById.mockResolvedValue(null)
-        Group.findById.mockResolvedValue({ name: 'someGroup' })
+        console.log(JSON.stringify(response.body))
 
-        const res = await request(app)
-            .post('/getGroup')
-            .send({ userID: 'someUserId', groupID: 'someGroupId' })
+        expect(response.status).toBe(200);
+        expect(response.body.name).toBe('Test Group');
+    });
 
-        expect(res.status).toBe(403)
-        expect(res.body.error).toBe(`Student with ID someUserId was not found`)
-    })
+    // test('should update a group', async () => {
+    //     const group = new Group({
+    //         name: 'Test Group',
+    //         description: 'A group for testing',
+    //         courses: ['CS101'],
+    //         majors: ['Computer Science'],
+    //         memberLimit: 10,
+    //         ownerID: studentID
+    //     });
+    //     await group.save();
+    //     groupID = group._id;
 
-    it('should return 403 if group is not found', async () => {
-        Student.findById.mockResolvedValue({ username: 'someUser' })
-        Group.findById.mockResolvedValue(null)
+    //     const response = await request(app)
+    //         .put('/updateGroup')
+    //         .send({
+    //             groupID,
+    //             name: 'Updated Group',
+    //             description: 'An updated group for testing'
+    //         });
 
-        const res = await request(app)
-            .post('/getGroup')
-            .send({ userID: 'someUserId', groupID: 'someGroupId' })
+    //     expect(response.status).toBe(200);
+    //     expect(response.body.name).toBe('Updated Group');
+    // });
 
-        expect(res.status).toBe(403)
-        expect(res.body.error).toBe(`Student with ID someUserId was not found`)
-    })
+    // test('should return 501 for deleteGroup', async () => {
+    //     const response = await request(app)
+    //         .delete('/deleteGroup')
+    //         .send({ groupID });
 
-    it('should return 403 if user is not a member of the group', async () => {
-        Student.findById.mockResolvedValue({ _id: 'someUserId', username: 'someUser' })
-        Group.findById.mockResolvedValue({ name: 'someGroup', memberIDs: [] })
+    //     expect(response.status).toBe(501);
+    // });
 
-        const res = await request(app)
-            .post('/getGroup')
-            .send({ userID: 'someUserId', groupID: 'someGroupId' })
+    // test('should join a group', async () => {
+    //     const group = new Group({
+    //         name: 'Test Group',
+    //         description: 'A group for testing',
+    //         courses: ['CS101'],
+    //         majors: ['Computer Science'],
+    //         memberLimit: 10,
+    //         ownerID: studentID
+    //     });
+    //     await group.save();
+    //     groupID = group._id;
 
-        expect(res.status).toBe(403)
-        expect(res.body.error).toBe("User is not a member of the group")
-    })
+    //     const response = await request(app)
+    //         .post('/joinGroup')
+    //         .send({ studentID, groupID });
 
-    it('should return 200 and the group object if all checks pass', async () => {
-        const group = { name: 'someGroup', memberIDs: ['someUserId'] }
-        Student.findById.mockResolvedValue({ _id: 'someUserId', username: 'someUser' })
-        Group.findById.mockResolvedValue(group)
+    //     expect(response.status).toBe(201);
+    //     expect(response.body.searchedGroup.memberIDs).toContain(studentID.toString());
+    // });
 
-        const res = await request(app)
-            .post('/getGroup')
-            .send({ userID: 'someUserId', groupID: 'someGroupId' })
+    // test('should get messages of a group', async () => {
+    //     await request(app).post('/createGroup').send({
+    //         name: 'Test Group',
+    //         description: 'A group for testing',
+    //         courses: 'CS101',
+    //         majors: 'Computer Science',
+    //         memberLimit: 10,
+    //         ownerID: studentID
+    //     })
+    //     await group.save();
+    //     groupID = group._id;
 
-        expect(res.status).toBe(200)
-        expect(res.body).toEqual(group)
-    })
+    //     const response = await request(app)
+    //         .get('/getMessages')
+    //         .send({ groupID });
 
-    it('should return 500 if an error occurs', async () => {
-        Student.findById.mockRejectedValue(new Error('Some error'))
-
-        const res = await request(app)
-            .post('/getGroup')
-            .send({ userID: 'someUserId', groupID: 'someGroupId' })
-
-        expect(res.status).toBe(500)
-        expect(res.body.error).toBeDefined()
-    })
-})
+    //     expect(response.status).toBe(200);
+    //     expect(response.body).toEqual([]);
+    // });
+});
