@@ -8,7 +8,7 @@ StudySphere is an application designed to provide students with a simple, straig
 ## 2. Implemented requirements
 
 
-### Jadyn Calhoun
+### Jadyn Calhoun 
 
 **Requirement:** As a student, I want to be able to create an account with all of my information.
 
@@ -18,7 +18,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Create Student](res/jadyn_d4/jadyn_create_student.png)
 
@@ -31,7 +31,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Update Student](res/jadyn_d4/jadyn_update_student.png)
 
@@ -44,7 +44,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Delete Account](res/jadyn_d4/jadyn_delete_student.png)
 
@@ -57,7 +57,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Remove Group](res/jadyn_d4/jadyn_remove_group.png)
 
@@ -70,11 +70,23 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Join Group](res/jadyn_d4/jadyn_add_group.png)
 
 ### Daira Santacruz
+
+**Requirement:** As a student, I want to be able to communicate well with my groups so that we can keep our conversations organized.
+
+**Issue:** [User Story - Organized Communication ](https://github.com/jadynlaila/Study_Group_Platform/issues/31)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/108)
+
+**Implemented by:** Daira Santacruz
+
+**Approved by:** 
+
+**Print screen:** ![Group Chat Module](res/daira_d4/D4_GroupChatModule.png)
 
 
 ### Jack Lealos
@@ -128,7 +140,7 @@ Grading criteria (4 points): You should have an adequate number of automated tes
 
 **MongoDB** is a NoSQL database that allows flexible, document-based data storage, making it easy to scale and adapt as the application grows.
 
-**Mongoose**is a library for MongoDB that makes working with the database data more structured and organized. Specifically, we use it to create models of the data and to verify that given IDs are valid MongoDB IDs.
+**Mongoose** is a library for MongoDB that makes working with the database data more structured and organized. Specifically, we use it to create models of the data and to verify that given IDs are valid MongoDB IDs.
 
 **React** is a JS library for building user interfaces that enables the creation of interactive, component-based UIs, perfect for the dynamic features of the platform.
 
@@ -164,9 +176,8 @@ Describe the approach you adopted to design your user interface. Include some sc
 Grading criteria (3 points): This section will be graded based on the appearance (aesthetics) and usability (ease of use) of the system.
 
 ## 10. Lessons learned
-In retrospective, describe what your team learned during this first release and what you are planning to change for the second release. 
 
-Grading criteria (2 points): Adequate reflection about problems and solutions, clear description with adequate use of language. 
+Through our first release of StudySphere, we learned that having a structured plan is key to completing a deliverable efficiently and in an organized manner. Although we struggled with coordinating in-person meetings, we found that online meetings worked well for everyone’s convenience, allowing us to stay connected and aligned. For our second release, we're excited to implement more regular check-ins and establish a clearer workflow for code reviews. This way, we can ensure that everyone is on the same page and enhance our collaboration. We're looking forward to streamlining our development efforts and achieving an even more successful outcome together. 
 
 ## 11. Demo
 Include a link to a video showing the system working.
