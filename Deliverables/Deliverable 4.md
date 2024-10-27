@@ -122,51 +122,42 @@ An example of a test case. Include in your answer a GitHub link to the class bei
 A print screen showing the result of the execution of the automated tests
 
 Grading criteria (4 points): You should have an adequate number of automated tests. They should be well-written to exercise the main components of your system, covering the relevant inputs.
-
+## Jadyn Calhoun
 **Test Framework:** Jest and Supertest
+
 **Automated Tests Location:** [Student Controller Tests](https://github.com/jadynlaila/Study_Group_Platform/pull/84/commits/e00beb0edbac8463df7b24761da9a762c42c6398#diff-ca0be02e24395e61b80efaf64d749fcd2dc48daa079b6fcb10114a5ba2c61a35)
-**Test Case Example:** The following is a test that determines if a students information is being updated accurately ![Update Student Test](res/jadyn_d4/jadyn_update_student_test.png). The class being tested is located at [Student Controller Tests](https://github.com/jadynlaila/Study_Group_Platform/pull/84/commits/e00beb0edbac8463df7b24761da9a762c42c6398#diff-daf6cac8ddaf8706d604efcb5a394bb39b4635f70de2479aa57976690932c6a6) and the tests are located at [Student Controller Tests](https://github.com/jadynlaila/Study_Group_Platform/pull/84/commits/e00beb0edbac8463df7b24761da9a762c42c6398#diff-ca0be02e24395e61b80efaf64d749fcd2dc48daa079b6fcb10114a5ba2c61a35)
+
+**Test Case Example:** The following is a test that determines if a students information is being updated accurately ![Update Student Test](res/jadyn_d4/jadyn_update_student_test.png) The class being tested is located at [Student Controller Functions](https://github.com/jadynlaila/Study_Group_Platform/pull/84/commits/e00beb0edbac8463df7b24761da9a762c42c6398#diff-daf6cac8ddaf8706d604efcb5a394bb39b4635f70de2479aa57976690932c6a6) and the tests are located at [Student Controller Tests](https://github.com/jadynlaila/Study_Group_Platform/pull/84/commits/e00beb0edbac8463df7b24761da9a762c42c6398#diff-ca0be02e24395e61b80efaf64d749fcd2dc48daa079b6fcb10114a5ba2c61a35)
+
 **Execution Result:** ![Student Controller Test Execution](res/jadyn_d4/jadyn_jest.png)
 
 4. Adopted technologies
-## JavaScript
-JavaScript is a versatile, high-level programming language primarily used for adding interactivity to web pages. It enables dynamic content, user engagement, and complex functionalities on both the client and server sides. There is a large community of people who work with this technology, so it also has extensive resources, support, and libraries available.
 
-## CSS
-CSS is a stylesheet language that allows developers to apply styles, such as colors, fonts, and spacing to pages, creating visually appealing and responsive designs.
+**JavaScript** is a versatile, high-level programming language primarily used for adding interactivity to web pages. It enables dynamic content, user engagement, and complex functionalities on both the client and server sides. There is a large community of people who work with this technology, so it also has extensive resources, support, and libraries available.
 
-## Node.js
-Node.js is a JavaScript runtime that allows for server-side development, providing a unified language across the stack. Its event-driven architecture is perfect for building scalable, real-time applications, making it a strong choice for connecting students on the StudySphere platform.
+**CSS** is a stylesheet language that allows developers to apply styles, such as colors, fonts, and spacing to pages, creating visually appealing and responsive designs.
 
-## Express
-Express is a fast and minimalist web framework for Node.js. It provides simplified routing and middleware management, which is ideal for our organization.
+**Node.js** is a JavaScript runtime that allows for server-side development, providing a unified language across the stack. Its event-driven architecture is perfect for building scalable, real-time applications, making it a strong choice for connecting students on the StudySphere platform.
 
-## Express Async Handler
-Express Async Handler is Express’s default error handler and assists in overall error management as well as the code’s readability.
+**Express** is a fast and minimalist web framework for Node.js. It provides simplified routing and middleware management, which is ideal for our organization.
 
-## JSON Web Token (JWT)
-JWT is essential for user authentication and session management. It creates tokens when a user logs in that will expire and sign them out after a defined amount of time passes.
+**Express async Handler** is Express’s default error handler and assists in overall error management as well as the code’s readability.
 
-## MongoDB
-MongoDB is a NoSQL database that allows flexible, document-based data storage, making it easy to scale and adapt as the application grows.
+**JSON Web Token (JWT)** is essential for user authentication and session management. It creates tokens when a user logs in that will expire and sign them out after a defined amount of time passes.
 
-## Mongoose
-Mongoose is a library for MongoDB that makes working with the database data more structured and organized. Specifically, we use it to create models of the data and to verify that given IDs are valid MongoDB IDs.
+**MongoDB** is a NoSQL database that allows flexible, document-based data storage, making it easy to scale and adapt as the application grows.
 
-## React
-React is a JS library for building user interfaces that enables the creation of interactive, component-based UIs, perfect for the dynamic features of the platform.
+**Mongoose**is a library for MongoDB that makes working with the database data more structured and organized. Specifically, we use it to create models of the data and to verify that given IDs are valid MongoDB IDs.
 
-## Dotenv
-Dotenv is a module for managing environment variables that keeps sensitive configuration details secure and separate from the codebase.
+**React** is a JS library for building user interfaces that enables the creation of interactive, component-based UIs, perfect for the dynamic features of the platform.
 
-## Nodemon
-Nodemon is a utility that will automatically restart the server when changes are detected, helping assist in the development workflow.
+**Dotenv** is a module for managing environment variables that keeps sensitive configuration details secure and separate from the codebase.
 
-## Jest
-Jest is a JS testing framework that supports simple, effective, and (most importantly) readable testing.
+**Nodemon** is a utility that will automatically restart the server when changes are detected, helping assist in the development workflow.
 
-## Supertest
-Supertest is a library that helps with the testing of REST APIs, which the backend depends on.
+**Jest** is a JS testing framework that supports simple, effective, and (most importantly) readable testing.
+
+**Supertest** is a library that helps with the testing of REST APIs, which the backend depends on.
 
 
 5. Learning/training
