@@ -1,4 +1,4 @@
-![IMAGE](https://github.com/jadynlaila/Study_Group_Platform/blob/main/S%20%2B%20study%20COPY.svg)
+![Study Sphere Logo](Deliverables/res/daira_d4/S__study_COPY.png)
 # StudySphere
 StudySphere is an application designed to provide students with a simple, straightforward approach to creating, joining, and managing study groups. Our site makes it easier than ever to find other like-minded individuals looking to ‘study smarter together’! Groups are equipped with real-time messaging and optimized scheduling technology to service users who want to connect both virtually and in person! The current project can be found at the following link: [StudySphere GitHub Repository](https://github.com/jadynlaila/Study_Group_Platform)
 
