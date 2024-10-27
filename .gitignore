@@ -1,4 +1,5 @@
 # local env files
+.DS_Store
 .env
 .env.local
 .env.development.local
@@ -9,7 +10,14 @@
 *.bkp
 *.DS_Store*
 package-lock.json
+.pnp.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # directories
-node_modules
+build
 coverage
+node_modules
+.vscode
+.pnp
