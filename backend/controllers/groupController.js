@@ -57,7 +57,7 @@ const createGroup = asyncHandler(async (request, result) => {
         const savedGroup = await newGroup.save();
 
         // Return the saved group object
-        return result.status(201).json(savedGroup);
+        return result.status(201).json({groupID: savedGroup._id, group: savedGroup});
     } catch (e) {
         return result.status(500).json({ error: e.message });
     }
@@ -76,15 +76,15 @@ const getGroup = asyncHandler(async (request, result) => {
         }
 
         // Obtain the user and group from Mongo
-        const mongoGroup = await Group.findById(groupID)
+        const searchedGroup = await Group.findById(groupID)
 
         // Check if we actually got a user and group back
-        if (!mongoGroup) {
+        if (!searchedGroup) {
             return result.status(404).json({ error: `Group with ID ${groupID} was not found` });
         }
 
         // Send/Return the group object
-        return result.status(200).json(mongoGroup)
+        return result.status(200).json(searchedGroup)
     
     } catch (e) {
         return result.status(500).json({ error: e })
@@ -136,7 +136,7 @@ const updateGroup = asyncHandler(async (request, result) => {
             { new: true }   // return a copy of the updated group object
         );
 
-        return result.status(200).json(updatedGroup);
+        return result.status(200).json({ groupID: updatedGroup._id, group: updatedGroup });
     } catch (e) {
         return result.status(500).json({ error: e.message });
     }

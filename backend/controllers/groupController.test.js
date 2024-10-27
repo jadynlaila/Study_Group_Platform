@@ -14,18 +14,17 @@ describe('Group Controller', () => {
     });
 
     afterAll(async () => {
-        await mongoose.connection.db.dropDatabase();
+        // await mongoose.connection.db.dropDatabase();
         await mongoose.connection.close();
     });
 
     const serverAddress = `http://localhost:${process.env.PORT}`
     const studentID = "6715f0b32d87f2dadfb736fa";
-    let groupID;
 
     test('should create a group', async () => {
         // Send the post request
         const response = await request(`${serverAddress}/api/group`).put('/').send({
-            name: "Test Group",
+            name: "JEST Test group",
             description: "This is a test",
             courses: "CS386",
             majors: "Computer Science",
@@ -33,27 +32,47 @@ describe('Group Controller', () => {
             profilePictureID: null
         });
 
-        const { name, _id } = response.body;
-
-        groupID = _id
+        const { _id, group } = response.body;
 
         expect(response.status).toBe(201)
-        expect(name).toBe("Test Group")
-    });
+        expect(group.name).toBe("Test Group")
 
+        // Remove the created group
+        Group.findByIdAndDelete(_id)
+    });
+    
     test('should get a group', async () => {
-        const response = await request(app)
-            .get('/getGroup')
-            .send({ groupID });
-
-        console.log(JSON.stringify(response.body))
-
-        expect(response.status).toBe(200);
-        expect(response.body.name).toBe('Test Group');
+        // Create the group first
+        // Send the post request
+        const createResponse = await request(`${serverAddress}/api/group`).put('/').send({
+            name: "JEST Test Group",
+            description: "This is a test",
+            courses: "CS386",
+            majors: "Computer Science",
+            ownerID: studentID,
+            profilePictureID: null
+        });
+        
+        // Deconstruct the body of the response
+        const { _id, group } = createResponse.body;
+        
+        // TEST: Make sure the group was created
+        expect(createResponse.status).toBe(201)
+        
+        // Attempt to grab the newly created group
+        const getResponse = await request(app)
+        .get(`${serverAddress}/api/group/${_id}`);
+        
+        console.log(JSON.stringify(getResponse.body))
+        
+        expect(getResponse.statusCode).toBe(200);
+        expect(getResponse.body.name).toBe('JEST Test Group');
+        
+        Group.findByIdAndDelete(_id)
     });
-
+    
     // test('should update a group', async () => {
-    //     const group = new Group({
+        //     const group = new Group({
     //         name: 'Test Group',
     //         description: 'A group for testing',
     //         courses: ['CS101'],
