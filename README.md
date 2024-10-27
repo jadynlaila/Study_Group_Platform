@@ -60,24 +60,21 @@ Once you've cloned the repository, npm will install the following packages:
 
 ## Running the tests
 
-To maintain quality and ensure reliability, StudySphere includes automated tests.
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
+To maintain quality and ensure reliability, StudySphere includes automated tests.
+
+First, the server needs to be running in the background:
+```
+npm start
+```
+In a different terminal run the tests
 
 ```
-hehe
-
+npm test
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
@@ -115,14 +112,21 @@ Here is a link to our site: [Study Sphere](http://study-sphere.me/)
 
 ## Contributing
 
-Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/jadynlaila/Study_Group_Platform) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use Semantic Versioning ([SemVer](http://semver.org/)) to manage and track versions. Semantic Versioning uses the format MAJOR.MINOR.PATCH:
+
+MAJOR version when we make incompatible API changes,
+MINOR version when we add functionality in a backward-compatible manner, and
+PATCH version when we make backward-compatible bug fixes.
+
+The current version of StudySphere is 0.1.0. 
+ 
 
 
-## About us
+## About The Authors
 ### Alexander Anthis
 Hello! I'm a Computer Science student at NAU, and I'm focusing my efforts towards backend software development. I am familiar with C, Python, Rust, and SQL, and I am currently working for NAU as a system administrator  for the university supercomputer.
 
@@ -139,4 +143,4 @@ Saludos! I'm a Multi-Disciplinary Engineer ( UI/UX Emphasis ) here at NAU. My ma
 Hi! I'm a junior Computer Science student at NAU. I love web development and thinking through complex problems. I enjoy hanging out with friends and making music!
 
 ### Daira Santacruz
-Hi, I’m a Computer Science student at NAU. I study French, and I’m currently enrolled in an IGP program at NAU. Most of my experience is with frontend development.
+Hello! Hola and Bonjour tout le monde! I’m a junior double majoring in Computer Science and Modern Languages in French at NAU. I’m currently enrolled in an IGP program at NAU. I am currently a tutor at NAU for Computer Science, Calculus, Statistics and French, I am also a tutor online for the same subjects at Pear Deck Tutor where I tutor students from 1st grade up to college level. I love helping and volunteering. I am hoping to go into research in Computer Science and hopefully go internationally about it. 
