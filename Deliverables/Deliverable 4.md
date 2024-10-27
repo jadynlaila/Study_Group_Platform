@@ -147,9 +147,12 @@ Grading criteria (4 points): You should have an adequate number of automated tes
 ## 6. Deployment
 
 ## 7. Licensing
-Inform the license you adopted for your source code (remember to configure GitHub accordingly). Explain why you adopted this license. For more information, check https://choosealicense.com/Links to an external site..
 
-Grading criteria (1 point): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, and adequate use of language.
+We chose to apply the Apache license to our software. There are several reasons for this:
+
+- Anyone can use and redistribute our software/code.
+- Our trademark cannot be used.
+- There is no warranty provided, so the software is provided as is. However, derivatives can choose to offer their own warranties.
 
 ## 8. README File
 You should also prepare your repository to receive new developers. You should prepare a README.md file. See an example at https://gist.github.com/PurpleBooth/109311bb0361f32d87a2Links to an external site.. In the README file, the current version of the software should be stated. You should follow the Semantic VersioningLinks to an external site. schema. Tag the GitHub repository accordingly (see Git Basics TaggingLinks to an external site.). 
