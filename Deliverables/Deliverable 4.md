@@ -56,7 +56,7 @@ Print screen: A print screen that depicts the implemented feature (if applicable
 
 **Approved by:**
 
-**Print screen:**
+**Print screen:** ![Postman Create Student](res/jadyn_d4/jadyn_create_student.png)
 
 
 **Requirement:** As a student, I want to be able to freely update my account information and settings.
@@ -69,7 +69,7 @@ Print screen: A print screen that depicts the implemented feature (if applicable
 
 **Approved by:**
 
-**Print screen:**
+**Print screen:** ![Postman Update Student](res/jadyn_d4/jadyn_update_student.png)
 
 
 **Requirement:** As a recently graduated student, I would like to delete my account as I no longer need study groups.
@@ -82,7 +82,7 @@ Print screen: A print screen that depicts the implemented feature (if applicable
 
 **Approved by:**
 
-**Print screen:**
+**Print screen:** ![Postman Delete Account](res/jadyn_d4/jadyn_delete_student.png)
 
 
 **Requirement:** As a student, I want to leave some of the groups I joined for old classes.
@@ -95,7 +95,7 @@ Print screen: A print screen that depicts the implemented feature (if applicable
 
 **Approved by:**
 
-**Print screen:**
+**Print screen:** ![Postman Remove Group](res/jadyn_d4/jadyn_remove_group.png)
 
 
 **Requirement:** As a student, I want to join groups related to my classes.
@@ -108,16 +108,25 @@ Print screen: A print screen that depicts the implemented feature (if applicable
 
 **Approved by:**
 
-**Print screen:**
+**Print screen:** ![Postman Join Group](res/jadyn_d4/jadyn_add_group.png)
 
 3. Tests
 You should implement automated tests that aim to verify the correct behavior of your code. Provide the following information:
 
 Test framework you used to develop your tests (e.g., JUnit, unittest, pytest, etc.)
+
 Link to your GitHub folder where your automated unit tests are located
+
 An example of a test case. Include in your answer a GitHub link to the class being tested and to the test
+
 A print screen showing the result of the execution of the automated tests
+
 Grading criteria (4 points): You should have an adequate number of automated tests. They should be well-written to exercise the main components of your system, covering the relevant inputs.
+
+**Test Framework:** Jest and Supertest
+**Automated Tests Location:** [Student Controller Tests](https://github.com/jadynlaila/Study_Group_Platform/pull/84/commits/e00beb0edbac8463df7b24761da9a762c42c6398#diff-ca0be02e24395e61b80efaf64d749fcd2dc48daa079b6fcb10114a5ba2c61a35)
+**Test Case Example:** The following is a test that determines if a students information is being updated accurately ![Update Student Test](res/jadyn_d4/jadyn_update_student_test.png). The class being tested is located at [Student Controller Tests](https://github.com/jadynlaila/Study_Group_Platform/pull/84/commits/e00beb0edbac8463df7b24761da9a762c42c6398#diff-daf6cac8ddaf8706d604efcb5a394bb39b4635f70de2479aa57976690932c6a6) and the tests are located at [Student Controller Tests](https://github.com/jadynlaila/Study_Group_Platform/pull/84/commits/e00beb0edbac8463df7b24761da9a762c42c6398#diff-ca0be02e24395e61b80efaf64d749fcd2dc48daa079b6fcb10114a5ba2c61a35)
+**Execution Result:** ![Student Controller Test Execution](res/jadyn_d4/jadyn_jest.png)
 
 4. Adopted technologies
 ## JavaScript
