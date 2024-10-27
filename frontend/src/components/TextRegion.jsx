@@ -12,7 +12,7 @@ const TextRegion = ({ group }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (inputText.trim()) {
-      // Add the message with a sender identifier (for simplicity, we'll use 'me' for the user)
+      // Add the message with a sender identifier 
       setMessages([...messages, { text: inputText, sender: 'me' }]);
       setInputText('');
     }
