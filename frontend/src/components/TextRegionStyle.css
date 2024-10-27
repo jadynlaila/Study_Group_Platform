@@ -1,0 +1,81 @@
+/* TextRegionStyle.css */
+.text-region {
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  height: 90vh; /* Full height */
+}
+
+.chat-display {
+  flex: 1; /* Take all available space */
+  overflow-y: auto; /* Enable scrolling */
+  padding: 20px;
+  background-color: #2a2a2a; /* Darker background for chat display */
+  display: flex;
+  flex-direction: column; /* Stack messages vertically */
+  align-items: flex-end; /* Align all items to the right */
+  border-radius: 10px;
+}
+
+.chat-message {
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%; /* Limit message width */
+  clear: both; /* Clear floats */
+}
+
+.chat-message.me {
+  background-color: #007bff; /* Blue background for user's messages */
+  color: white; /* White text for contrast */
+  align-self: flex-end; /* Right align */
+}
+
+.chat-message:not(.me) {
+  background-color: #c4c4c4; /* Light gray for others' messages */
+  align-self: flex-start; /* Left align */
+}
+
+.chat-input-form {
+  display: flex;
+  padding: 10px;
+  background-color: #393939; /* Dark background for the input area */
+  border-radius: 11px;
+}
+
+.chat-input {
+  flex: 1; /* Fill available space */
+  padding: 10px;
+  border: 2px solid #9000ff; /* Purple border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #393939; /* Slightly lighter background for input */
+  color: #e0e0e0; /* Light text color */
+}
+
+.send-button {
+  margin-left: 10px;
+  padding: 10px;
+  border: none;
+  background-color: #007bff; /* Blue button color */
+  color: white; /* White button text color */
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.send-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+@media (max-width: 600px) {
+  .chat-input {
+    padding: 8px; /* Smaller padding on mobile */
+  }
+
+  .send-button {
+    padding: 8px; /* Smaller button padding */
+  }
+
+  .chat-message {
+    max-width: 90%; /* Allow messages to take more width */
+  }
+}
