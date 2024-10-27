@@ -112,6 +112,15 @@ Grading criteria (4 points): You should have an adequate number of automated tes
 
 **Execution Result:** ![Student Controller Test Execution](res/jadyn_d4/jadyn_jest.png)
 
+### Alexander Anthis
+**Test Framework**: Jest and Supertest
+
+**Automated Tests Location**: [studentController.test.js](https://github.com/jadynlaila/Study_Group_Platform/blob/65-dev_backend_groupController/backend/controllers/studentController.test.js)
+
+**Test Case Example**: 
+
+**Execution Result**: ![Group Controller Test Execution](res/alex_d4/alex_test.png)
+
 ## 4. Adopted technologies
 
 **JavaScript** is a versatile, high-level programming language primarily used for adding interactivity to web pages. It enables dynamic content, user engagement, and complex functionalities on both the client and server sides. There is a large community of people who work with this technology, so it also has extensive resources, support, and libraries available.
