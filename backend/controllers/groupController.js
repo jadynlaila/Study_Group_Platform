@@ -6,9 +6,6 @@ const asyncHandler = require("express-async-handler")
 const Group = require('../models/GroupModel')
 const Student = require('../models/StudentModel')
 
-// Global Constants //
-const MAX_MESSAGE_LENGTH = 2000
-
 const createGroup = asyncHandler(async (request, result) => {
     try {
         // Deconstruct the JSON body into local vars
