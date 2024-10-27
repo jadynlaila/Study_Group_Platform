@@ -91,8 +91,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Approved by:**
 
-**Print screen:** 
-
+**Print screen:** ![Text region example](res/text-region-display.png)
 
 
 ### Alexander Anthis
