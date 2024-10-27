@@ -18,7 +18,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Create Student](res/jadyn_d4/jadyn_create_student.png)
 
@@ -31,7 +31,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Update Student](res/jadyn_d4/jadyn_update_student.png)
 
@@ -44,7 +44,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Delete Account](res/jadyn_d4/jadyn_delete_student.png)
 
@@ -57,7 +57,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Remove Group](res/jadyn_d4/jadyn_remove_group.png)
 
@@ -70,11 +70,11 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Join Group](res/jadyn_d4/jadyn_add_group.png)
 
-3. Tests
+## 3. Tests
 You should implement automated tests that aim to verify the correct behavior of your code. Provide the following information:
 
 Test framework you used to develop your tests (e.g., JUnit, unittest, pytest, etc.)
