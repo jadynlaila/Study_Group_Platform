@@ -176,9 +176,8 @@ Describe the approach you adopted to design your user interface. Include some sc
 Grading criteria (3 points): This section will be graded based on the appearance (aesthetics) and usability (ease of use) of the system.
 
 ## 10. Lessons learned
-In retrospective, describe what your team learned during this first release and what you are planning to change for the second release. 
 
-Grading criteria (2 points): Adequate reflection about problems and solutions, clear description with adequate use of language. 
+Through our first release of StudySphere, we learned that having a structured plan is key to completing a deliverable efficiently and in an organized manner. Although we struggled with coordinating in-person meetings, we found that online meetings worked well for everyone’s convenience, allowing us to stay connected and aligned. For our second release, we're excited to implement more regular check-ins and establish a clearer workflow for code reviews. This way, we can ensure that everyone is on the same page and enhance our collaboration. We're looking forward to streamlining our development efforts and achieving an even more successful outcome together. 
 
 ## 11. Demo
 Include a link to a video showing the system working.
