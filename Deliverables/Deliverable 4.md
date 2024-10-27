@@ -31,6 +31,20 @@ Remember: All source code should be submitted by means of pull requests, and the
 
 Grading criteria (10 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the Reviewer. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
 
+Requirement: As a student, I want to be able to communicate well with my group mates so that we can keep our conversations organized.
+
+Issue: https://github.com/jadynlaila/Study_Group_Platform/issues/31
+
+Pull request:
+
+Implemented by: Daira Santacruz
+
+Approved by: 
+
+Print Screen: 
+
+
+
 3. Tests
 You should implement automated tests that aim to verify the correct behavior of your code. Provide the following information:
 
