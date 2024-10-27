@@ -4,11 +4,12 @@
 .env.development.local
 .env.test.local
 .env.production.local
+
+# other files
+*.bkp
+*.DS_Store*
 package-lock.json
 
+# directories
 node_modules
-*.bkp
-.env
-*.DS_Store*
-
-coverage/
+coverage
