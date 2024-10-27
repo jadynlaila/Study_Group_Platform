@@ -112,7 +112,7 @@ Here is a link to our site: [Study Sphere](http://study-sphere.me/)
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/jadynlaila/Study_Group_Platform) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
