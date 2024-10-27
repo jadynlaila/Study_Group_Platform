@@ -79,6 +79,21 @@ StudySphere is an application designed to provide students with a simple, straig
 
 ### Jack Lealos
 
+**Requirement:** As a student, I want to be able to connect with other students so that we can communicate times to meet and study.
+
+**Issue:** 
+ [User story- Student Communication](https://github.com/jadynlaila/Study_Group_Platform/issues/40)
+[Main UI - Text Region #92](https://github.com/jadynlaila/Study_Group_Platform/issues/92)
+
+**Pull request:** [Jack frontend contributions #111](https://github.com/jadynlaila/Study_Group_Platform/pull/111)
+
+**Implemented by:** Jack Lealos
+
+**Approved by:**
+
+**Print screen:** 
+
+
 
 ### Alexander Anthis
 
@@ -142,6 +157,10 @@ Grading criteria (4 points): You should have an adequate number of automated tes
 
 
 ## 5. Learning / Training
+
+The team used several strategies to learn React, MongoDB, and Jest, which were new to many of us. We relied on YouTube tutorials and reference videos to get a solid understanding and build a working React project with MongoDB integration. Stack Overflow was also a key resource, providing quick answers and solutions to specific coding issues we encountered.
+
+For automated testing, we used Jest, which at first seemed challenging. However, online tools and documentation made it easier to apply. With these resources, we successfully validated component outputs for Deliverable 4 and ensured key features were tested. Overall, the combination of tutorials, Stack Overflow, and open-source resources gave us the knowledge needed to meet our project goals.
 
 
 ## 6. Deployment
