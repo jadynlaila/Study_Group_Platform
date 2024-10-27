@@ -6,7 +6,7 @@ const sendMessage = asyncHandler(async (req, res) => {
     try {
         const { groupID, studentID, message } = req.body;
 
-        console.log(`groupID: ${groupID}, studentID: ${studentID}, message: ${messageID}`)
+        console.log(`groupID: ${groupID}, studentID: ${studentID}, message: ${message}`)
 
         // make sure the variables are populated
         if (!groupID) {
@@ -38,7 +38,8 @@ const sendMessage = asyncHandler(async (req, res) => {
         await newMessage.save();
         
         //append the newMessage to the group chat messages array
-        groupChat.messages.push(newMessage._id);
+        console.debug(`Attempting to push message id ${newMessage._id}`)
+        groupChat.messageIDs.push(newMessage._id);
         await groupChat.save();
         
         // Return the saved message in the response

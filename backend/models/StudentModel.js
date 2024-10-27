@@ -34,6 +34,7 @@ const StudentSchema = mongoose.Schema({
     username: {
         type: String,
         required: [true, "Student must create a username"],
+        unique: true
         // pattern: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/
     },
     email: {
