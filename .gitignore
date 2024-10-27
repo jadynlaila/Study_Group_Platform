@@ -8,3 +8,5 @@ package-lock.json
 
 node_modules
 *.bkp
+
+coverage/
