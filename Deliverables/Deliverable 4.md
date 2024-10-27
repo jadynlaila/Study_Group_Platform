@@ -7,7 +7,7 @@ For this deliverable, you should have a fully functional software prototype that
 Structure your deliverable according to the following sections. See the Team Project Instructions for details about formatting. 
 
 1. Introduction
-StudySphere is an application designed to provide students with a simple, straightforward approach to creating, joining, and managing study groups. Our site makes it easier than ever to find other like-minded individuals looking to ‘study smarter together’! Groups are equipped with real-time messaging and optimized scheduling technology to service users who want to connect both virtually and in person! The current project can be found at the following link: [StudySphere GitHub Repository]https://github.com/jadynlaila/Study_Group_Platform
+
 
 2. Implemented requirements
 List in this section each requirement and associated pull request each member implemented for this release. Follow the example below---include the description of the requirement, a link to the issue, a link to the pull request(s) that implement the requirement, who implemented the requirement, who approved it, and a print screen that depicts the implemented feature (if applicable). I expect that you implement features you specified in your MVP (c.f. D.2 Requirements). All implemented features should have an automated test to verify their correct functioning. 
