@@ -6,7 +6,7 @@ const connectDB = require("./backend/config/db");
 const cookieParser = require("cookie-parser");
 const { spawn } = require("child_process");
 
-const port = process.env.PORT || 6789;
+const port = process.env.EXPRESS_PORT || 6789;
 
 const app = express()
 connectDB()
@@ -22,6 +22,7 @@ app.use(errorHandler)
 
 const reactServer = spawn("npm", ["start"], {
     cwd: "frontend",
+    env: { ...process.env, PORT: process.env.REACT_PORT },
     stdio: "inherit"
 })
 
