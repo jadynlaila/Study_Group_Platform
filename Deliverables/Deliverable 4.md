@@ -76,6 +76,18 @@ StudySphere is an application designed to provide students with a simple, straig
 
 ### Daira Santacruz
 
+**Requirement:** As a student, I want to be able to communicate well with my groups so that we can keep our conversations organized.
+
+**Issue:** [User Story - Organized Communication ](https://github.com/jadynlaila/Study_Group_Platform/issues/31)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/108)
+
+**Implemented by:** Daira Santacruz
+
+**Approved by:** 
+
+**Print screen:** ![Group Chat Module](res/daira_d4/D4_GroupChatModule.png)
+
 
 ### Jack Lealos
 
