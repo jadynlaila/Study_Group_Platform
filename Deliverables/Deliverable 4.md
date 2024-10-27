@@ -118,8 +118,53 @@ Grading criteria (4 points): You should have an adequate number of automated tes
 **Automated Tests Location**: [studentController.test.js](https://github.com/jadynlaila/Study_Group_Platform/blob/65-dev_backend_groupController/backend/controllers/studentController.test.js)
 
 **Test Case Example**: 
+```javascript
+test('should update a group', async () => {
+    const name = "JEST Test Group"
+    const description = "This is a test"
+    const courses = "CS386"
+    const updatedCourses = "CS300"
+    const majors = "Computer Science"
+    const ownerID = studentID
+    const profilePictureID = null
 
-**Execution Result**: ![Group Controller Test Execution](res/alex_d4/alex_test.png)
+    // Create the group first
+    // Send the put request
+    const createResponse = await request(`${serverAddress}/api/group`).put('/').send({
+        name, description, courses, majors, memberLimit: 6, ownerID, profilePictureID
+    });
+    
+    // Deconstruct the body of the response
+    const { groupID, group } = createResponse.body;
+    
+    // TEST: Make sure the group was created
+    expect(createResponse.status).toBe(201)
+
+    // Send an updated group
+    // Send the post request
+    const updateResponse = await request(`${serverAddress}/api/group`).post('/').send({
+        groupID,
+        courses: updatedCourses,
+    })
+
+    // TEST: make sure we get a good status code
+    expect(updateResponse.statusCode).toBe(200)
+
+    // Instead of using the response object, obtain the updated object from Mongo
+    let searchedGroup = await Group.findById(groupID)
+
+    console.log(`Old group: ${JSON.stringify(group)}`)
+    console.log(`Updated group: ${searchedGroup}`)
+
+    // TEST: make sure the group was updated
+    expect(searchedGroup.courses).toBe("CS300")
+
+    await Group.findByIdAndDelete(groupID)
+});
+```
+
+**Execution Result**:
+![Group Controller Test Execution](res/alex_d4/alex_jest.png)
 
 ## 4. Adopted technologies
 
