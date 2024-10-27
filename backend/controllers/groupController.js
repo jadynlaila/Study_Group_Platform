@@ -5,6 +5,7 @@ const mongoose = require("mongoose")
 const asyncHandler = require("express-async-handler")
 const Group = require('../models/GroupModel')
 const Student = require('../models/StudentModel')
+const Message = require('../models/MessageModel')
 
 const createGroup = asyncHandler(async (request, result) => {
     try {
@@ -65,7 +66,7 @@ const createGroup = asyncHandler(async (request, result) => {
 const getGroup = asyncHandler(async (request, result) => {
     try {
         // Deconstruct the JSON body
-        const {groupID} = request.body
+        const groupID = request.params.groupID
 
         console.log(`value of groupID: ${groupID}`)
         
@@ -94,7 +95,6 @@ const updateGroup = asyncHandler(async (request, result) => {
     try {
         // Deconstruct the JSON body
         const {
-            studentID,
             groupID,
             name,
             description,
@@ -168,40 +168,38 @@ const deleteGroup = asyncHandler(async (request, result) => {
 const joinGroup = asyncHandler(async (request, result) => {
     try {
         // Deconstruct the JSON body
-        const {
-            studentID,
-            groupID
-        } = request.body
+        const { studentID } = request.body
+        const groupID = request.params.groupID
 
         // Verify that all parameters are not empty
         if (!studentID) {
-            return response.status(400).json({ error: "Required variable 'studentID' not provided"})
+            return result.status(400).json({ error: "Required variable 'studentID' not provided"})
         }
 
         if (!groupID) {
-            return response.status(400).json({ error: "Required variable 'groupID' not provided" })
+            return result.status(400).json({ error: "Required variable 'groupID' not provided" })
         }
 
         // Get the data from Mongo
-        const searchedStudent = Student.findById(studentID)
-        const searchedGroup = Group.findById(groupID)
+        const searchedStudent = await Student.findById(studentID)
+        const searchedGroup = await Group.findById(groupID)
         
         // Check if the query returned anything
         if (!searchedStudent) {
-            return response.status(404).json({ error: `Student object with id ${studentID} not found`})
+            return result.status(404).json({ error: `Student object with id ${studentID} not found`})
         }
 
         if (!searchedGroup) {
-            return response.status(404).json({ error: `Group object with id ${groupID} not found`})
+            return result.status(404).json({ error: `Group object with id ${groupID} not found`})
         }
-
+        
         // Check if the user is already in the group
         if (
             searchedGroup.memberIDs.includes(studentID) ||
             searchedGroup.administratorIDs.includes(studentID) ||
-            searchedGroup.ownerID === studentID
+            searchedGroup.ownerID.equals(studentID)
         ) {
-            return response.status().json({ error: "Student is already a member of the group" });
+            return result.status(409).json({ error: "Student is already a member of the group" });
         }
 
         // Link the group and user objects
@@ -213,7 +211,7 @@ const joinGroup = asyncHandler(async (request, result) => {
         await searchedStudent.save();
 
         // Send back a response
-        return response.status(201).json({ searchedGroup, searchedStudent })
+        return result.status(201).json({ group: searchedGroup, student: searchedStudent })
     } catch (e) {
         return result.status(500).json({ error: e.message });
     }
@@ -222,7 +220,7 @@ const joinGroup = asyncHandler(async (request, result) => {
 const getMessages = asyncHandler(async (request, result) => {
     try {
         // Deconstruct the JSON body
-        const groupID = request.body
+        const groupID = request.params.groupID
 
         // Verify that the parameters are not empty
         if (!groupID) {

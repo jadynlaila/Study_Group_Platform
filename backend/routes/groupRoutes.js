@@ -16,12 +16,12 @@ router.route("/")
 .put(createGroup)
 .delete(deleteGroup)
 
-// localhost:5678/api/group/messages/
-router.route("/messages/:groupID/:studentID")
-.get(getMessages)
+// localhost:5678/api/group/messages/<groupID>
+router.route("/messages/:groupID")
+    .get(getMessages)
 
-// localhost:5678/api/group/join/
-router.route("/join/:groupID/:studentID")
+// localhost:5678/api/group/join/<groupID>
+router.route("/join/:groupID")
     .put(joinGroup)
 
 module.exports = router
