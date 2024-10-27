@@ -31,6 +31,85 @@ Remember: All source code should be submitted by means of pull requests, and the
 
 Grading criteria (10 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the Reviewer. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
 
+Example of Requirement Description
+Requirement: As a Student, I want to add a homework assignment so that I can organize my ToDo list.
+
+Issue: https://github.com/fake-user/project/issues/45Links to an external site.
+
+Pull request: https://github.com/fake-user/project/pull/426Links to an external site.
+
+Implemented by: Martin Fowler
+
+Approved by: Ada Lovelace
+
+Print screen: A print screen that depicts the implemented feature (if applicable)
+
+## Jadyn Calhoun
+
+**Requirement:** As a student, I want to be able to create an account with all of my information.
+
+**Issue:** [User Story - Account Creation ](https://github.com/jadynlaila/Study_Group_Platform/issues/100)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/84)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:**
+
+**Print screen:**
+
+
+**Requirement:** As a student, I want to be able to freely update my account information and settings.
+
+**Issue:** [User Story - Account Setting Management](https://github.com/jadynlaila/Study_Group_Platform/issues/101)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/84)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:**
+
+**Print screen:**
+
+
+**Requirement:** As a recently graduated student, I would like to delete my account as I no longer need study groups.
+
+**Issue:** [User Story - Account Deletion](https://github.com/jadynlaila/Study_Group_Platform/issues/102)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/84)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:**
+
+**Print screen:**
+
+
+**Requirement:** As a student, I want to leave some of the groups I joined for old classes.
+
+**Issue:** [User Story - Group Removal](https://github.com/jadynlaila/Study_Group_Platform/issues/103)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/84)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:**
+
+**Print screen:**
+
+
+**Requirement:** As a student, I want to join groups related to my classes.
+
+**Issue:** [User Story - Joining Groups](https://github.com/jadynlaila/Study_Group_Platform/issues/23)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/84)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:**
+
+**Print screen:**
+
 3. Tests
 You should implement automated tests that aim to verify the correct behavior of your code. Provide the following information:
 
