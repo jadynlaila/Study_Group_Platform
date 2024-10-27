@@ -143,8 +143,26 @@ Grading criteria (4 points): You should have an adequate number of automated tes
 
 ## 5. Learning / Training
 
+*Describe the strategies employed by the team to learn the adopted technologies.* 
+
+*Grading criteria (1 point): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, and adequate use of language.*
+
+
 
 ## 6. Deployment
+
+*Provide a link for the system in production and describe how you are deploying your system.*
+
+*Some alternatives for deploying your system in the cloud:*
+
+- *AWS. AWS Educate offers free credits for students. See the tutorial at https://docker-curriculum.com/Links to an external site. on how to create a container and deploy it on AWS.*
+- *Digital Ocean or Azure. As part of the GitHub Education benefits, as a student, you can get $100 at Digital Ocean and $100 at Microsoft Azure cloud computing platforms (see more details at https://education.github.com/studentsLinks to an external site.).*
+- *Oracle Cloud. Oracle offers a free tier in its cloud environment that should be more than enough for your needs.*
+- *Firebase. Firebase can be a good choice if you are building a mobile phone app.*
+
+*Grading criteria (3 points): This section will be graded based on the adequate use of the technology and its adequate description.*
+
+Our software will be deployed as a web server on a remote server hosted by Hostwinds which we have previously set up. We additionally obtained the domain `study-sphere.me` so anyone can easily navigate to the website and set that up appropriately.
 
 ## 7. Licensing
 
