@@ -74,6 +74,23 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Print screen:** ![Postman Join Group](res/jadyn_d4/jadyn_add_group.png)
 
+### Daira Santacruz
+
+
+### Jack Lealos
+
+
+### Alexander Anthis
+
+
+### Rudra Amin
+
+
+### Valentino Valero
+
+
+
+
 ## 3. Tests
 You should implement automated tests that aim to verify the correct behavior of your code. Provide the following information:
 
