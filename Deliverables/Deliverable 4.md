@@ -117,9 +117,9 @@ StudySphere is an application designed to provide students with a simple, straig
 **Requirement:** As a student, I want to be able to find students in my class section so that I can meet people who are on the same page as me.
 
 **Issue:** 
- [ClassSection](https://github.com/jadynlaila/Study_Group_Platform/issues/30)
+ [User Story - Easy to navigate #43](https://github.com/jadynlaila/Study_Group_Platform/issues/43)
 
-**Pull request:** [NavBar](https://github.com/jadynlaila/Study_Group_Platform/pull/97)
+**Pull request:** [NavBar Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/97)
 
 **Implemented by:** Valentino Valero
 
