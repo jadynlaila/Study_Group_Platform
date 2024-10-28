@@ -107,7 +107,19 @@ StudySphere is an application designed to provide students with a simple, straig
 
 
 ### Alexander Anthis
+**Requirement:** I want to be able to find students in my class section so that I can meet people who are on the same page as me.
 
+**Issue:** [User story- Student Communication](https://github.com/jadynlaila/Study_Group_Platform/issues/30)
+
+**Pull request:** 
+
+**Implementated by:** Alexander Anthis
+
+**Approved by:** Jadyn Calhoun
+
+**Print screen:** 
+
+![Group Object JSON](res/alex_d4/group-object-json.png)
 
 ### Rudra Amin
 
