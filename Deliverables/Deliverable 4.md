@@ -137,7 +137,8 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Approved by:**
 
-**Print screen:** ![NavBar](res/valentino_d4/NavBar2.mp4)
+**Print screen:** ![NavBar2](res/valentino_d4/NavBar.png)
+![NavBar](res/valentino_d4/NavBar2.mp4)
 
 
 ## 3. Tests
