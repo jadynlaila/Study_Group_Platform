@@ -251,11 +251,7 @@ In retrospective, describe what your team learned during this first release and 
 Grading criteria (2 points): Adequate reflection about problems and solutions, clear description with adequate use of language. 
 
 ## 11. Demo
-Include a link to a video showing the system working.
-
-Grading criteria (6 points): This section will be graded based on the quality of the video and on the evidence that the features are running as expected. Additional criteria are the relevance of the demonstrated functionalities, the correctness of the functionalities, and the quality of the developed system from the external point of view (user interface).
-
-
+StudySphere Demo: https://youtu.be/2Xfjad_uX2Q
 
 ## ASSIGNMENTS: 
 Intro (1pt) - Jadyn 
