@@ -11,10 +11,11 @@ const {
 
 // localhost:5678/api/group/
 router.route("/")
-.get(getGroup)
 .post(updateGroup)
 .put(createGroup)
 .delete(deleteGroup)
+
+router.route("/:groupID").get(getGroup)
 
 // localhost:5678/api/group/messages/<groupID>
 router.route("/messages/:groupID")

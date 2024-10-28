@@ -77,7 +77,7 @@ const createGroup = asyncHandler(async (request, result) => {
 const getGroup = asyncHandler(async (request, result) => {
     try {
         // Deconstruct the JSON body
-        const { groupID } = request.body
+        const groupID = request.params.groupID
 
         console.debug(`\n\nGot a GET request for group ${groupID}`)
         
