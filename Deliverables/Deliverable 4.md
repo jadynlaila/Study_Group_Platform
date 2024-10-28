@@ -111,7 +111,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Issue:** [User story- Student Communication](https://github.com/jadynlaila/Study_Group_Platform/issues/30)
 
-**Pull request:** 
+**Pull request:** (none, forgot to make one before merging)
 
 **Implementated by:** Alexander Anthis
 
