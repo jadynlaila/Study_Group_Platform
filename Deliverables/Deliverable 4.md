@@ -218,6 +218,13 @@ test('should update a group', async () => {
 
 Our software will be deployed as a web server on a remote server hosted by Hostwinds which we have previously set up. We additionally obtained the domain `study-sphere.me` so anyone can easily navigate to the website and set that up appropriately.
 
+To access the servers you can follow the following links:
+
+Front End React Server: http://study-sphere.me:3001
+
+Back End API: http://study-sphere.me:6000
+
+
 ## 7. Licensing
 
 We chose to apply the Apache license to our software. There are several reasons for this:
