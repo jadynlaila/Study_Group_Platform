@@ -16,7 +16,8 @@ const groupChats = [
   { id: '9', name: 'The best group chat ever' },
 ];
 
-axios.defaults.baseURL = "http://localhost:6000"
+// axios.defaults.baseURL = `http://localhost:${process.env.PORT || 3000}`
+let baseURL = `http://localhost:${process.env.PORT || 6789}`
 
 axios.interceptors.request.use(request => {
   console.log('Starting Request', JSON.stringify(request, null, 2))
@@ -45,7 +46,7 @@ const GroupChatModule = () => {
   // Fetch the list of students from the API
   const fetchMessages = async () => {
       try {
-          const response = await axios.get('/api/group/messages/671d57dff4700d4390bae352');
+          const response = await axios.get(`${baseURL}/api/group/messages/671d57dff4700d4390bae352`);
           console.log('Students:', response.data);
           return response.data
       } catch (error) {
