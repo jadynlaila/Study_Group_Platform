@@ -138,6 +138,60 @@ Grading criteria (4 points): You should have an adequate number of automated tes
 
 **Execution Result:** ![Student Controller Test Execution](res/jadyn_d4/jadyn_jest.png)
 
+### Alexander Anthis
+**Test Framework**: Jest and Supertest
+
+**Automated Tests Location**: [studentController.test.js](https://github.com/jadynlaila/Study_Group_Platform/blob/65-dev_backend_groupController/backend/controllers/studentController.test.js)
+
+**Test Case Example**: 
+```javascript
+test('should update a group', async () => {
+    const name = "JEST Test Group"
+    const description = "This is a test"
+    const courses = "CS386"
+    const updatedCourses = "CS300"
+    const majors = "Computer Science"
+    const ownerID = studentID
+    const profilePictureID = null
+
+    // Create the group first
+    // Send the put request
+    const createResponse = await request(`${serverAddress}/api/group`).put('/').send({
+        name, description, courses, majors, memberLimit: 6, ownerID, profilePictureID
+    });
+    
+    // Deconstruct the body of the response
+    const { groupID, group } = createResponse.body;
+    
+    // TEST: Make sure the group was created
+    expect(createResponse.status).toBe(201)
+
+    // Send an updated group
+    // Send the post request
+    const updateResponse = await request(`${serverAddress}/api/group`).post('/').send({
+        groupID,
+        courses: updatedCourses,
+    })
+
+    // TEST: make sure we get a good status code
+    expect(updateResponse.statusCode).toBe(200)
+
+    // Instead of using the response object, obtain the updated object from Mongo
+    let searchedGroup = await Group.findById(groupID)
+
+    console.log(`Old group: ${JSON.stringify(group)}`)
+    console.log(`Updated group: ${searchedGroup}`)
+
+    // TEST: make sure the group was updated
+    expect(searchedGroup.courses).toBe("CS300")
+
+    await Group.findByIdAndDelete(groupID)
+});
+```
+
+**Execution Result**:
+![Group Controller Test Execution](res/alex_d4/alex_jest.png)
+
 ## 4. Adopted technologies
 
 **JavaScript** is a versatile, high-level programming language primarily used for adding interactivity to web pages. It enables dynamic content, user engagement, and complex functionalities on both the client and server sides. There is a large community of people who work with this technology, so it also has extensive resources, support, and libraries available.
@@ -173,13 +227,35 @@ The team used several strategies to learn React, MongoDB, and Jest, which were n
 
 For automated testing, we used Jest, which at first seemed challenging. However, online tools and documentation made it easier to apply. With these resources, we successfully validated component outputs for Deliverable 4 and ensured key features were tested. Overall, the combination of tutorials, Stack Overflow, and open-source resources gave us the knowledge needed to meet our project goals.
 
-
 ## 6. Deployment
 
-## 7. Licensing
-Inform the license you adopted for your source code (remember to configure GitHub accordingly). Explain why you adopted this license. For more information, check https://choosealicense.com/Links to an external site..
+*Provide a link for the system in production and describe how you are deploying your system.*
 
-Grading criteria (1 point): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, and adequate use of language.
+*Some alternatives for deploying your system in the cloud:*
+
+- *AWS. AWS Educate offers free credits for students. See the tutorial at https://docker-curriculum.com/Links to an external site. on how to create a container and deploy it on AWS.*
+- *Digital Ocean or Azure. As part of the GitHub Education benefits, as a student, you can get $100 at Digital Ocean and $100 at Microsoft Azure cloud computing platforms (see more details at https://education.github.com/studentsLinks to an external site.).*
+- *Oracle Cloud. Oracle offers a free tier in its cloud environment that should be more than enough for your needs.*
+- *Firebase. Firebase can be a good choice if you are building a mobile phone app.*
+
+*Grading criteria (3 points): This section will be graded based on the adequate use of the technology and its adequate description.*
+
+Our software will be deployed as a web server on a remote server hosted by Hostwinds which we have previously set up. We additionally obtained the domain `study-sphere.me` so anyone can easily navigate to the website and set that up appropriately.
+
+To access the servers you can follow the following links:
+
+Front End React Server: http://study-sphere.me:3001
+
+Back End API: http://study-sphere.me:6000
+
+
+## 7. Licensing
+
+We chose to apply the Apache license to our software. There are several reasons for this:
+
+- Anyone can use and redistribute our software/code.
+- Our trademark cannot be used.
+- There is no warranty provided, so the software is provided as is. However, derivatives can choose to offer their own warranties.
 
 ## 8. README File
 You should also prepare your repository to receive new developers. You should prepare a README.md file. See an example at https://gist.github.com/PurpleBooth/109311bb0361f32d87a2Links to an external site.. In the README file, the current version of the software should be stated. You should follow the Semantic VersioningLinks to an external site. schema. Tag the GitHub repository accordingly (see Git Basics TaggingLinks to an external site.). 
@@ -198,11 +274,7 @@ Grading criteria (3 points): This section will be graded based on the appearance
 Through our first release of StudySphere, we learned that having a structured plan is key to completing a deliverable efficiently and in an organized manner. Although we struggled with coordinating in-person meetings, we found that online meetings worked well for everyone’s convenience, allowing us to stay connected and aligned. For our second release, we're excited to implement more regular check-ins and establish a clearer workflow for code reviews. This way, we can ensure that everyone is on the same page and enhance our collaboration. We're looking forward to streamlining our development efforts and achieving an even more successful outcome together. 
 
 ## 11. Demo
-Include a link to a video showing the system working.
-
-Grading criteria (6 points): This section will be graded based on the quality of the video and on the evidence that the features are running as expected. Additional criteria are the relevance of the demonstrated functionalities, the correctness of the functionalities, and the quality of the developed system from the external point of view (user interface).
-
-
+StudySphere Demo: https://youtu.be/2Xfjad_uX2Q
 
 ## ASSIGNMENTS: 
 Intro (1pt) - Jadyn 
