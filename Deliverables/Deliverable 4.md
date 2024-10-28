@@ -8,7 +8,7 @@ StudySphere is an application designed to provide students with a simple, straig
 ## 2. Implemented requirements
 
 
-### Jadyn Calhoun
+### Jadyn Calhoun 
 
 **Requirement:** As a student, I want to be able to create an account with all of my information.
 
@@ -18,7 +18,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Create Student](res/jadyn_d4/jadyn_create_student.png)
 
@@ -31,7 +31,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Update Student](res/jadyn_d4/jadyn_update_student.png)
 
@@ -44,7 +44,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Delete Account](res/jadyn_d4/jadyn_delete_student.png)
 
@@ -57,7 +57,7 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Remove Group](res/jadyn_d4/jadyn_remove_group.png)
 
@@ -70,14 +70,40 @@ StudySphere is an application designed to provide students with a simple, straig
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:**
+**Approved by:** Daira Santacruz
 
 **Print screen:** ![Postman Join Group](res/jadyn_d4/jadyn_add_group.png)
 
 ### Daira Santacruz
 
+**Requirement:** As a student, I want to be able to communicate well with my groups so that we can keep our conversations organized.
+
+**Issue:** [User Story - Organized Communication ](https://github.com/jadynlaila/Study_Group_Platform/issues/31)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/108)
+
+**Implemented by:** Daira Santacruz
+
+**Approved by:** 
+
+**Print screen:** ![Group Chat Module](res/daira_d4/D4_GroupChatModule.png)
+
 
 ### Jack Lealos
+
+**Requirement:** As a student, I want to be able to connect with other students so that we can communicate times to meet and study.
+
+**Issue:** 
+ [User story- Student Communication](https://github.com/jadynlaila/Study_Group_Platform/issues/40)
+[Main UI - Text Region #92](https://github.com/jadynlaila/Study_Group_Platform/issues/92)
+
+**Pull request:** [Jack frontend contributions #111](https://github.com/jadynlaila/Study_Group_Platform/pull/111)
+
+**Implemented by:** Jack Lealos
+
+**Approved by:**
+
+**Print screen:** ![Text region example](res/text-region-display.png)
 
 
 ### Alexander Anthis
@@ -182,7 +208,7 @@ test('should update a group', async () => {
 
 **MongoDB** is a NoSQL database that allows flexible, document-based data storage, making it easy to scale and adapt as the application grows.
 
-**Mongoose**is a library for MongoDB that makes working with the database data more structured and organized. Specifically, we use it to create models of the data and to verify that given IDs are valid MongoDB IDs.
+**Mongoose** is a library for MongoDB that makes working with the database data more structured and organized. Specifically, we use it to create models of the data and to verify that given IDs are valid MongoDB IDs.
 
 **React** is a JS library for building user interfaces that enables the creation of interactive, component-based UIs, perfect for the dynamic features of the platform.
 
@@ -197,11 +223,9 @@ test('should update a group', async () => {
 
 ## 5. Learning / Training
 
-*Describe the strategies employed by the team to learn the adopted technologies.* 
+The team used several strategies to learn React, MongoDB, and Jest, which were new to many of us. We relied on YouTube tutorials and reference videos to get a solid understanding and build a working React project with MongoDB integration. Stack Overflow was also a key resource, providing quick answers and solutions to specific coding issues we encountered.
 
-*Grading criteria (1 point): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, and adequate use of language.*
-
-
+For automated testing, we used Jest, which at first seemed challenging. However, online tools and documentation made it easier to apply. With these resources, we successfully validated component outputs for Deliverable 4 and ensured key features were tested. Overall, the combination of tutorials, Stack Overflow, and open-source resources gave us the knowledge needed to meet our project goals.
 
 ## 6. Deployment
 
@@ -246,9 +270,8 @@ Describe the approach you adopted to design your user interface. Include some sc
 Grading criteria (3 points): This section will be graded based on the appearance (aesthetics) and usability (ease of use) of the system.
 
 ## 10. Lessons learned
-In retrospective, describe what your team learned during this first release and what you are planning to change for the second release. 
 
-Grading criteria (2 points): Adequate reflection about problems and solutions, clear description with adequate use of language. 
+Through our first release of StudySphere, we learned that having a structured plan is key to completing a deliverable efficiently and in an organized manner. Although we struggled with coordinating in-person meetings, we found that online meetings worked well for everyone’s convenience, allowing us to stay connected and aligned. For our second release, we're excited to implement more regular check-ins and establish a clearer workflow for code reviews. This way, we can ensure that everyone is on the same page and enhance our collaboration. We're looking forward to streamlining our development efforts and achieving an even more successful outcome together. 
 
 ## 11. Demo
 StudySphere Demo: https://youtu.be/2Xfjad_uX2Q
