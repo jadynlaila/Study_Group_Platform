@@ -59,4 +59,17 @@ How does your design observe the SOLID principles? Provide a short description o
 
 Grading criteria (6 points): Show correct understanding of SOLID principles; Provide enough details to justify how the principles were observed.
 
+### Single Responsibility Principle
+
+
+### Open-Closed Principle
+
+
+### Liskov Substitution Principle
+
+
+### Interface Segregation Principle
+
+
+### Dependency Inversion Principle
 
