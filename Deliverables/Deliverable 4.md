@@ -8,6 +8,23 @@ StudySphere is an application designed to provide students with a simple, straig
 ## 2. Implemented requirements
 
 
+### Rudra Amin
+
+**Requirement:** As a student, I want to be able to send a message to a group chat
+
+**Issue:** [User Story - Account Creation](https://github.com/jadynlaila/Study_Group_Platform/issues/115)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/83)
+
+**Implemented by:** Rudra Amin
+
+**Approved by:** Alex
+
+**Print screenL** ![Postman get message](/Users/rudraamin/Documents/CS_386/Study_Group_Platform/res/getMessage.png)
+
+
+
+
 ### Jadyn Calhoun 
 
 **Requirement:** As a student, I want to be able to create an account with all of my information.
