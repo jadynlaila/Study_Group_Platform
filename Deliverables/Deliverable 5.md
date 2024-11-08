@@ -60,16 +60,22 @@ How does your design observe the SOLID principles? Provide a short description o
 Grading criteria (6 points): Show correct understanding of SOLID principles; Provide enough details to justify how the principles were observed.
 
 ### Single Responsibility Principle
+*A class should have one and only one reason to change, meaning that a class should have only one job.*
 
+In our product, the `Student`, `Group`, and `Message` classes do not meet the criteria for the Single Responsibility Principle as these classes have different functions that trigger depending on the HTTP request type. The "classes" themselves are Mongoose objects, and do not implement any form of inheritance.
 
 ### Open-Closed Principle
+*Objects or entities should be open for extension but closed for modification.*
 
+In our product, our classes do not implement the Open-Closed Princple. This is because we do not use any specialized interfaces for tasks such as saving/retreiving information as we let Mongoose/MongoDB take care of that for us.
 
 ### Liskov Substitution Principle
+*Let q(x) be a property provable about objects of x of type T. Then q(y) should be provable for objects y of type S where S is a subtype of T.*
+
 
 
 ### Interface Segregation Principle
-
+*A client should never be forced to implement an interface that it doesn’t use, or clients shouldn’t be forced to depend on methods they do not use.*
 
 ### Dependency Inversion Principle
-
+*Entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but they should depend on abstractions.*
