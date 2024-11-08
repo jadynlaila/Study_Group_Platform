@@ -70,12 +70,22 @@ In our product, the `Student`, `Group`, and `Message` classes do not meet the cr
 In our product, our classes do not implement the Open-Closed Princple. This is because we do not use any specialized interfaces for tasks such as saving/retreiving information as we let Mongoose/MongoDB take care of that for us.
 
 ### Liskov Substitution Principle
-*Let q(x) be a property provable about objects of x of type T. Then q(y) should be provable for objects y of type S where S is a subtype of T.*
+*Subtypes should be replaceable by their base types*
 
-
+The Liskov Substitution Principle does not apply to our product because we do not currently make use of any subtypes or any form of inheritance.
 
 ### Interface Segregation Principle
 *A client should never be forced to implement an interface that it doesn’t use, or clients shouldn’t be forced to depend on methods they do not use.*
 
+The Interface Segregation Principle does not apply to our product because we do not make use of interfaces or inheritance. Instead, our classes are sent as JSON objects when requested by HTTP requests, whether by the frontend or backend, so there are no inherent methods or interfaces available.
+
 ### Dependency Inversion Principle
 *Entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but they should depend on abstractions.*
+
+Each class contains two implementation types:
+- HTTP request
+- Mongoose library calls
+
+Both of these implementation methods contain a one-way abstraction where the caller doesn't need to know how how either implementation works but can still work with data in a simple way.
+
+For example, the `Student` class contains abstraction methods for obtaining/saving data via an HTTP request, and those abstraction methods contain further abstractions for saving or retreiving data from the database.
