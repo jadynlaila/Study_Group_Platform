@@ -62,17 +62,17 @@ Grading criteria (6 points): Show correct understanding of SOLID principles; Pro
 ### Single Responsibility Principle
 *A class should have one and only one reason to change, meaning that a class should have only one job.*
 
-In our product, the `Student`, `Group`, and `Message` classes do not meet the criteria for the Single Responsibility Principle as these classes have different functions that trigger depending on the HTTP request type. The "classes" themselves are Mongoose objects, and do not implement any form of inheritance.
+In our product, the `Student`, `Group`, and `Message` classes meet the criteria for the Single Responsibility Principle as these classes are each responsible for their own tasks and not each others', but for circumstances where an object from one class has to modify data within another class, that target class's interface is called. For example, if a student object is trying to join a group, it will use interfaces from the Group class in order to perform those actions.
 
 ### Open-Closed Principle
 *Objects or entities should be open for extension but closed for modification.*
 
-In our product, our classes do not implement the Open-Closed Princple. This is because we do not use any specialized interfaces for tasks such as saving/retreiving information as we let Mongoose/MongoDB take care of that for us.
+In our product, our classes implement the Open-Closed Princple as each class is open to having subclasses and other extensions without requiring the modification of the parent classes. For example, if we wanted to make a subclass of `Group` such as `ProjectGroup` or `StudyGroup`, the parent class would not have to be modified.
 
 ### Liskov Substitution Principle
 *Subtypes should be replaceable by their base types*
 
-The Liskov Substitution Principle does not apply to our product because we do not currently make use of any subtypes or any form of inheritance.
+Within our product, subtypes (which currently do not exist) are able to be replaced by their base types, fulfilling the Liskov Substitution Principle. For example, if we were to make a subclass `ProjectGroup` from `Group`, then you can still treat both classes the same.
 
 ### Interface Segregation Principle
 *A client should never be forced to implement an interface that it doesn’t use, or clients shouldn’t be forced to depend on methods they do not use.*
