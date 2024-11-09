@@ -35,15 +35,42 @@ Grading criteria (5 points): Adequate use of UML; Adequate design of the sequenc
 
 ```mermaid
 sequenceDiagram
-    actor Student
+    title: Sequence Diagram - Sending a Message
+
+    %% Define actors and participants
+    actor User
     participant Browser
-    participant API
-    participant Student Object
-    participant Group Object
-    participant Message Object
+    participant Server
+    participant Message
+    participant Group
     participant Database
 
-    
+    %% Perform routing
+    User->>Browser: Send Message 
+    Browser->>Server: HTTP Request
+    Server->>Message: Handle Message
+
+    %% Verify that the destination group exists
+    critical Verify Destination Group
+        Message->>Database: Request group object
+    option Group object found
+        Database-->>Message: Return group object
+
+        %% This is where we start modifying data
+        Message->>Database: Save Message object
+        Message->>Group: Add message ID to dest group
+        Group->>Database: Save updated Group object
+
+        %% Respond to the original request
+        Message-->>Server: Response with Message Data
+        Server-->>Browser: HTTP Response
+        Browser-->>User: Display Confirmation
+    option Group object not found
+        Database-->>Message: Return nothing
+        Message-->>Server: Send response code 404
+        Server-->>Browser: HTTP response
+        Browser-->>User: Display error
+    end
 ```
 
 ## 5. Design Patterns
