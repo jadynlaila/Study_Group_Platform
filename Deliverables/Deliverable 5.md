@@ -11,11 +11,28 @@ Grading criteria (2 points): Completeness; Consistency with the rest of the docu
 
 
 ## 2. Architecture
-Present a diagram of the high-level architecture of your system. Use a UML package diagram to describe the main modules and their interrelation. Please check these [examples](https://www.uml-diagrams.org/package-diagrams-overview.html). Make clear the layers of your architecture (if they exist) as described in [Multi-Layered Application: UML Model Diagram Example](https://www.uml-diagrams.org/multi-layered-application-uml-model-diagram-example.html).
 
-Provide a brief rationale of your architecture explaining why you designed it that way. 
+### UML Package Diagram - Study Sphere
 
-Grading criteria (5 points): Adequate use of UML; Adequate design of an architecture for the system; Adequate description of the rationale.
+![Daira's UML package Diagram](res/daira_d5/UMLpackagediagram.png)
+
+The StudySphere system is designed to facilitate collaboration among college students for study groups. The goal of this package diagram is to organize the system into manageable components that align with different system functionalities, ensuring clear boundaries and easy maintenance. The system is divided into key packages: Authentication, Back End, Database (MongoDB), Main User Interface, Message, Student, and Study Group.
+
+### Package Breakdown:
+**Authentication Package:** This package manages user login and registration. It is separate because authentication is a cross-cutting concern for security and should be handled independently. It relies on MongoDB for storing user credentials and validating them during login.
+
+**Back End Package:** This package contains all the server-side logic, including logic for managing students, study groups, and messages. The Back End package depends on the MongoDB package to retrieve and store data and is essential for processing user requests.
+
+**Database: MongoDB Package:** This package is responsible for the data storage and retrieval logic of the system. All the data required for students, study groups, and messages are stored here. This is kept separate because it acts as the core database layer that does not depend on other parts of the system.
+
+**Main UI Package:** This package represents the front-end components of the application, including interfaces for login/registration, group browsing, and settings. The UI components interact with the Back End to request and display data to users. 
+
+**Message Package:** This package is responsible for handling messaging between students within study groups. It communicates with both the Study Group package for context and MongoDB for persistent storage of messages. It is separated because it deals with a specific feature that is distinct from other functionalities like authentication or data storage.
+
+**Student Package:** The Student package contains all the student-specific data and logic, such as their registration details, study group memberships, and other relevant personal information. This package is essential as it interacts with both the Authentication package (for login credentials) and the Study Group package (to allow students to join groups). It also stores student data in MongoDB and ensures that the student’s profile is updated accordingly.
+
+**Study Group Package:** This package contains the logic for creating, managing, and browsing study groups. It depends on the MongoDB package for storing group data and the Message package for sending messages to members. It has its own distinct functionality, so it is kept as a separate package.
+
 
 
 
