@@ -77,7 +77,7 @@ Within our product, subtypes (which currently do not exist) are able to be repla
 ### Interface Segregation Principle
 *A client should never be forced to implement an interface that it doesn’t use, or clients shouldn’t be forced to depend on methods they do not use.*
 
-The Interface Segregation Principle does not apply to our product because we do not make use of interfaces or inheritance. Instead, our classes are sent as JSON objects when requested by HTTP requests, whether by the frontend or backend, so there are no inherent methods or interfaces available.
+Our product does not currently follow the Interface Segregation Principle as our classes `Student`, `Group`, and `Message` are currently only have catch-all interfaces that handle everything about that class. While we could modify our class structure to accomidate for that, it isn't currently implemented, nor is it particularly on our roadmap.
 
 ### Dependency Inversion Principle
 *Entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but they should depend on abstractions.*
