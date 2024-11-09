@@ -35,10 +35,15 @@ Grading criteria (5 points): Adequate use of UML; Adequate design of the sequenc
 
 ```mermaid
 sequenceDiagram
-    Alice->>John: Hello John, how are you?
-    John-->>Alice: Great!
-    Alice-)John: See you later!
+    actor Student
+    participant Browser
+    participant API
+    participant Student Object
+    participant Group Object
+    participant Message Object
+    participant Database
 
+    
 ```
 
 ## 5. Design Patterns
