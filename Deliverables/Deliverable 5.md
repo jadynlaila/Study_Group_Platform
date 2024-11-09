@@ -30,45 +30,7 @@ Grading criteria (6 points): Adequate use of UML; Adequate choice of classes and
 
 ## 4. Sequence diagram
 
-```mermaid
-sequenceDiagram
-    title: Sequence Diagram - Sending a Message
-
-    %% Define actors and participants
-    actor User
-    participant Browser
-    participant Server
-    participant Message
-    participant Group
-    participant Database
-
-    %% Perform routing
-    User->>Browser: Send Message 
-    Browser->>Server: HTTP Request
-    Server->>Message: Handle Message
-
-    %% Verify that the destination group exists
-    critical Retrieve destination Group object
-        Message->>Database: Request group object
-    option Group object found
-        Database-->>Message: Return group object
-
-        %% This is where we start modifying data
-        Message->>Database: Save Message object
-        Message->>Group: Add message ID to dest group
-        Group->>Database: Save updated Group object
-
-        %% Respond to the original request
-        Message-->>Server: Response with Message Data
-        Server-->>Browser: HTTP Response
-        Browser-->>User: Display Confirmation
-    option Group object not found
-        Database-->>Message: Return nothing
-        Message-->>Server: Send response code 404
-        Server-->>Browser: HTTP response
-        Browser-->>User: Display error
-    end
-```
+![[res/alex_d5/d5-seq_diagram.png]]
 
 ## 5. Design Patterns
 Split this section into two subsections. For each subsection, present a UML class diagram showing the application of a design pattern to your system (a different pattern for each section). Each class diagram should contain only the classes involved in the specific pattern (you don’t need to represent the whole system). Choose patterns from two different categories: Behavioral, Structural, and Creational. You are not limited to design patterns studied in class. 
