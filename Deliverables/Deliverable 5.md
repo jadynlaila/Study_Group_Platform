@@ -29,9 +29,6 @@ Grading criteria (6 points): Adequate use of UML; Adequate choice of classes and
 
 
 ## 4. Sequence diagram
-Present a sequence diagram that represents how the objects in your system interact for a specific use case. Also include the use case's description in this section. The sequence diagram should be consistent with the class diagram and architecture. 
-
-Grading criteria (5 points): Adequate use of UML; Adequate design of the sequence diagram; Consistency with the class diagram; Consistency with the use case description; Not including the use case description; Over simplistic diagram.
 
 ```mermaid
 sequenceDiagram
