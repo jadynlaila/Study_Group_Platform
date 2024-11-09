@@ -51,7 +51,7 @@ sequenceDiagram
     Server->>Message: Handle Message
 
     %% Verify that the destination group exists
-    critical Verify Destination Group
+    critical Retrieve destination Group object
         Message->>Database: Request group object
     option Group object found
         Database-->>Message: Return group object
