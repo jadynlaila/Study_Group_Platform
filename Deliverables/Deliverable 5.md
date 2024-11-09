@@ -55,9 +55,6 @@ Grading criteria (6 points, 3 for each pattern): Correct use of the design patte
 
 
 ## 6. Design Principles
-How does your design observe the SOLID principles? Provide a short description of the principles followed and give concrete examples from your classes. 
-
-Grading criteria (6 points): Show correct understanding of SOLID principles; Provide enough details to justify how the principles were observed.
 
 ### Single Responsibility Principle
 *A class should have one and only one reason to change, meaning that a class should have only one job.*
