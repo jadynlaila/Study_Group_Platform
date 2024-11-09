@@ -55,8 +55,34 @@ Grading criteria (6 points, 3 for each pattern): Correct use of the design patte
 
 
 ## 6. Design Principles
-How does your design observe the SOLID principles? Provide a short description of the principles followed and give concrete examples from your classes. 
 
-Grading criteria (6 points): Show correct understanding of SOLID principles; Provide enough details to justify how the principles were observed.
+### Single Responsibility Principle
+*A class should have one and only one reason to change, meaning that a class should have only one job.*
 
+In our product, the `Student`, `Group`, and `Message` classes meet the criteria for the Single Responsibility Principle as these classes are each responsible for their own tasks and not each others', but for circumstances where an object from one class has to modify data within another class, that target class's interface is called. For example, if a student object is trying to join a group, it will use interfaces from the Group class in order to perform those actions.
 
+### Open-Closed Principle
+*Objects or entities should be open for extension but closed for modification.*
+
+In our product, our classes implement the Open-Closed Princple as each class is open to having subclasses and other extensions without requiring the modification of the parent classes. For example, if we wanted to make a subclass of `Group` such as `ProjectGroup` or `StudyGroup`, the parent class would not have to be modified.
+
+### Liskov Substitution Principle
+*Subtypes should be replaceable by their base types*
+
+Within our product, subtypes (which currently do not exist) are able to be replaced by their base types, fulfilling the Liskov Substitution Principle. For example, if we were to make a subclass `ProjectGroup` from `Group`, then you can still treat both classes the same.
+
+### Interface Segregation Principle
+*A client should never be forced to implement an interface that it doesn’t use, or clients shouldn’t be forced to depend on methods they do not use.*
+
+Our product does not currently follow the Interface Segregation Principle as our classes `Student`, `Group`, and `Message` are currently only have catch-all interfaces that handle everything about that class. While we could modify our class structure to accomidate for that, it isn't currently implemented, nor is it particularly on our roadmap.
+
+### Dependency Inversion Principle
+*Entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but they should depend on abstractions.*
+
+Each class contains two implementation types:
+- HTTP request
+- Mongoose library calls
+
+Both of these implementation methods contain a one-way abstraction where the caller doesn't need to know how how either implementation works but can still work with data in a simple way.
+
+For example, the `Student` class contains abstraction methods for obtaining/saving data via an HTTP request, and those abstraction methods contain further abstractions for saving or retreiving data from the database.
