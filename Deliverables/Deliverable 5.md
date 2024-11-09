@@ -64,7 +64,7 @@ In our product, the `Student`, `Group`, and `Message` classes meet the criteria 
 ### Open-Closed Principle
 *Objects or entities should be open for extension but closed for modification.*
 
-In our product, our classes implement the Open-Closed Princple as each class is open to having subclasses and other extensions without requiring the modification of the parent classes. For example, if we wanted to make a subclass of `Group` such as `ProjectGroup` or `StudyGroup`, the parent class would not have to be modified.
+In our product, our classes implement the Open-Closed Principle as each class is open to having subclasses and other extensions without requiring the modification of the parent classes. For example, if we wanted to make a subclass of `Group` such as `ProjectGroup` or `StudyGroup`, the parent class would not have to be modified.
 
 ### Liskov Substitution Principle
 *Subtypes should be replaceable by their base types*
@@ -74,7 +74,7 @@ Within our product, subtypes (which currently do not exist) are able to be repla
 ### Interface Segregation Principle
 *A client should never be forced to implement an interface that it doesn’t use, or clients shouldn’t be forced to depend on methods they do not use.*
 
-Our product does not currently follow the Interface Segregation Principle as our classes `Student`, `Group`, and `Message` are currently only have catch-all interfaces that handle everything about that class. While we could modify our class structure to accomidate for that, it isn't currently implemented, nor is it particularly on our roadmap.
+Our product does not currently follow the Interface Segregation Principle as our classes `Student`, `Group`, and `Message` are currently only have catch-all interfaces that handle everything about that class. While we could modify our class structure to accomodate for that, it isn't currently implemented, nor is it particularly on our roadmap.
 
 ### Dependency Inversion Principle
 *Entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but they should depend on abstractions.*
