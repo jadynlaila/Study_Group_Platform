@@ -9,6 +9,7 @@ Provide 1-2 paragraphs to describe your system to help understand the context of
 Grading criteria (2 points): Completeness; Consistency with the rest of the document; Adequate language.
 
 
+
 ## 2. Architecture
 Present a diagram of the high-level architecture of your system. Use a UML package diagram to describe the main modules and their interrelation. Please check these [examples](https://www.uml-diagrams.org/package-diagrams-overview.html). Make clear the layers of your architecture (if they exist) as described in [Multi-Layered Application: UML Model Diagram Example](https://www.uml-diagrams.org/multi-layered-application-uml-model-diagram-example.html).
 
