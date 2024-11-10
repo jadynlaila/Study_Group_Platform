@@ -4,10 +4,7 @@
 In this deliverable, you should describe the architectural design of your system. Structure your deliverable using the following sections. See the [Team Project Instructions](https://canvas.nau.edu/courses/29116/pages/team-project-%7C-overview) for details about formatting. Check the lecture materials and perform additional research to produce a high-quality deliverable. As usual, if you have any questions, let me know.
 
 ## 1. Description
-StudySphere allows students to create, manage, and delete their own **student accounts** as needed. The creation of the **student account** deals with attributes such as *email, password, username, Firstname, Lastname, and college* all of which are required prior to account creation. *username* cannot be changed post-registration. Users also have the ability to delete their **student accounts** if they feel the need to do so. The management part of the system relates to the user settings, a subset of account management covered in the following paragraph.
-
-StudySphere offers **group chats** that are moderately customizable in order to enhance the overall user experience and allow for efficient communication between students ( the main purpose of the product ). Each **group chat** allows the **owner** or **administrators** to modify **attributes** such as *group profile picture, group description, group title, members, member count limit, calendar updates, the deletion of the group, the creation of the group, and background color*. These **group chats** provide real time communication between **student accounts** and **groups**, enabling **users** to communicate effectively, plan meetings or study sessions, and most importantly making friends within their community.
-
+StudySphere allows students to create and manage their account, as well as create, join, and manage study groups! When a student account is created, we store a lot of information about them such as their name, email, college, and groups that they are a member/owner of. Upon account creation, they are prompted to join a group chat to meet other students to study with!
 
 
 ## 2. Architecture
