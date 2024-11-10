@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1730097933808" clover="3.2.0">
+  <project timestamp="1730097933808" name="All files">
+    <metrics statements="73" coveredstatements="72" conditionals="22" coveredconditionals="21" methods="7" coveredmethods="5" elements="102" coveredelements="98" complexity="0" loc="73" ncloc="73" packages="3" files="5" classes="5"/>
+    <package name="config">
+      <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="generateToken.js" path="/Users/twurp/Desktop/cs386/Study_Group_Platform/backend/config/generateToken.js">
+        <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="controllers">
+      <metrics statements="58" coveredstatements="58" conditionals="22" coveredconditionals="21" methods="6" coveredmethods="5"/>
+      <file name="studentController.js" path="/Users/twurp/Desktop/cs386/Study_Group_Platform/backend/controllers/studentController.js">
+        <metrics statements="58" coveredstatements="58" conditionals="22" coveredconditionals="21" methods="6" coveredmethods="5"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="5" type="stmt"/>
+        <line num="47" count="5" type="stmt"/>
+        <line num="54" count="5" type="cond" truecount="8" falsecount="0"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="58" count="4" type="stmt"/>
+        <line num="59" count="4" type="stmt"/>
+        <line num="60" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="63" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="97" count="1" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="124" count="1" type="stmt"/>
+        <line num="125" count="3" type="stmt"/>
+        <line num="126" count="3" type="stmt"/>
+        <line num="128" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="129" count="1" type="stmt"/>
+        <line num="132" count="1" type="stmt"/>
+        <line num="134" count="1" type="stmt"/>
+        <line num="136" count="1" type="stmt"/>
+        <line num="137" count="1" type="stmt"/>
+        <line num="143" count="1" type="stmt"/>
+        <line num="144" count="4" type="stmt"/>
+        <line num="145" count="4" type="stmt"/>
+        <line num="147" count="4" type="stmt"/>
+        <line num="148" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="149" count="1" type="stmt"/>
+        <line num="152" count="3" type="stmt"/>
+        <line num="157" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="158" count="1" type="stmt"/>
+        <line num="160" count="1" type="stmt"/>
+        <line num="162" count="1" type="stmt"/>
+        <line num="163" count="1" type="stmt"/>
+        <line num="170" count="1" type="stmt"/>
+        <line num="171" count="3" type="stmt"/>
+        <line num="172" count="3" type="stmt"/>
+        <line num="173" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="174" count="1" type="stmt"/>
+        <line num="176" count="1" type="stmt"/>
+        <line num="178" count="1" type="stmt"/>
+        <line num="179" count="1" type="stmt"/>
+        <line num="183" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="models">
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="GroupModel.js" path="/Users/twurp/Desktop/cs386/Study_Group_Platform/backend/models/GroupModel.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+      </file>
+      <file name="MessageModel.js" path="/Users/twurp/Desktop/cs386/Study_Group_Platform/backend/models/MessageModel.js">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+      </file>
+      <file name="StudentModel.js" path="/Users/twurp/Desktop/cs386/Study_Group_Platform/backend/models/StudentModel.js">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="61" count="3" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
