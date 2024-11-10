@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Student = require('../models/StudentModel');
 const Group = require("../models/GroupModel")
 const { getStudents, setStudent, updateStudent, deleteStudent, removeGroup } = require('./studentController');
+const generateTokenSetCookie = require("../config/generateToken");
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,9 @@ app.put('/api/students/:studentId/:groupId', removeGroup)
 
 jest.mock('../models/StudentModel');
 jest.mock('../models/GroupModel');
+jest.mock('../config/generateToken', () => ({
+    generateTokenSetCookie: jest.fn()
+}));
 
 describe('GET /api/students', () => {
     it('should return a list of students', async () => {
@@ -43,33 +47,38 @@ describe('GET /api/students', () => {
 });
 
 describe('POST /api/students', () => {
-        it('should create a new student', async () => {
-            const newStudent = {
-                firstName: 'John',
-                lastName: 'Doe',
-                school: 'Test School',
-                displayName: 'JohnD',
-                username: 'johndoe',
-                email: 'john@example.com',
-                password: 'password123',
-                groups: [],
-                profilePicURL: null
-            };
-
-            const savedStudent = {
-                ...newStudent,
-                _id: '1',
-                profilePicURL: `https://avatar.iran.liara.run/username?username=JohnDoe`
-            };
-
-            Student.findOne.mockResolvedValue(null);
-            Student.prototype.save.mockResolvedValue(savedStudent);
-
-            const res = await request(app).post('/api/students').send(newStudent);
-        
-            expect(res.status).toBe(201);
-            expect(res.body).toEqual(savedStudent);
-        });
+    it('should create a new student', async () => {
+        const newStudent = {
+            firstName: 'John',
+            lastName: 'Doe',
+            school: 'Test School',
+            displayName: 'JohnD',
+            username: 'johndoe',
+            email: 'john@example.com',
+            password: 'password123',
+            major: "major",
+            groups: [],
+            profilePicURL: null
+        };
+    
+        const savedStudent = {
+            ...newStudent,
+            _id: '1',
+            profilePicURL: `https://avatar.iran.liara.run/username?username=JohnDoe`
+        };
+    
+        Student.findOne.mockResolvedValue(null);
+    
+        Student.prototype.save.mockResolvedValue(savedStudent);
+    
+        generateTokenSetCookie.mockImplementation(() => {});
+    
+        const res = await request(app).post('/api/students').send(newStudent);
+    
+        expect(res.status).toBe(201);
+        expect(res.body).toEqual(savedStudent);
+    });
+    
 
         it('should return 400 if required fields are missing', async () => {
             const newStudent = {
@@ -96,6 +105,7 @@ describe('POST /api/students', () => {
                 username: 'johndoe',
                 email: 'john@example.com',
                 password: 'password123',
+                major: 'major',
                 groups: [],
                 profilePicURL: null
             };
@@ -117,6 +127,7 @@ describe('POST /api/students', () => {
                 username: 'johndoe',
                 email: 'john@example.com',
                 password: 'password123',
+                major: 'major',
                 groups: [],
                 profilePicURL: null
             };
