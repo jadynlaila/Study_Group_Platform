@@ -36,21 +36,10 @@ Grading criteria (5 points): Adequate use of UML; Adequate design of the sequenc
 
 
 ## 5. Design Patterns
-Split this section into two subsections. For each subsection, present a UML class diagram showing the application of a design pattern to your system (a different pattern for each section). Each class diagram should contain only the classes involved in the specific pattern (you don’t need to represent the whole system). Choose patterns from two different categories: Behavioral, Structural, and Creational. You are not limited to design patterns studied in class. 
 
-Tip: Your system may not be appropriate for any design pattern. In this case, for didactic purposes, be creative and extend the scope of your system slightly to make the design patterns appropriate. 
+A design pattern used in the fronend development was the MVC or Model-View-Controller design pattern. The pattern seperates the components for data, logic and presentation. The MVC pattern can be seen very clearly in how the front end behaves due to the way the groupchat module and text region are used and how the components act as the individual components of the pattern. 
 
-Implement each design pattern in your system and provide GitHub links to the corresponding classes. For example (the links are illustrative, aka fake!):
-
-Car: https://github.com/user/repo/blob/master/src/com/proj/main/Car.java
-
-IBreakBehavior: https://github.com/user/repo/blob/master/src/com/proj/main/IBreakBehavior.java 
-
-BrakeWithABS: https://github.com/user/repo/blob/master/src/com/proj/main/BrakeWithABS.java
-
-Brake: https://github.com/user/repo/blob/master/src/com/proj/main/Brake.java
-
-Grading criteria (6 points, 3 for each pattern): Correct use of the design pattern as described in the literature; Adequate choice of the design pattern; Adequate implementation of the design pattern.
+[Design pattern image MVC](Deliverables\res\jack_d5\designPatternD5MVC.drawio.png)
 
 
 
