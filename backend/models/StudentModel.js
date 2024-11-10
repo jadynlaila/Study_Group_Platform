@@ -48,6 +48,10 @@ const StudentSchema = mongoose.Schema({
         required: [true, "You must provide a password"],
         // pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
     },
+    major:{
+        type: String,
+        required: [true, "Please provide student's major"]
+    },
     groups: [{
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Group",
