@@ -39,7 +39,7 @@ Grading criteria (5 points): Adequate use of UML; Adequate design of the sequenc
 
 A design pattern used in the fronend development was the MVC or Model-View-Controller design pattern. The pattern seperates the components for data, logic and presentation. The MVC pattern can be seen very clearly in how the front end behaves due to the way the groupchat module and text region are used and how the components act as the individual components of the pattern. 
 
-[Design pattern image MVC](Deliverables\res\jack_d5\designPatternD5MVC.drawio.png)
+![Design pattern image MVC](res\jack_d5\designPatternD5MVC.drawio.png)
 
 
 
