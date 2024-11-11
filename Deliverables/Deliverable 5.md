@@ -4,10 +4,7 @@
 In this deliverable, you should describe the architectural design of your system. Structure your deliverable using the following sections. See the [Team Project Instructions](https://canvas.nau.edu/courses/29116/pages/team-project-%7C-overview) for details about formatting. Check the lecture materials and perform additional research to produce a high-quality deliverable. As usual, if you have any questions, let me know.
 
 ## 1. Description
-Provide 1-2 paragraphs to describe your system to help understand the context of your design decisions. You can reuse and update text from the previous deliverables.
-
-Grading criteria (2 points): Completeness; Consistency with the rest of the document; Adequate language.
-
+StudySphere allows students to create and manage their account, as well as create, join, and manage study groups! When a student account is created, we store a lot of information about them such as their name, email, college, and groups that they are a member/owner of. Upon account creation, they are prompted to join a group chat to meet other students to study with!
 
 
 ## 2. Architecture
@@ -43,6 +40,12 @@ groupChatModule: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_fro
 
 ![Design pattern image MVC](res/jack_d5/designPatternD5MVC.drawio.png)
 
+### Architectural
+The MessageController in our controllers folder implements a simplified Service Layer Pattern by acting as the controller that handles HTTP requests and delegates the business logic to models or services. In this simplified version, the controller is directly responsible for processing incoming requests, handling input validation, interacting with the models, and sending responses. In our pattern there isn’t a separate service layer in this version. The controller directly uses the Model to access the database and handle business logic. Similar patterns can also be found in the other controllers and models.
+
+messageController: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_backend/backend/controllers/messageController.js
+
+![simplified Service Layer Pattern](res/simplified-service-layer-pattern.png)
 
 
 ## 6. Design Principles
