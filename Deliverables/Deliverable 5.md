@@ -1,9 +1,5 @@
 # Deliverable 5 - Group 7
 
-## Instructions
-
-In this deliverable, you should describe the architectural design of your system. Structure your deliverable using the following sections. See the [Team Project Instructions](https://canvas.nau.edu/courses/29116/pages/team-project-%7C-overview) for details about formatting. Check the lecture materials and perform additional research to produce a high-quality deliverable. As usual, if you have any questions, let me know.
-
 ## 1. Description
 
 StudySphere allows students to create and manage their account, as well as create, join, and manage study groups! When a student account is created, we store a lot of information about them such as their name, email, college, and groups that they are a member/owner of. Upon account creation, they are prompted to join a group chat to meet other students to study with!
