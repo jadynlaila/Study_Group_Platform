@@ -33,13 +33,7 @@ The StudySphere system is designed to facilitate collaboration among college stu
 
 
 ## 3. Class diagram
-Present a refined class diagram of your system, including implementation details such as visibilities, attributes to represent associations, attribute types, return types, parameters, etc. The class diagram should match the code you have produced so far but not be limited to it (e.g., it can contain classes not implemented yet). 
-
-The difference between this class diagram and the one you presented in D.3 is that the latter focuses on the domain's conceptual model, while the former reflects the implementation. Therefore, the implementation details are relevant in this case. 
-
-Grading criteria (6 points): Adequate use of UML; Adequate choice of classes and relationships; Completeness of the diagram; Adequate presentation of implementation details. 
-
-
+![Updated Class Diagram](res/valentino_d5/D5_ClassDiagram.png)
 
 ## 4. Sequence diagram
 
