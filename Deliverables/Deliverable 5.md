@@ -4,10 +4,7 @@
 In this deliverable, you should describe the architectural design of your system. Structure your deliverable using the following sections. See the [Team Project Instructions](https://canvas.nau.edu/courses/29116/pages/team-project-%7C-overview) for details about formatting. Check the lecture materials and perform additional research to produce a high-quality deliverable. As usual, if you have any questions, let me know.
 
 ## 1. Description
-Provide 1-2 paragraphs to describe your system to help understand the context of your design decisions. You can reuse and update text from the previous deliverables.
-
-Grading criteria (2 points): Completeness; Consistency with the rest of the document; Adequate language.
-
+StudySphere allows students to create and manage their account, as well as create, join, and manage study groups! When a student account is created, we store a lot of information about them such as their name, email, college, and groups that they are a member/owner of. Upon account creation, they are prompted to join a group chat to meet other students to study with!
 
 Once joined, this group will be appended to the student’s list of groups, and their unique ID will be appended to the group’s list of members. They can also create their own groups where they will be stored as the owner of the group! As the owner, they become responsible for managing it! They can update all kinds of group attributes such as its name, description, picture, members, and its administrators (who also have some of these extra privileges), among other things! All messages sent within a group chat will be saved in the group’s message thread, where they can be easily accessed and displayed time and time again! This group messaging system provides real time communication between students, enabling users to communicate effectively, plan meetings or study sessions, and most importantly make friends within their community.
 
@@ -30,34 +27,57 @@ Grading criteria (6 points): Adequate use of UML; Adequate choice of classes and
 
 
 ## 4. Sequence diagram
-Present a sequence diagram that represents how the objects in your system interact for a specific use case. Also include the use case's description in this section. The sequence diagram should be consistent with the class diagram and architecture. 
 
-Grading criteria (5 points): Adequate use of UML; Adequate design of the sequence diagram; Consistency with the class diagram; Consistency with the use case description; Not including the use case description; Over simplistic diagram.
-
-
+![Sequence Diagram](res/alex_d5/d5-seq_diagram.png)
 
 ## 5. Design Patterns
-Split this section into two subsections. For each subsection, present a UML class diagram showing the application of a design pattern to your system (a different pattern for each section). Each class diagram should contain only the classes involved in the specific pattern (you don’t need to represent the whole system). Choose patterns from two different categories: Behavioral, Structural, and Creational. You are not limited to design patterns studied in class. 
 
-Tip: Your system may not be appropriate for any design pattern. In this case, for didactic purposes, be creative and extend the scope of your system slightly to make the design patterns appropriate. 
+### Behavioral
+A design pattern used in the fronend development was the MVC or Model-View-Controller design pattern. The pattern seperates the components for data, logic and presentation. The MVC pattern can be seen very clearly in how the front end behaves due to the way the groupchat module and text region are used and how the components act as the individual components of the pattern. 
 
-Implement each design pattern in your system and provide GitHub links to the corresponding classes. For example (the links are illustrative, aka fake!):
+Text Region: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_frontend/frontend/src/components/TextRegion.jsx 
 
-Car: https://github.com/user/repo/blob/master/src/com/proj/main/Car.java
+groupChatModule: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_frontend/frontend/src/components/GroupChatModule.jsx 
 
-IBreakBehavior: https://github.com/user/repo/blob/master/src/com/proj/main/IBreakBehavior.java 
+![Design pattern image MVC](res/jack_d5/designPatternD5MVC.drawio.png)
 
-BrakeWithABS: https://github.com/user/repo/blob/master/src/com/proj/main/BrakeWithABS.java
+### Architectural
+The MessageController in our controllers folder implements a simplified Service Layer Pattern by acting as the controller that handles HTTP requests and delegates the business logic to models or services. In this simplified version, the controller is directly responsible for processing incoming requests, handling input validation, interacting with the models, and sending responses. In our pattern there isn’t a separate service layer in this version. The controller directly uses the Model to access the database and handle business logic. Similar patterns can also be found in the other controllers and models.
 
-Brake: https://github.com/user/repo/blob/master/src/com/proj/main/Brake.java
+messageController: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_backend/backend/controllers/messageController.js
 
-Grading criteria (6 points, 3 for each pattern): Correct use of the design pattern as described in the literature; Adequate choice of the design pattern; Adequate implementation of the design pattern.
-
+![simplified Service Layer Pattern](res/simplified-service-layer-pattern.png)
 
 
 ## 6. Design Principles
-How does your design observe the SOLID principles? Provide a short description of the principles followed and give concrete examples from your classes. 
 
-Grading criteria (6 points): Show correct understanding of SOLID principles; Provide enough details to justify how the principles were observed.
+### Single Responsibility Principle
+*A class should have one and only one reason to change, meaning that a class should have only one job.*
 
+In our product, the `Student`, `Group`, and `Message` classes meet the criteria for the Single Responsibility Principle as these classes are each responsible for their own tasks and not each others', but for circumstances where an object from one class has to modify data within another class, that target class's interface is called. For example, if a student object is trying to join a group, it will use interfaces from the Group class in order to perform those actions.
 
+### Open-Closed Principle
+*Objects or entities should be open for extension but closed for modification.*
+
+In our product, our classes implement the Open-Closed Principle as each class is open to having subclasses and other extensions without requiring the modification of the parent classes. For example, if we wanted to make a subclass of `Group` such as `ProjectGroup` or `StudyGroup`, the parent class would not have to be modified.
+
+### Liskov Substitution Principle
+*Subtypes should be replaceable by their base types*
+
+Within our product, subtypes (which currently do not exist) are able to be replaced by their base types, fulfilling the Liskov Substitution Principle. For example, if we were to make a subclass `ProjectGroup` from `Group`, then you can still treat both classes the same.
+
+### Interface Segregation Principle
+*A client should never be forced to implement an interface that it doesn’t use, or clients shouldn’t be forced to depend on methods they do not use.*
+
+Our product does not currently follow the Interface Segregation Principle as our classes `Student`, `Group`, and `Message` are currently only have catch-all interfaces that handle everything about that class. While we could modify our class structure to accomodate for that, it isn't currently implemented, nor is it particularly on our roadmap.
+
+### Dependency Inversion Principle
+*Entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but they should depend on abstractions.*
+
+Each class contains two implementation types:
+- HTTP request
+- Mongoose library calls
+
+Both of these implementation methods contain a one-way abstraction where the caller doesn't need to know how how either implementation works but can still work with data in a simple way.
+
+For example, the `Student` class contains abstraction methods for obtaining/saving data via an HTTP request, and those abstraction methods contain further abstractions for saving or retreiving data from the database.
