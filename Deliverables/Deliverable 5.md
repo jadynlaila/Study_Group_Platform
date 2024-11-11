@@ -38,7 +38,7 @@ Text Region: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_fronten
 
 groupChatModule: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_frontend/frontend/src/components/GroupChatModule.jsx 
 
-![Design pattern image MVC](res\jack_d5\designPatternD5MVC.drawio.png)
+![Design pattern image MVC](res/jack_d5/designPatternD5MVC.drawio.png)
 
 ### Architectural
 The MessageController in our controllers folder implements a simplified Service Layer Pattern by acting as the controller that handles HTTP requests and delegates the business logic to models or services. In this simplified version, the controller is directly responsible for processing incoming requests, handling input validation, interacting with the models, and sending responses. In our pattern there isn’t a separate service layer in this version. The controller directly uses the Model to access the database and handle business logic. Similar patterns can also be found in the other controllers and models.
