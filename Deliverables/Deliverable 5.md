@@ -37,6 +37,10 @@ Grading criteria (6 points): Adequate use of UML; Adequate choice of classes and
 ### Behavioral
 A design pattern used in the fronend development was the MVC or Model-View-Controller design pattern. The pattern seperates the components for data, logic and presentation. The MVC pattern can be seen very clearly in how the front end behaves due to the way the groupchat module and text region are used and how the components act as the individual components of the pattern. 
 
+Text Region: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_frontend/frontend/src/components/TextRegion.jsx 
+
+groupChatModule: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_frontend/frontend/src/components/GroupChatModule.jsx 
+
 ![Design pattern image MVC](res\jack_d5\designPatternD5MVC.drawio.png)
 
 
