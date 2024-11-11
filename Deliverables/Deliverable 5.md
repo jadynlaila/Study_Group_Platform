@@ -33,22 +33,14 @@ Grading criteria (5 points): Adequate use of UML; Adequate design of the sequenc
 
 
 ## 5. Design Patterns
-Split this section into two subsections. For each subsection, present a UML class diagram showing the application of a design pattern to your system (a different pattern for each section). Each class diagram should contain only the classes involved in the specific pattern (you don’t need to represent the whole system). Choose patterns from two different categories: Behavioral, Structural, and Creational. You are not limited to design patterns studied in class. 
 
-Tip: Your system may not be appropriate for any design pattern. In this case, for didactic purposes, be creative and extend the scope of your system slightly to make the design patterns appropriate. 
 
-Implement each design pattern in your system and provide GitHub links to the corresponding classes. For example (the links are illustrative, aka fake!):
+The MessageController in our controllers folder implements a simplified Service Layer Pattern by acting as the controller that handles HTTP requests and delegates the business logic to models or services. In this simplified version, the controller is directly responsible for processing incoming requests, handling input validation, interacting with the models, and sending responses. In our pattern there isn’t a separate service layer in this version. The controller directly uses the Model to access the database and handle business logic. Similar patterns can also be found in the other controllers and models.
 
-Car: https://github.com/user/repo/blob/master/src/com/proj/main/Car.java
+messageController: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_backend/backend/controllers/messageController.js
 
-IBreakBehavior: https://github.com/user/repo/blob/master/src/com/proj/main/IBreakBehavior.java 
-
-BrakeWithABS: https://github.com/user/repo/blob/master/src/com/proj/main/BrakeWithABS.java
-
-Brake: https://github.com/user/repo/blob/master/src/com/proj/main/Brake.java
-
-Grading criteria (6 points, 3 for each pattern): Correct use of the design pattern as described in the literature; Adequate choice of the design pattern; Adequate implementation of the design pattern.
-
+**UML Diagram**
+(simplified Service Layer Pattern)[Deliverables\res\designPatternD5MVC.drawio.png]
 
 
 ## 6. Design Principles
