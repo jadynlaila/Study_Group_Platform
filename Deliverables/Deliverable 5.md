@@ -9,6 +9,7 @@ Provide 1-2 paragraphs to describe your system to help understand the context of
 Grading criteria (2 points): Completeness; Consistency with the rest of the document; Adequate language.
 
 
+Once joined, this group will be appended to the student’s list of groups, and their unique ID will be appended to the group’s list of members. They can also create their own groups where they will be stored as the owner of the group! As the owner, they become responsible for managing it! They can update all kinds of group attributes such as its name, description, picture, members, and its administrators (who also have some of these extra privileges), among other things! All messages sent within a group chat will be saved in the group’s message thread, where they can be easily accessed and displayed time and time again! This group messaging system provides real time communication between students, enabling users to communicate effectively, plan meetings or study sessions, and most importantly make friends within their community.
 
 ## 2. Architecture
 Present a diagram of the high-level architecture of your system. Use a UML package diagram to describe the main modules and their interrelation. Please check these [examples](https://www.uml-diagrams.org/package-diagrams-overview.html). Make clear the layers of your architecture (if they exist) as described in [Multi-Layered Application: UML Model Diagram Example](https://www.uml-diagrams.org/multi-layered-application-uml-model-diagram-example.html).
