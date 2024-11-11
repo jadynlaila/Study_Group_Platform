@@ -40,7 +40,7 @@ The MessageController in our controllers folder implements a simplified Service 
 messageController: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_backend/backend/controllers/messageController.js
 
 **UML Diagram**
-(simplified Service Layer Pattern)[Deliverables\res\designPatternD5MVC.drawio.png]
+(simplified Service Layer Pattern)[Deliverables\res\simplified-service-layer-pattern.png]
 
 
 ## 6. Design Principles
