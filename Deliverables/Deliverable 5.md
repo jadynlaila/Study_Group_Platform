@@ -41,7 +41,7 @@ Text Region: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_fronten
 
 groupChatModule: https://github.com/jadynlaila/Study_Group_Platform/blob/dev_frontend/frontend/src/components/GroupChatModule.jsx 
 
-![Design pattern image MVC](res\jack_d5\designPatternD5MVC.drawio.png)
+![Design pattern image MVC](res/jack_d5/designPatternD5MVC.drawio.png)
 
 
 
