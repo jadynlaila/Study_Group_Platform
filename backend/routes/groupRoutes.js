@@ -8,7 +8,8 @@ const {
     deleteGroup,
     joinGroup,
     getStudentsFromGroup,
-    getMessages
+    getMessages,
+    leaveGroup
 } = require("../controllers/groupController")
 
 // localhost:5678/api/group/
@@ -33,5 +34,8 @@ router.route("/messages/:groupID")
 // localhost:5678/api/group/join/<groupID>
 router.route("/join/:groupID")
     .put(joinGroup)
+
+router.route("/leave/:groupID")
+    .put(leaveGroup)
 
 module.exports = router

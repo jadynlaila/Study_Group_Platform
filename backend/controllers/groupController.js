@@ -260,6 +260,72 @@ const joinGroup = asyncHandler(async (request, result) => {
     }
 })
 
+const leaveGroup = asyncHandler(async (request, result) => {
+    try {
+        const groupID = request.params.groupID
+        const {studentID} = request.body
+
+        // get the student
+        const student = await Student.findById(studentID)
+        if (!student) {
+            console.warn(`Failed to find student ${studentID}`)
+            return result.status(400).json({ error: `Failed to find student ${studentID}` })
+        }
+
+        // get the group
+        const group = await Group.findById(groupID)
+        if (!group) {
+            console.warn(`Failed to find group ${groupID}`)
+            return result.status(400).json({ error: `Failed to find group ${groupID}` })
+        }
+
+        // check if the student is the owner
+        if (group.ownerID.equals(studentID)) {
+            console.warn(`Student ${studentID} is the owner of group ${groupID}. An owner cannot leave their own group.`)
+            return result.status(409).json({ error: `Student ${studentID} is the owner of group ${groupID}. An owner cannot leave their own group.` })
+        }
+
+        // check if the student is in the group
+        if (!group.memberIDs.includes(studentID)) {
+            console.warn(`Student ${studentID} is not in group ${groupID}`)
+            return result.status(400).json({ error: `Student ${studentID} is not in group ${groupID}` })
+        }
+
+        // check if student is in admin ids
+        if (group.administratorIDs.includes(studentID)) {
+            console.warn(`Student ${studentID} is an admin of group ${groupID}`)
+            return result.status(400).json({ error: `Student ${studentID} is an admin of group ${groupID}` })
+        }
+
+        // remove the group from the student object via the APIs
+        const studentResponse = await axios.put(`${localServerAddress}/api/student/${studentID}`, {
+            groups: student.groups.filter(group => group != groupID)
+        })
+
+        // remove the student from the group object via the APIs
+        const groupResponse = await axios.put(`${localServerAddress}/api/group/${groupID}`, {
+            memberIDs: group.memberIDs.filter(member => member != studentID)
+        })
+
+        // check the responses
+        if (studentResponse.status != 200) {
+            console.error(`Failed to update student ${studentID}`)
+            return result.status(studentResponse.status).json(studentResponse.data)
+        }
+        if (groupResponse.status != 200) {
+            console.error(`Failed to update group ${groupID}`)
+            return result.status(groupResponse.status).json(groupResponse.data)
+        }
+
+        // return success
+        return result.status(200).json({ success: true })
+
+    } catch (error) {
+        console.error(error)
+        return result.status(500).send(error)
+    }
+})
+
 const getStudentsFromGroup = asyncHandler(async (request, result) => {
     try {
         const groupID = request.params.groupID
@@ -357,6 +423,7 @@ module.exports = {
     updateGroup,
     deleteGroup,
     joinGroup,
+    leaveGroup,
     getStudentsFromGroup,
     getMessages
 }
