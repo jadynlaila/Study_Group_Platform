@@ -7,6 +7,7 @@ const {
     updateGroup,
     deleteGroup,
     joinGroup,
+    getStudentsFromGroup,
     getMessages
 } = require("../controllers/groupController")
 
@@ -20,6 +21,10 @@ router.route("/")
 router.route("/:groupID")
     .get(getGroup)
     .put(updateGroup)
+
+// localhost:5678/api/group/<groupID>/students
+router.route("/:groupID/students")
+    .get(getStudentsFromGroup)
 
 // localhost:5678/api/group/messages/<groupID>
 router.route("/messages/:groupID")

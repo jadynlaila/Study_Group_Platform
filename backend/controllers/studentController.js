@@ -76,10 +76,6 @@ const getStudents = asyncHandler(async (req, res) => {
     }
 })
 
-const getStudentsInGroup = asyncHandler(async (req, res) => {
-    //TODO
-})
-
 // @desc    Set Student
 // @route   POST /api/goals
 // @access  Private

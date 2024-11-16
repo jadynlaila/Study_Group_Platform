@@ -1,4 +1,5 @@
 const { response } = require("express")
+const axios = require('axios')
 
 // requires //
 const mongoose = require("mongoose")
@@ -6,6 +7,8 @@ const asyncHandler = require("express-async-handler")
 const Group = require('../models/GroupModel')
 const Student = require('../models/StudentModel')
 const Message = require('../models/MessageModel')
+
+const localServerAddress = `http://127.0.0.1:${process.env.EXPRESS_PORT}`
 
 const createGroup = asyncHandler(async (request, result) => {
     try {
@@ -68,21 +71,23 @@ const createGroup = asyncHandler(async (request, result) => {
 
         // Return the saved group object
         return result.status(201).json({groupID: savedGroup._id, group: savedGroup});
-    } catch (e) {
-        console.debug(`Exception occurred: ${e}`)
-        return result.status(500).json({ error: e.message });
+    } catch (error) {
+        console.debug(`Exception occurred: ${error}`)
+        return result.status(500).json({ error });
     }
 })
 
 const getAllGroups = asyncHandler(async (request, result) => {
     try {
-        console.debug('Sending all current groups')
+        console.debug('Sending all existing groups')
 
         const groups = await Group.find()
 
+        console.debug(`Number of groups found: ${groups.length}`)
+
         return result.status(200).json(groups)
-    } catch (e) {
-        return result.status(500).json({ error: e })
+    } catch (error) {
+        return result.status(500).json({ error })
     }
 })
 
@@ -115,8 +120,8 @@ const getGroup = asyncHandler(async (request, result) => {
         // Send/Return the group object
         return result.status(200).json(searchedGroup)
     
-    } catch (e) {
-        return result.status(500).json({ error: e })
+    } catch (error) {
+        return result.status(500).json({ error })
     }
 })
 
@@ -174,8 +179,8 @@ const updateGroup = asyncHandler(async (request, result) => {
         console.debug("DB update sent")
 
         return result.status(200).json({ groupID: updatedGroup._id, group: updatedGroup });
-    } catch (e) {
-        return result.status(500).json({ error: e.message });
+    } catch (error) {
+        return result.status(500).json({ error: e });
     }
 })
 
@@ -198,8 +203,8 @@ const deleteGroup = asyncHandler(async (request, result) => {
 
         // Return a success code
         
-    } catch (e) {
-        return result.status(500).json({ error: e.message });
+    } catch (error) {
+        return result.status(500).json({ error });
     }
 })
 
@@ -263,8 +268,59 @@ const joinGroup = asyncHandler(async (request, result) => {
 
         // Send back a response
         return result.status(201).json({ group: searchedGroup, student: searchedStudent })
-    } catch (e) {
-        return result.status(500).json({ error: e.message });
+    } catch (error) {
+        return result.status(500).json({ error });
+    }
+})
+
+const getStudentsFromGroup = asyncHandler(async (request, result) => {
+    try {
+        const groupID = request.params.groupID
+
+        console.debug(`Getting students for group '${groupID}'`)
+
+        if (!groupID) {
+            // frankly, this code should never run, but i'm just being exhaustive here just in case
+            return result.status(400).json({ error: "Parameter 'groupID' is required" })
+        }
+
+        // use the existing API to get the group
+        const response = await axios.get(`${localServerAddress}/api/group/${groupID}`)
+        const searchedGroup = response.data
+
+        if (response.status != 200) {
+            return result.status(response.status).json(response.body)
+        }
+
+        // get all the students, place in array
+        let allStudents = []
+
+        // add the owner
+        const owner = await Student.findById(searchedGroup.ownerID)
+        if (owner) {
+            allStudents.push(owner)
+        }
+
+        // iter through the administrators
+        for (const adminID of searchedGroup.administratorIDs) {
+            const student = await Student.findById(adminID)
+            if (student) {
+                allStudents.push(student)
+            }
+        }
+
+        // iter through regular members
+        for (const memberID of searchedGroup.memberIDs) {
+            const student = await Student.findById(memberID)
+            if (student) {
+                allStudents.push(student)
+            }
+        }
+
+        return result.status(200).json(allStudents);
+    } catch (error) {
+        console.debug(`Error: ${error}`)
+        return result.status(500).json(error)
     }
 })
 
@@ -302,8 +358,8 @@ const getMessages = asyncHandler(async (request, result) => {
 
         // Send/Return the messages
         result.status(200).json(messages)
-    } catch (e) {
-        return result.status(500).json({ error: e.message });
+    } catch (error) {
+        return result.status(500).json({ error });
     }
 })
 
@@ -314,5 +370,6 @@ module.exports = {
     updateGroup,
     deleteGroup,
     joinGroup,
+    getStudentsFromGroup,
     getMessages
 }
