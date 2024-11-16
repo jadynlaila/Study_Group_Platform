@@ -175,6 +175,8 @@ const deleteGroup = asyncHandler(async (request, result) => {
         // Obtain the parameters groupID
         const groupID = request.params.groupID
 
+        console.debug(`\n\nDeleting group ${groupID}`)
+
         // Obtain the group from Mongo
         const searchedGroup = await Group.findById(groupID)
 
@@ -182,9 +184,14 @@ const deleteGroup = asyncHandler(async (request, result) => {
             return result.status(404).json({ error: `Group with ID ${groupID} was not found` })
         }
 
+        console.debug(`Found group ${groupID}: ${searchedGroup.name}`)
+        
         // Delete the group from all students
+        console.debug("Removing group from all students...")
         const allStudentIDs = [...searchedGroup.memberIDs, ...searchedGroup.administratorIDs, ...searchedGroup.ownerID];
         for (const studentID of allStudentIDs) {
+            console.debug(`Removing group ${groupID} from student ${studentID}`)
+
             const student = await Student.findById(studentID);
             if (!student) {
                 console.warn(`Failed to FIND student ${studentID}. This may be a problem in the future.`);
@@ -200,10 +207,13 @@ const deleteGroup = asyncHandler(async (request, result) => {
             if (response.status != 200) {
                 console.error(`Failed to UPDATE student ${studentID}. This may be a problem in the future.`);
             }
+
+            console.debug(`Removed group ${groupID} from student ${studentID}`);
         }
 
         // Delete the group in Mongo
         await Group.findByIdAndDelete(groupID);
+        console.debug(`Deleted group ${groupID}`)
 
         // Return a success code
         return result.status(200).json({ success: true });
