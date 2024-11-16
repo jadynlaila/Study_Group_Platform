@@ -23,14 +23,4 @@ app.use("/api/student", require("./backend/routes/studentRoutes"))
 app.use("/api/message", require("./backend/routes/messageRoutes"));
 app.use(errorHandler)
 
-const reactServer = spawn("npm", ["start"], {
-    cwd: "frontend",
-    env: { ...process.env, PORT: process.env.REACT_PORT },
-    stdio: "inherit"
-})
-
-reactServer.on("close", (code) => {
-    console.log(`React server exited with code ${code}`)
-})
-
 app.listen(port, () => console.log(`Server has started on port ${port}`))
