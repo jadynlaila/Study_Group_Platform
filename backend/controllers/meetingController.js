@@ -24,6 +24,21 @@ async function validateMeeting(meeting) {
         return { valid: false, message: "Meeting frequency must be null, DAILY, WEEKLY, MONTHLY, or YEARLY" }
     }
 
+    // ensure that the byday is valid
+    if (meeting.byday && !['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'].includes(meeting.byday)) {
+        return { valid: false, message: "Meeting byday must be null, SU, MO, TU, WE, TH, FR, or SA" }
+    }
+
+    // ensure that the interval is valid
+    if (meeting.interval && meeting.interval < 1) {
+        return { valid: false, message: "Meeting interval must be null or greater than 0" }
+    }
+
+    // ensure that the count is valid
+    if (meeting.count && meeting.count < 1) {
+        return { valid: false, message: "Meeting count must be null or greater than 0" }
+    }
+
     // ensure that the meeting creator is a valid user
     const creator = await Student.findById(meeting.creatorID)
     if (!creator) {
@@ -151,7 +166,10 @@ const createMeeting = asyncHandler(async (request, result) => {
             creatorID,
             guestIDs: guestIDs || [],
             location: location || null,
-            frequency: request.body.frequency || null
+            frequency: request.body.frequency || null,
+            count: request.body.count || null,
+            interval: request.body.interval || null,
+            byday: request.body.byday || null
         })
 
         // Validate the meeting

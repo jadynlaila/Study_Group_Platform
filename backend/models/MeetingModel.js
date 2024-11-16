@@ -34,6 +34,16 @@ const MeetingSchema = new Schema ({
         type: String,
         enum: ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY']
     },
+    count: {
+        type: Number
+    },
+    interval: {
+        type: Number
+    },
+    byday: {
+        type: String,
+        enum: ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
+    },
 })
 
 module.exports = mongoose.model("Meeting", MeetingSchema);
