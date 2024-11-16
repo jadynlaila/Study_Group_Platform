@@ -49,6 +49,10 @@ const GroupSchema = new mongoose.Schema({
     messageIDs: [{
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Message"
+    }],
+    meetingIDs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Meeting"
     }]
 })
 

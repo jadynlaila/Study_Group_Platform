@@ -58,7 +58,8 @@ const createGroup = asyncHandler(async (request, result) => {
             ownerID: new mongoose.Types.ObjectId(ownerID),
             administratorIDs: [],
             profilePictureID: profilePictureID ? new mongoose.Types.ObjectId(profilePictureID) : null,
-            messageIDs: []
+            messageIDs: [],
+            meetingIDs: []
         });
 
         // Save the new group to MongoDB
