@@ -171,23 +171,42 @@ const updateGroup = asyncHandler(async (request, result) => {
 })
 
 const deleteGroup = asyncHandler(async (request, result) => {
-    console.debug("lah dee dah someone tried deleting a group")
-    return request.status(501).json({ error: "Deleting a group has not been implemented yet." })
-
     try {
-        // Obtain the parameters (studentID, groupID)
-
-        // Verify that the parameters are not empty
-
-        // Check that the user and group exist
+        // Obtain the parameters groupID
+        const groupID = request.params.groupID
 
         // Obtain the group from Mongo
+        const searchedGroup = await Group.findById(groupID)
 
-        // Check the user's permissions
+        if (!searchedGroup) {
+            return result.status(404).json({ error: `Group with ID ${groupID} was not found` })
+        }
+
+        // Delete the group from all students
+        const allStudentIDs = [...searchedGroup.memberIDs, ...searchedGroup.administratorIDs, ...searchedGroup.ownerID];
+        for (const studentID of allStudentIDs) {
+            const student = await Student.findById(studentID);
+            if (!student) {
+                console.warn(`Failed to FIND student ${studentID}. This may be a problem in the future.`);
+                continue;
+            }
+
+            // send the update to the student object
+            const response = await axios.put(`${localServerAddress}/api/student/${studentID}`, {
+                groups: student.groups.filter(group => group != groupID)
+            });
+
+            // check the response
+            if (response.status != 200) {
+                console.error(`Failed to UPDATE student ${studentID}. This may be a problem in the future.`);
+            }
+        }
 
         // Delete the group in Mongo
+        await Group.findByIdAndDelete(groupID);
 
         // Return a success code
+        return result.status(200).json({ success: true });
         
     } catch (error) {
         return result.status(500).json({ error });
