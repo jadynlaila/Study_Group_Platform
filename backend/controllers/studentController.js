@@ -38,13 +38,13 @@ const getOneStudent = asyncHandler(async (req, res) => {
 
         const searchedStudent = await Student.findById(studentID)
         if (!searchedStudent) {
-            return res.status(201).json({ error: `Failed to find student with id '${studentID}'` })
+            return res.status(404).json({ error: `Failed to find student with id '${studentID}'` })
         }
 
         // return neutered info (remove private info)
         return res.status(200).json(scrubPrivateStudentInfo(searchedStudent))
     } catch (err) {
-        return res.status(201).json({ error: e })
+        return res.status(500).json({ error: e })
     }
 })
 
