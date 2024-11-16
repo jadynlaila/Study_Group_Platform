@@ -38,7 +38,7 @@ const createGroup = asyncHandler(async (request, result) => {
         console.debug("Required variables passed")
 
         // Check that the owner exists
-        const searchedOwner = Student.findById(ownerID)
+        const searchedOwner = await Student.findById(ownerID)
         if (!searchedOwner) {
             console.debug(`Unable to find student object ${ownerID}`)
             result.status(404).json({ error: `User with ID ${ownerID} was not found`})
@@ -53,11 +53,11 @@ const createGroup = asyncHandler(async (request, result) => {
             courses,
             majors,
             memberLimit,
-            memberCount: 0,
+            memberCount: 1,     // set to 1 because owner is in group
             memberIDs: [],
-            ownerID: new mongoose.Types.ObjectId(ownerID),
+            ownerID,
             administratorIDs: [],
-            profilePictureID: profilePictureID ? new mongoose.Types.ObjectId(profilePictureID) : null,
+            profilePictureID: profilePictureID,
             messageIDs: []
         });
 
