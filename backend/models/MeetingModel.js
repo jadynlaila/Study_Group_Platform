@@ -34,6 +34,9 @@ const MeetingSchema = new Schema ({
         type: String,
         enum: ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY']
     },
+    until: {
+        type: Date
+    },
     count: {
         type: Number
     },

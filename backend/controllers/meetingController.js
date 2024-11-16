@@ -24,6 +24,16 @@ async function validateMeeting(meeting) {
         return { valid: false, message: "Meeting frequency must be null, DAILY, WEEKLY, MONTHLY, or YEARLY" }
     }
 
+    // ensure that frequency is not null if until, count, interval, or byday are provided
+    if (!meeting.frequency && (meeting.until || meeting.count || meeting.interval || meeting.byday)) {
+        return { valid: false, message: "Meeting frequency must be provided if until, count, interval, or byday are provided" }
+    }
+
+    // ensure that the until date is after the start date
+    if (meeting.until && meeting.until <= meeting.start) {
+        return { valid: false, message: "Meeting until date must be after the start date" }
+    }
+
     // ensure that the byday is valid
     if (meeting.byday && !['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'].includes(meeting.byday)) {
         return { valid: false, message: "Meeting byday must be null, SU, MO, TU, WE, TH, FR, or SA" }
@@ -167,6 +177,7 @@ const createMeeting = asyncHandler(async (request, result) => {
             guestIDs: guestIDs || [],
             location: location || null,
             frequency: request.body.frequency || null,
+            until: request.body.until || null,
             count: request.body.count || null,
             interval: request.body.interval || null,
             byday: request.body.byday || null
