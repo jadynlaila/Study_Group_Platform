@@ -32,19 +32,30 @@ function scrubPrivateStudentInfo(studentObject) {
 // @access  Private
 const getOneStudent = asyncHandler(async (req, res) => {
     try {
-        const studentID = req.params.id
+        const studentID = req.params.id     // can be either id or username
 
         console.debug(`Attempting to get student with ID ${studentID}`)
 
-        const searchedStudent = await Student.findById(studentID)
+        // validate if studentID is a valid ObjectId
+        let searchedStudent = null;
+        if (mongoose.Types.ObjectId.isValid(studentID)) {
+            // search by object id first
+            searchedStudent = await Student.findById(studentID)
+        }
+
         if (!searchedStudent) {
-            return res.status(404).json({ error: `Failed to find student with id '${studentID}'` })
+            // try searching by username if input isn't an object ID
+            searchedStudent = await Student.findOne({ username: studentID })
+
+            if (!searchedStudent) {
+                return res.status(404).json({ error: `Failed to find student with id/username '${studentID}'` })
+            }
         }
 
         // return neutered info (remove private info)
         return res.status(200).json(scrubPrivateStudentInfo(searchedStudent))
     } catch (err) {
-        return res.status(500).json({ error: e })
+        return res.status(500).json({ error: err })
     }
 })
 
@@ -58,7 +69,7 @@ const getStudents = asyncHandler(async (req, res) => {
         // scrub private user info
         const scrubbedStudents = students.map(student => scrubPrivateStudentInfo(student));
 
-        res.status(200).json({ scrubbedStudents });
+        res.status(200).json({ students: scrubbedStudents });
     }catch(err){
         console.log("Error in getStudents function", err);
         return res.status(500).json({ message: err.message });
