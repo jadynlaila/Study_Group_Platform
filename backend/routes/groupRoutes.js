@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const {
     createGroup,
+    getAllGroups,
     getGroup,
     updateGroup,
     deleteGroup,
@@ -15,6 +16,7 @@ router.route("/")
 .put(createGroup)
 .delete(deleteGroup)
 
+router.route("/").get(getAllGroups)
 router.route("/:groupID").get(getGroup)
 
 // localhost:5678/api/group/messages/<groupID>

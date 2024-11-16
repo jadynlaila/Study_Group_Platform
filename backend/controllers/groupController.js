@@ -74,6 +74,18 @@ const createGroup = asyncHandler(async (request, result) => {
     }
 })
 
+const getAllGroups = asyncHandler(async (request, result) => {
+    try {
+        console.debug('Sending all current groups')
+
+        const groups = await Group.find()
+
+        return result.status(200).json(groups)
+    } catch (e) {
+        return result.status(500).json({ error: e })
+    }
+})
+
 const getGroup = asyncHandler(async (request, result) => {
     try {
         // Deconstruct the JSON body
@@ -297,6 +309,7 @@ const getMessages = asyncHandler(async (request, result) => {
 
 module.exports = {
     createGroup,
+    getAllGroups,
     getGroup,
     updateGroup,
     deleteGroup,
