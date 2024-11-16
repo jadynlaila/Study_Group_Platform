@@ -12,8 +12,8 @@ const {
 
 // localhost:5678/api/group/
 router.route("/")
-.post(updateGroup)
-.put(createGroup)
+.post(createGroup)
+.put(updateGroup)
 .delete(deleteGroup)
 
 router.route("/").get(getAllGroups)
