@@ -32,7 +32,7 @@ const getStudentsInGroup = asyncHandler(async (req, res) => {
 // @desc    Set Student
 // @route   POST /api/goals
 // @access  Private
-const setStudent = asyncHandler(async (req, res) => {
+const createStudent = asyncHandler(async (req, res) => {
     console.log(req.body)
     const {
         firstName,
@@ -182,7 +182,7 @@ const deleteStudent = asyncHandler(async (req, res) => {
 
 module.exports = {
     getStudents,
-    setStudent,
+    createStudent,
     updateStudent,
     deleteStudent,
     removeGroup
