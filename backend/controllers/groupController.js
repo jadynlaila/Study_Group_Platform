@@ -204,24 +204,9 @@ const joinGroup = asyncHandler(async (request, result) => {
 
         console.debug("Required parameters found")
 
-        // Use the existing APIs to get the student and group
-        const studentResponse = await axios.get(`${localServerAddress}/api/student/${studentID}`)
-        const groupResponse = await axios.get(`${localServerAddress}/api/group/${groupID}`)
-
-        // perform a response sanity check, propogate errors up stack
-        if (studentResponse.status != 200) {
-            return response.status(studentResponse.status).json(studentResponse.data)
-        }
-        if (groupResponse.status != 200) {
-            return response.status(groupResponse.status).json(groupResponse.data)
-        }
-
         // Get the data from Mongo
-        const searchedStudent = studentResponse.data
-        const searchedGroup = groupResponse.data
-
-        console.debug(searchedStudent)
-        console.debug(searchedGroup)
+        const searchedStudent = await Student.findById(studentID)
+        const searchedGroup = await Group.findById(groupID)
         
         // Check if the query returned anything
         if (!searchedStudent) {
@@ -234,14 +219,13 @@ const joinGroup = asyncHandler(async (request, result) => {
             return result.status(404).json({ error: `Group object with id ${groupID} not found`})
         }
 
-        console.debug(`Found user '${searchedStudent.username}' and group '${searchedGroup.name}'`)
+        console.debug(`Found user ${searchedStudent.username} and group ${searchedGroup.name}`)
         
         // Check if the user is already in the group
-        console.debug('Checking if user is already in group...')
         if (
             searchedGroup.memberIDs.includes(studentID) ||
             searchedGroup.administratorIDs.includes(studentID) ||
-            searchedGroup.ownerID.toString() === studentID
+            searchedGroup.ownerID.equals(studentID)
         ) {
             console.debug("Student is already a member of the group")
             return result.status(409).json({ error: "Student is already a member of the group" });
@@ -250,18 +234,12 @@ const joinGroup = asyncHandler(async (request, result) => {
         console.debug(`${searchedStudent.username} is not already a member of the group. Proceeding to perform join operations...`)
 
         // Link the group and user objects
-        searchedStudent.groups += groupID
         searchedGroup.memberIDs += studentID
+        searchedStudent.groups += groupID
 
-        console.debug(`Modifications were performed, attempting to save using update APIs`)
-
-        // Use the existing APIs to update the student and group
-        await axios.put(`${localServerAddress}/api/student/${searchedStudent._id}`, {
-            groups: searchedStudent.groups
-        });
-        await axios.put(`${localServerAddress}/api/group/${searchedGroup._id}`, {
-            memberIDs: searchedGroup.memberIDs
-        });
+        // Save the data to mongo
+        await searchedGroup.save();
+        await searchedStudent.save();
 
         console.debug(`${searchedStudent.username} has been added to group ${searchedGroup.name}`)
 
