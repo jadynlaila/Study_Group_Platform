@@ -153,7 +153,8 @@ const createStudent = asyncHandler(async (req, res) => {
 // @access  Private
 const updateStudent = asyncHandler(async (req, res) => {
     try{
-        console.debug(`GOT STUDENT ID ${req.params.id}`)
+        console.debug(`Updating student '${req.params.id}'`)
+        console.debug(req.body)
 
         if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
             return res.status(400).send('Invalid student ID');

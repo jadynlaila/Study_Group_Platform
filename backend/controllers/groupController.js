@@ -138,7 +138,8 @@ const updateGroup = asyncHandler(async (request, result) => {
     try {
         const groupID = request.params.groupID
 
-        console.debug(`GOT GROUP ID ${groupID}`)
+        console.debug(`Updating group '${groupID}'`)
+        console.debug(request.body)
 
         if (!mongoose.Types.ObjectId.isValid(groupID)) {
             return response.status(400).send('Invalid group ID')
@@ -188,7 +189,7 @@ const deleteGroup = asyncHandler(async (request, result) => {
         
         // Delete the group from all students
         console.debug("Removing group from all students...")
-        const allStudentIDs = [...searchedGroup.memberIDs, ...searchedGroup.administratorIDs, ...searchedGroup.ownerID];
+        const allStudentIDs = [...searchedGroup.memberIDs, ...searchedGroup.administratorIDs, searchedGroup.ownerID];
         for (const studentID of allStudentIDs) {
             console.debug(`Removing group ${groupID} from student ${studentID}`)
 
@@ -219,6 +220,7 @@ const deleteGroup = asyncHandler(async (request, result) => {
         return result.status(200).json({ success: true });
         
     } catch (error) {
+        console.error(error)
         return result.status(500).json({ error });
     }
 })
