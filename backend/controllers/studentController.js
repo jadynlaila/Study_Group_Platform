@@ -12,13 +12,53 @@ const Group = require("../models/GroupModel");
 //! add group
 //! leave group
 //! check if username is available
+
+function scrubPrivateStudentInfo(studentObject) {
+    console.debug(`Scrubbing data for ${studentObject.username}`)
+
+    return {
+        _id: studentObject._id,
+        firstName: studentObject.firstName,
+        lastName: studentObject.lastName,
+        school: studentObject.school,
+        displayName: studentObject.displayName,
+        groups: studentObject.groups,
+        profilePicURL: studentObject.profilePicURL
+    }
+}
+
+// @desc    Get one student
+// @route   GET /api/students/<studentID>
+// @access  Private
+const getOneStudent = asyncHandler(async (req, res) => {
+    try {
+        const studentID = req.params.id
+
+        console.debug(`Attempting to get student with ID ${studentID}`)
+
+        const searchedStudent = await Student.findById(studentID)
+        if (!searchedStudent) {
+            return res.status(201).json({ error: `Failed to find student with id '${studentID}'` })
+        }
+
+        // return neutered info (remove private info)
+        return res.status(200).json(scrubPrivateStudentInfo(searchedStudent))
+    } catch (err) {
+        return res.status(201).json({ error: e })
+    }
+})
+
 // @desc    Get Students
 // @route   GET /api/Students
 // @access  Private
 const getStudents = asyncHandler(async (req, res) => {
     try{
         const students = await Student.find()
-        res.status(200).json({ students });
+
+        // scrub private user info
+        const scrubbedStudents = students.map(student => scrubPrivateStudentInfo(student));
+
+        res.status(200).json({ scrubbedStudents });
     }catch(err){
         console.log("Error in getStudents function", err);
         return res.status(500).json({ message: err.message });
@@ -181,6 +221,7 @@ const deleteStudent = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+    getOneStudent,
     getStudents,
     createStudent,
     updateStudent,
