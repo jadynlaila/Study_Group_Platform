@@ -22,3 +22,5 @@ router.route("/:meetingID")
     .get(getMeetings)
     .put(updateMeeting)
     .delete(deleteMeeting)
+
+module.exports = router
