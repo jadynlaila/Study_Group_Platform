@@ -4,9 +4,14 @@ const Group = require('../models/GroupModel.js');
 
 const sendMessage = asyncHandler(async (req, res) => {
     try {
-        const { groupID, studentID, message } = req.body;
+        const { 
+            groupID, 
+            studentID, 
+            message 
+        } = req.body;
 
-        console.log(`groupID: ${groupID}, studentID: ${studentID}, message: ${message}`)
+        console.debug('Attempting to send a message')
+        console.debug(`groupID: ${groupID}, studentID: ${studentID}, message: ${message}`)
 
         // make sure the variables are populated
         if (!groupID) {
@@ -43,6 +48,7 @@ const sendMessage = asyncHandler(async (req, res) => {
         await groupChat.save();
         
         // Return the saved message in the response
+        console.debug('Message sent!')
         return res.status(201).json(newMessage);
 
     } catch (error) {
