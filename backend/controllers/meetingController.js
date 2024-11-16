@@ -19,6 +19,11 @@ async function validateMeeting(meeting) {
         return { valid: false, message: "Meeting start date must be before the end date" }
     }
 
+    // ensure that the frequency is valid
+    if (meeting.frequency && !['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'].includes(meeting.frequency)) {
+        return { valid: false, message: "Meeting frequency must be null, DAILY, WEEKLY, MONTHLY, or YEARLY" }
+    }
+
     // ensure that the meeting creator is a valid user
     const creator = await Student.findById(meeting.creatorID)
     if (!creator) {
@@ -140,12 +145,13 @@ const createMeeting = asyncHandler(async (request, result) => {
         // Create the meeting
         const newMeeting = new Meeting({
             name,
-            description,
+            description: description || null,
             start,
             end,
             creatorID,
-            guestIDs,
-            location
+            guestIDs: guestIDs || [],
+            location: location || null,
+            frequency: request.body.frequency || null
         })
 
         // Validate the meeting
@@ -208,6 +214,9 @@ const updateMeeting = asyncHandler(async (request, result) => {
         }
         if (request.body.location) {
             searchedMeeting.location = request.body.location
+        }
+        if (request.body.frequency) {
+            searchedMeeting.frequency = request.body.frequency
         }
 
         // Validate the meeting

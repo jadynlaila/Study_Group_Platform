@@ -29,7 +29,11 @@ const MeetingSchema = new Schema ({
     }],
     location: {
         type: String
-    }
+    },
+    frequency: {
+        type: String,
+        enum: ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY']
+    },
 })
 
 module.exports = mongoose.model("Meeting", MeetingSchema);
