@@ -20,6 +20,7 @@ function scrubPrivateStudentInfo(studentObject) {
         _id: studentObject._id,
         firstName: studentObject.firstName,
         lastName: studentObject.lastName,
+        username: studentObject.username,
         school: studentObject.school,
         displayName: studentObject.displayName,
         groups: studentObject.groups,
@@ -147,40 +148,28 @@ const createStudent = asyncHandler(async (req, res) => {
 
 })
 
-// can be done in updateStudent
-//! should it be done here separately though?
-// const addGroup = asyncHandler(async ( req, res ) =>  {
-//     try{ 
-//         const student = await Student.findById(req.params.id)
-//         if (!student){
-//             res.status(400).json({error: "Student not found"})
-//         }
-        
-//         let updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body, {new: false})
-
-//         res.status(200)
-//     }catch (err){
-//         console.log("Error in addGroup function", err);
-//         return res.status(500).send("Error adding group")
-//     }
-// })
-
 // @desc    Update Student
 // @route   PUT /api/goals
 // @access  Private
 const updateStudent = asyncHandler(async (req, res) => {
     try{
+        console.debug(`GOT STUDENT ID ${req.params.id}`)
+
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).send('Invalid student ID');
+        }
+
         const student = await Student.findById(req.params.id)
 
         if (!student){
-            return res.status(400).send('Student not found');
+            return res.status(400).send(`Student '${req.params.id}' not found`);
         }
 
-    const updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        const updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
-    res.status(200).json(updatedStudent)
+        res.status(200).json(updatedStudent)
     }catch(err){ 
-        console.log("Error in updateStudent function", err);
+        console.error("Error in updateStudent function", err);
         return res.status(500).send(err.message);
     }
 })

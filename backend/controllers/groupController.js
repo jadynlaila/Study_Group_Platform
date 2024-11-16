@@ -127,60 +127,37 @@ const getGroup = asyncHandler(async (request, result) => {
 
 const updateGroup = asyncHandler(async (request, result) => {
     try {
-        // Deconstruct the JSON body
-        const {
-            groupID,
-            name,
-            description,
-            courses,
-            majors,
-            memberLimit,
-            profilePictureID
-        } = request.body
+        const groupID = request.params.groupID
 
-        // Verify that the parameters are not empty
-        if (!groupID) {
-            console.debug("Failed to provide variable 'groupID'")
-            return result.status(400).json({ error: "Required variable 'groupID' not provided" })
-        }
-        
-        console.debug(`\n\nUpdating group ${groupID}`)
-        console.debug(`name: ${name}, description: ${description}, courses: ${courses}, majors: ${majors}, memberLimit: ${memberLimit}, profilePictureID: ${profilePictureID}`)
+        console.debug(`GOT GROUP ID ${groupID}`)
 
-        // Verify that the group exists
-        const mongoGroup = await Group.findById(groupID)
-        if (!mongoGroup) {
-            console.debug(`Failed to find group ${groupID}`)
-            return result.status(404).json({ error: `Group with ID ${groupID} was not found` })
+        if (!mongoose.Types.ObjectId.isValid(groupID)) {
+            return response.status(400).send('Invalid group ID')
         }
 
-        console.debug(`Group ${groupID} was found: ${mongoGroup.name}`)
+        console.debug(`Attempting to update group ${groupID}`)
+        console.debug(request.body)
+
+        const group = await Group.findById(groupID)
+
+        if (!group) {
+            return result.status(400).send(`Group '${groupID}' not found`)
+        }
 
         // Send data to Mongo
         const updatedGroup = await Group.findByIdAndUpdate(
             groupID,
-            {
-                name: name || mongoGroup.name,
-                description: description || mongoGroup.description,
-                profilePictureID: profilePictureID || mongoGroup.profilePictureID,
-                courses: courses || mongoGroup.courses,
-                majors: majors || mongoGroup.majors,
-                memberLimit: memberLimit || mongoGroup.memberLimit,
-                memberCount: mongoGroup.memberCount,
-                memberIDs: mongoGroup.memberIDs,
-                ownerID: mongoGroup.ownerID,
-                administratorIDs: mongoGroup.administratorIDs,
-                messageIDs: mongoGroup.messageIDs,
-                meetingIDs: mongoGroup.meetingIDs
-            },
+            request.body,
             { new: true }   // return a copy of the updated group object
         );
 
-        console.debug("DB update sent")
+        console.debug(`DB update sent for group ${groupID}`)
 
-        return result.status(200).json({ groupID: updatedGroup._id, group: updatedGroup });
+        return result.status(200).json({ group: updatedGroup });
+    
     } catch (error) {
-        return result.status(500).json({ error: e });
+        console.error(error)
+        return result.status(500).json({ error });
     }
 })
 
@@ -227,9 +204,24 @@ const joinGroup = asyncHandler(async (request, result) => {
 
         console.debug("Required parameters found")
 
+        // Use the existing APIs to get the student and group
+        const studentResponse = await axios.get(`${localServerAddress}/api/student/${studentID}`)
+        const groupResponse = await axios.get(`${localServerAddress}/api/group/${groupID}`)
+
+        // perform a response sanity check, propogate errors up stack
+        if (studentResponse.status != 200) {
+            return response.status(studentResponse.status).json(studentResponse.data)
+        }
+        if (groupResponse.status != 200) {
+            return response.status(groupResponse.status).json(groupResponse.data)
+        }
+
         // Get the data from Mongo
-        const searchedStudent = await Student.findById(studentID)
-        const searchedGroup = await Group.findById(groupID)
+        const searchedStudent = studentResponse.data
+        const searchedGroup = groupResponse.data
+
+        console.debug(searchedStudent)
+        console.debug(searchedGroup)
         
         // Check if the query returned anything
         if (!searchedStudent) {
@@ -242,13 +234,14 @@ const joinGroup = asyncHandler(async (request, result) => {
             return result.status(404).json({ error: `Group object with id ${groupID} not found`})
         }
 
-        console.debug(`Found user ${searchedStudent.username} and group ${searchedGroup.name}`)
+        console.debug(`Found user '${searchedStudent.username}' and group '${searchedGroup.name}'`)
         
         // Check if the user is already in the group
+        console.debug('Checking if user is already in group...')
         if (
             searchedGroup.memberIDs.includes(studentID) ||
             searchedGroup.administratorIDs.includes(studentID) ||
-            searchedGroup.ownerID.equals(studentID)
+            searchedGroup.ownerID.toString() === studentID
         ) {
             console.debug("Student is already a member of the group")
             return result.status(409).json({ error: "Student is already a member of the group" });
@@ -257,19 +250,26 @@ const joinGroup = asyncHandler(async (request, result) => {
         console.debug(`${searchedStudent.username} is not already a member of the group. Proceeding to perform join operations...`)
 
         // Link the group and user objects
-        searchedGroup.memberIDs += studentID
         searchedStudent.groups += groupID
+        searchedGroup.memberIDs += studentID
 
-        // Save the data to mongo
-        await searchedGroup.save();
-        await searchedStudent.save();
+        console.debug(`Modifications were performed, attempting to save using update APIs`)
+
+        // Use the existing APIs to update the student and group
+        await axios.put(`${localServerAddress}/api/student/${searchedStudent._id}`, {
+            groups: searchedStudent.groups
+        });
+        await axios.put(`${localServerAddress}/api/group/${searchedGroup._id}`, {
+            memberIDs: searchedGroup.memberIDs
+        });
 
         console.debug(`${searchedStudent.username} has been added to group ${searchedGroup.name}`)
 
         // Send back a response
         return result.status(201).json({ group: searchedGroup, student: searchedStudent })
     } catch (error) {
-        return result.status(500).json({ error });
+        console.error(error)
+        return result.status(500).json(error);
     }
 })
 
