@@ -66,8 +66,17 @@ const createGroup = asyncHandler(async (request, result) => {
 
         // Save the new group to MongoDB
         const savedGroup = await newGroup.save();
-
         console.debug(`Saved the new group with an ID of ${savedGroup._id}`)
+
+        // Update the student object to be a member of this group
+        const searchedStudent = await Student.findById(ownerID)
+        const response = await axios.put(`${localServerAddress}/api/student/${ownerID}`, {
+            groups: [...searchedStudent.groups, savedGroup._id]
+        })
+
+        if (response.status != 200) {
+            return result.status(response.status).json(response.data)
+        }
 
         // Return the saved group object
         return result.status(201).json({groupID: savedGroup._id, group: savedGroup});
