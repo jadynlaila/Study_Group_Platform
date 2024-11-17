@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Sphere Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section -->
+        <div class="left-section">
+            <nav>
+                <a href="#">GitHub</a>
+                <a href="#">About Us</a>
+                <a href="#">Learn More</a>
+                <a href="#">Contact Us</a>
+            </nav>
+            <div class="slogan">
+                <h1>Study Smarter,</h1>
+                <h1>Together.</h1>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <img class="logo" src="public/S + Study.svg">
+            <h2>Welcome Back!</h2>
+            <p2>Please enter your email and password</p2>
+            <form id="login-form">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">LOGIN...</button>
+                <!-- <p class="forgot-password"><a href="#">Forgot Password?</a></p> -->
+            </form>
+
+            <p class="terms">By logging in, you agree to the <a href="#">Terms & Conditions</a>
+            </p>
+            <p class="toggle-form">
+                Don't have an account yet? <a href="#" id="create-account">Create Account</a>
+            </p>
+
+            <!-- Registration Form -->
+            <form id="register-form" style="display: none;">
+                <input type="text" placeholder="First Name" required>
+                <input type="text" placeholder="Last Name" required>
+                <input type="text" placeholder="Display Name" required>
+                <input type="text" placeholder="Email or Phone" required>
+                <input type="password" placeholder="Password" required>
+                <input type="text" placeholder="College" required>
+                <input type="text" placeholder="User Name" required>
+                <button type="submit">SIGN UP</button>
+                <p class="toggle-form">
+                    Already have an account? <a href="#" id="login">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

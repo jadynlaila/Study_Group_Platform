@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #151515; /* Fills Corner Gap from left side */
+}
+
+.left-section {
+    width: 66%;
+    background: linear-gradient(135deg, #9BBEE1, #268AD7, #1A3B53, #151515);
+    color: #EFEFEF;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top-right-radius: 40px; /* Adjust the radius to match the design */
+    border-bottom-right-radius: 40px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+nav a {
+    color: #151515;
+    text-decoration: none;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.slogan h1 {
+    font-size: 5em;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.right-section {
+    width: 34%;
+    background-color: #151515;
+    color: #EFEFEF;
+    padding: 50px;
+    display: flex;
+    margin-top: 150px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: 200px;
+    padding-bottom: 50px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
+}
+
+input {
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #151515;
+    border: 1px solid #989898;
+    outline: none;
+    transition: background-color 0.8s;
+}
+
+button {
+    background-color: #268AD7;
+    color: #EFEFEF;
+    border: none;
+    padding: 15px;
+    font-weight: bold;
+    font-size: large;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: background-color 0.8s;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+input:hover {
+    background-color: #202020;
+}
+
+.terms, .toggle-form {
+    font-size: 0.7em;
+    color: #EFEFEF;
+}
+
+.terms {
+    padding-bottom: 10px;
+}
+
+.toggle-form a {
+    color: #0077ff;
+    text-decoration: none;
+}
+
+.toggle-form a:hover {
+    text-decoration: underline;
+}
+
+h2 {
+    margin-right: 115px;
+    padding-bottom: 10px;
+}
+
+p {
+    padding-bottom: 10px;
+}
+
+p2 {
+    padding-bottom: 10px;
+    margin-right: 20px;
+}
+
+.forgot-password {
+    font-size: x-small;
+}
