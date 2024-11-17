@@ -1,8 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const {
-    createMeeting,
-    getMeetings,
+    getOneMeeting,
     updateMeeting,
     deleteMeeting,
     getAllMeetings
@@ -17,7 +16,7 @@ router.route("/")
 
 // localhost:6789/api/meeting/<meetingID>
 router.route("/:meetingID")
-    .get(getMeetings)
+    .get(getOneMeeting)
     .put(updateMeeting)
     .delete(deleteMeeting)
 

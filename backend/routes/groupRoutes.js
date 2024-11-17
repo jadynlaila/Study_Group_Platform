@@ -24,9 +24,9 @@ router.route("/")
     
 // localhost:5678/api/group/<groupID>
 router.route("/:groupID")
-.get(getGroup)
-.put(updateGroup)
-.delete(deleteGroup)
+    .get(getGroup)
+    .put(updateGroup)
+    .delete(deleteGroup)
 
 // localhost:5678/api/group/<groupID>/students
 router.route("/:groupID/students")
