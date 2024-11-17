@@ -4,13 +4,14 @@ const { errorHandler } = require("./middleware/errorMiddleware")
 const { protectRoute } = require("./middleware/protectRoute")
 const connectDB = require("./config/db");
 const port = process.env.PORT || 6789;
+const cors = require("cors")
 const Message = require("./routes/messageRoutes");
 const cookieParser = require("cookie-parser");
 
 connectDB()
 
 const app = express()
-
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
