@@ -1,4 +1,5 @@
 const { response } = require("express")
+const axios = require('axios')
 
 // requires //
 const mongoose = require("mongoose")
@@ -6,6 +7,8 @@ const asyncHandler = require("express-async-handler")
 const Group = require('../models/GroupModel')
 const Student = require('../models/StudentModel')
 const Message = require('../models/MessageModel')
+
+const localServerAddress = `http://127.0.0.1:${process.env.EXPRESS_PORT}`
 
 const createGroup = asyncHandler(async (request, result) => {
     try {
@@ -38,7 +41,7 @@ const createGroup = asyncHandler(async (request, result) => {
         console.debug("Required variables passed")
 
         // Check that the owner exists
-        const searchedOwner = Student.findById(ownerID)
+        const searchedOwner = await Student.findById(ownerID)
         if (!searchedOwner) {
             console.debug(`Unable to find student object ${ownerID}`)
             result.status(404).json({ error: `User with ID ${ownerID} was not found`})
@@ -53,24 +56,47 @@ const createGroup = asyncHandler(async (request, result) => {
             courses,
             majors,
             memberLimit,
-            memberCount: 0,
+            memberCount: 1,     // set to 1 because owner is in group
             memberIDs: [],
-            ownerID: new mongoose.Types.ObjectId(ownerID),
+            ownerID,
             administratorIDs: [],
-            profilePictureID: profilePictureID ? new mongoose.Types.ObjectId(profilePictureID) : null,
+            profilePictureID: profilePictureID,
             messageIDs: []
         });
 
         // Save the new group to MongoDB
         const savedGroup = await newGroup.save();
-
         console.debug(`Saved the new group with an ID of ${savedGroup._id}`)
+
+        // Update the student object to be a member of this group
+        const searchedStudent = await Student.findById(ownerID)
+        const response = await axios.put(`${localServerAddress}/api/student/${ownerID}`, {
+            groups: [...searchedStudent.groups, savedGroup._id]
+        })
+
+        if (response.status != 200) {
+            return result.status(response.status).json(response.data)
+        }
 
         // Return the saved group object
         return result.status(201).json({groupID: savedGroup._id, group: savedGroup});
-    } catch (e) {
-        console.debug(`Exception occurred: ${e}`)
-        return result.status(500).json({ error: e.message });
+    } catch (error) {
+        console.debug(`Exception occurred: ${error}`)
+        return result.status(500).json({ error });
+    }
+})
+
+const getAllGroups = asyncHandler(async (request, result) => {
+    try {
+        console.debug('Sending all existing groups')
+
+        const groups = await Group.find()
+
+        console.debug(`Number of groups found: ${groups.length}`)
+
+        return result.status(200).json(groups)
+    } catch (error) {
+        return result.status(500).json({ error })
     }
 })
 
@@ -103,91 +129,99 @@ const getGroup = asyncHandler(async (request, result) => {
         // Send/Return the group object
         return result.status(200).json(searchedGroup)
     
-    } catch (e) {
-        return result.status(500).json({ error: e })
+    } catch (error) {
+        return result.status(500).json({ error })
     }
 })
 
 const updateGroup = asyncHandler(async (request, result) => {
     try {
-        // Deconstruct the JSON body
-        const {
-            groupID,
-            name,
-            description,
-            courses,
-            majors,
-            memberLimit,
-            profilePictureID
-        } = request.body
+        const groupID = request.params.groupID
 
-        // Verify that the parameters are not empty
-        if (!groupID) {
-            console.debug("Failed to provide variable 'groupID'")
-            return result.status(400).json({ error: "Required variable 'groupID' not provided" })
-        }
-        
-        console.debug(`\n\nUpdating group ${groupID}`)
-        console.debug(`name: ${name}, description: ${description}, courses: ${courses}, majors: ${majors}, memberLimit: ${memberLimit}, profilePictureID: ${profilePictureID}`)
+        console.debug(`Updating group '${groupID}'`)
+        console.debug(request.body)
 
-        // Verify that the group exists
-        const mongoGroup = await Group.findById(groupID)
-        if (!mongoGroup) {
-            console.debug(`Failed to find group ${groupID}`)
-            return result.status(404).json({ error: `Group with ID ${groupID} was not found` })
+        if (!mongoose.Types.ObjectId.isValid(groupID)) {
+            return response.status(400).send('Invalid group ID')
         }
 
-        console.debug(`Group ${groupID} was found: ${mongoGroup.name}`)
+        console.debug(`Attempting to update group ${groupID}`)
+        console.debug(request.body)
+
+        const group = await Group.findById(groupID)
+
+        if (!group) {
+            return result.status(400).send(`Group '${groupID}' not found`)
+        }
 
         // Send data to Mongo
         const updatedGroup = await Group.findByIdAndUpdate(
             groupID,
-            {
-                name: name || mongoGroup.name,
-                description: description || mongoGroup.description,
-                profilePictureID: profilePictureID || mongoGroup.profilePictureID,
-                courses: courses || mongoGroup.courses,
-                majors: majors || mongoGroup.majors,
-                memberLimit: memberLimit || mongoGroup.memberLimit,
-                memberCount: mongoGroup.memberCount,
-                memberIDs: mongoGroup.memberIDs,
-                ownerID: mongoGroup.ownerID,
-                administratorIDs: mongoGroup.administratorIDs,
-                messageIDs: mongoGroup.messageIDs,
-                meetingIDs: mongoGroup.meetingIDs
-            },
+            request.body,
             { new: true }   // return a copy of the updated group object
         );
 
-        console.debug("DB update sent")
+        console.debug(`DB update sent for group ${groupID}`)
 
-        return result.status(200).json({ groupID: updatedGroup._id, group: updatedGroup });
-    } catch (e) {
-        return result.status(500).json({ error: e.message });
+        return result.status(200).json({ group: updatedGroup });
+    
+    } catch (error) {
+        console.error(error)
+        return result.status(500).json({ error });
     }
 })
 
 const deleteGroup = asyncHandler(async (request, result) => {
-    console.debug("lah dee dah someone tried deleting a group")
-    return request.status(501).json({ error: "Deleting a group has not been implemented yet." })
-
     try {
-        // Obtain the parameters (studentID, groupID)
+        // Obtain the parameters groupID
+        const groupID = request.params.groupID
 
-        // Verify that the parameters are not empty
-
-        // Check that the user and group exist
+        console.debug(`\n\nDeleting group ${groupID}`)
 
         // Obtain the group from Mongo
+        const searchedGroup = await Group.findById(groupID)
 
-        // Check the user's permissions
+        if (!searchedGroup) {
+            return result.status(404).json({ error: `Group with ID ${groupID} was not found` })
+        }
+
+        console.debug(`Found group ${groupID}: ${searchedGroup.name}`)
+        
+        // Delete the group from all students
+        console.debug("Removing group from all students...")
+        const allStudentIDs = [...searchedGroup.memberIDs, ...searchedGroup.administratorIDs, searchedGroup.ownerID];
+        for (const studentID of allStudentIDs) {
+            console.debug(`Removing group ${groupID} from student ${studentID}`)
+
+            const student = await Student.findById(studentID);
+            if (!student) {
+                console.warn(`Failed to FIND student ${studentID}. This may be a problem in the future.`);
+                continue;
+            }
+
+            // send the update to the student object
+            const response = await axios.put(`${localServerAddress}/api/student/${studentID}`, {
+                groups: student.groups.filter(group => group != groupID)
+            });
+
+            // check the response
+            if (response.status != 200) {
+                console.error(`Failed to UPDATE student ${studentID}. This may be a problem in the future.`);
+            }
+
+            console.debug(`Removed group ${groupID} from student ${studentID}`);
+        }
 
         // Delete the group in Mongo
+        await Group.findByIdAndDelete(groupID);
+        console.debug(`Deleted group ${groupID}`)
 
         // Return a success code
+        return result.status(200).json({ success: true });
         
-    } catch (e) {
-        return result.status(500).json({ error: e.message });
+    } catch (error) {
+        console.error(error)
+        return result.status(500).json({ error });
     }
 })
 
@@ -251,8 +285,126 @@ const joinGroup = asyncHandler(async (request, result) => {
 
         // Send back a response
         return result.status(201).json({ group: searchedGroup, student: searchedStudent })
-    } catch (e) {
-        return result.status(500).json({ error: e.message });
+    } catch (error) {
+        console.error(error)
+        return result.status(500).json(error);
+    }
+})
+
+const leaveGroup = asyncHandler(async (request, result) => {
+    try {
+        const groupID = request.params.groupID
+        const {studentID} = request.body
+
+        // get the student
+        const student = await Student.findById(studentID)
+        if (!student) {
+            console.warn(`Failed to find student ${studentID}`)
+            return result.status(400).json({ error: `Failed to find student ${studentID}` })
+        }
+
+        // get the group
+        const group = await Group.findById(groupID)
+        if (!group) {
+            console.warn(`Failed to find group ${groupID}`)
+            return result.status(400).json({ error: `Failed to find group ${groupID}` })
+        }
+
+        // check if the student is the owner
+        if (group.ownerID.equals(studentID)) {
+            console.warn(`Student ${studentID} is the owner of group ${groupID}. An owner cannot leave their own group.`)
+            return result.status(409).json({ error: `Student ${studentID} is the owner of group ${groupID}. An owner cannot leave their own group.` })
+        }
+
+        // check if the student is in the group
+        if (!group.memberIDs.includes(studentID)) {
+            console.warn(`Student ${studentID} is not in group ${groupID}`)
+            return result.status(400).json({ error: `Student ${studentID} is not in group ${groupID}` })
+        }
+
+        // check if student is in admin ids
+        if (group.administratorIDs.includes(studentID)) {
+            console.warn(`Student ${studentID} is an admin of group ${groupID}`)
+            return result.status(400).json({ error: `Student ${studentID} is an admin of group ${groupID}` })
+        }
+
+        // remove the group from the student object via the APIs
+        const studentResponse = await axios.put(`${localServerAddress}/api/student/${studentID}`, {
+            groups: student.groups.filter(group => group != groupID)
+        })
+
+        // remove the student from the group object via the APIs
+        const groupResponse = await axios.put(`${localServerAddress}/api/group/${groupID}`, {
+            memberIDs: group.memberIDs.filter(member => member != studentID)
+        })
+
+        // check the responses
+        if (studentResponse.status != 200) {
+            console.error(`Failed to update student ${studentID}`)
+            return result.status(studentResponse.status).json(studentResponse.data)
+        }
+        if (groupResponse.status != 200) {
+            console.error(`Failed to update group ${groupID}`)
+            return result.status(groupResponse.status).json(groupResponse.data)
+        }
+
+        // return success
+        return result.status(200).json({ success: true })
+
+    } catch (error) {
+        console.error(error)
+        return result.status(500).send(error)
+    }
+})
+
+const getStudentsFromGroup = asyncHandler(async (request, result) => {
+    try {
+        const groupID = request.params.groupID
+
+        console.debug(`Getting students for group '${groupID}'`)
+
+        if (!groupID) {
+            // frankly, this code should never run, but i'm just being exhaustive here just in case
+            return result.status(400).json({ error: "Parameter 'groupID' is required" })
+        }
+
+        // use the existing API to get the group
+        const response = await axios.get(`${localServerAddress}/api/group/${groupID}`)
+        const searchedGroup = response.data
+
+        if (response.status != 200) {
+            return result.status(response.status).json(response.body)
+        }
+
+        // get all the students, place in array
+        let allStudents = []
+
+        // add the owner
+        const owner = await Student.findById(searchedGroup.ownerID)
+        if (owner) {
+            allStudents.push(owner)
+        }
+
+        // iter through the administrators
+        for (const adminID of searchedGroup.administratorIDs) {
+            const student = await Student.findById(adminID)
+            if (student) {
+                allStudents.push(student)
+            }
+        }
+
+        // iter through regular members
+        for (const memberID of searchedGroup.memberIDs) {
+            const student = await Student.findById(memberID)
+            if (student) {
+                allStudents.push(student)
+            }
+        }
+
+        return result.status(200).json(allStudents);
+    } catch (error) {
+        console.debug(`Error: ${error}`)
+        return result.status(500).json(error)
     }
 })
 
@@ -290,16 +442,19 @@ const getMessages = asyncHandler(async (request, result) => {
 
         // Send/Return the messages
         result.status(200).json(messages)
-    } catch (e) {
-        return result.status(500).json({ error: e.message });
+    } catch (error) {
+        return result.status(500).json({ error });
     }
 })
 
 module.exports = {
     createGroup,
+    getAllGroups,
     getGroup,
     updateGroup,
     deleteGroup,
     joinGroup,
+    leaveGroup,
+    getStudentsFromGroup,
     getMessages
 }

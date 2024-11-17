@@ -2,20 +2,30 @@ const express = require("express")
 const router = express.Router()
 const {
     createGroup,
+    getAllGroups,
     getGroup,
     updateGroup,
     deleteGroup,
     joinGroup,
-    getMessages
+    getStudentsFromGroup,
+    getMessages,
+    leaveGroup
 } = require("../controllers/groupController")
 
 // localhost:5678/api/group/
 router.route("/")
-.post(updateGroup)
-.put(createGroup)
-.delete(deleteGroup)
+    .get(getAllGroups)
+    .post(createGroup)
+    
+    // localhost:5678/api/group/<groupID>
+    router.route("/:groupID")
+    .get(getGroup)
+    .put(updateGroup)
+    .delete(deleteGroup)
 
-router.route("/:groupID").get(getGroup)
+// localhost:5678/api/group/<groupID>/students
+router.route("/:groupID/students")
+    .get(getStudentsFromGroup)
 
 // localhost:5678/api/group/messages/<groupID>
 router.route("/messages/:groupID")
@@ -24,5 +34,8 @@ router.route("/messages/:groupID")
 // localhost:5678/api/group/join/<groupID>
 router.route("/join/:groupID")
     .put(joinGroup)
+
+router.route("/leave/:groupID")
+    .put(leaveGroup)
 
 module.exports = router
