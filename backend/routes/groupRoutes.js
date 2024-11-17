@@ -32,10 +32,11 @@ router.route("/:groupID")
 router.route("/:groupID/students")
     .get(getStudentsFromGroup)
 
-// localhost:5678/api/group/messages/<groupID>
+// localhost:5678/api/group/<groupID>/messages
 router.route("/:groupID/messages")
     .get(getMessages)
 
+// localhost:5678/api/group/<groupID>/meetings
 router.route("/:groupID/meetings")
     .get(getMeetings)
     .put(createMeeting)
@@ -44,6 +45,7 @@ router.route("/:groupID/meetings")
 router.route("/join/:groupID")
     .put(joinGroup)
 
+// localhost:5678/api/group/leave/<groupID>
 router.route("/leave/:groupID")
     .put(leaveGroup)
 
