@@ -12,10 +12,8 @@ const {
 router.route("/")
     .get(getAllMeetings)
 
-// localhost:6789/api/meetings/<groupID>
-router.route("/:groupID")
-    .get(getMeetings)
-    .post(createMeeting)
+// For creating a new meeting and getting all group meetings,
+// check the groupRoutes.js file (because the routes make more sense)
 
 // localhost:6789/api/meetings/<meetingID>
 router.route("/:meetingID")
