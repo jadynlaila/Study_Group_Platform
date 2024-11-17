@@ -12,27 +12,75 @@ const Group = require("../models/GroupModel");
 //! add group
 //! leave group
 //! check if username is available
+
+function scrubPrivateStudentInfo(studentObject) {
+    console.debug(`Scrubbing data for ${studentObject.username}`)
+
+    return {
+        _id: studentObject._id,
+        firstName: studentObject.firstName,
+        lastName: studentObject.lastName,
+        username: studentObject.username,
+        school: studentObject.school,
+        displayName: studentObject.displayName,
+        groups: studentObject.groups,
+        profilePicURL: studentObject.profilePicURL
+    }
+}
+
+// @desc    Get one student
+// @route   GET /api/students/<studentID>
+// @access  Private
+const getOneStudent = asyncHandler(async (req, res) => {
+    try {
+        const studentID = req.params.id     // can be either id or username
+
+        console.debug(`Attempting to get student with ID ${studentID}`)
+
+        // validate if studentID is a valid ObjectId
+        let searchedStudent = null;
+        if (mongoose.Types.ObjectId.isValid(studentID)) {
+            // search by object id first
+            searchedStudent = await Student.findById(studentID)
+        }
+
+        if (!searchedStudent) {
+            // try searching by username if input isn't an object ID
+            searchedStudent = await Student.findOne({ username: studentID })
+
+            if (!searchedStudent) {
+                return res.status(404).json({ error: `Failed to find student with id/username '${studentID}'` })
+            }
+        }
+
+        // return neutered info (remove private info)
+        return res.status(200).json(scrubPrivateStudentInfo(searchedStudent))
+    } catch (err) {
+        return res.status(500).json({ error: err })
+    }
+})
+
 // @desc    Get Students
 // @route   GET /api/Students
 // @access  Private
 const getStudents = asyncHandler(async (req, res) => {
     try{
         const students = await Student.find()
-        res.status(200).json({ students });
+
+        // scrub private user info
+        const scrubbedStudents = students.map(student => scrubPrivateStudentInfo(student));
+
+        res.status(200).json({ students: scrubbedStudents });
     }catch(err){
         console.log("Error in getStudents function", err);
         return res.status(500).json({ message: err.message });
     }
 })
 
-const getStudentsInGroup = asyncHandler(async (req, res) => {
-    //TODO
-})
-
 // @desc    Set Student
 // @route   POST /api/goals
 // @access  Private
-const setStudent = asyncHandler(async (req, res) => {
+const createStudent = asyncHandler(async (req, res) => {
     console.log(req.body)
     const {
         firstName,
@@ -100,40 +148,29 @@ const setStudent = asyncHandler(async (req, res) => {
 
 })
 
-// can be done in updateStudent
-//! should it be done here separately though?
-// const addGroup = asyncHandler(async ( req, res ) =>  {
-//     try{ 
-//         const student = await Student.findById(req.params.id)
-//         if (!student){
-//             res.status(400).json({error: "Student not found"})
-//         }
-        
-//         let updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body, {new: false})
-
-//         res.status(200)
-//     }catch (err){
-//         console.log("Error in addGroup function", err);
-//         return res.status(500).send("Error adding group")
-//     }
-// })
-
 // @desc    Update Student
 // @route   PUT /api/goals
 // @access  Private
 const updateStudent = asyncHandler(async (req, res) => {
     try{
+        console.debug(`Updating student '${req.params.id}'`)
+        console.debug(req.body)
+
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).send('Invalid student ID');
+        }
+
         const student = await Student.findById(req.params.id)
 
         if (!student){
-            return res.status(400).send('Student not found');
+            return res.status(400).send(`Student '${req.params.id}' not found`);
         }
 
-    const updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        const updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
-    res.status(200).json(updatedStudent)
+        res.status(200).json(updatedStudent)
     }catch(err){ 
-        console.log("Error in updateStudent function", err);
+        console.error("Error in updateStudent function", err);
         return res.status(500).send(err.message);
     }
 })
@@ -181,8 +218,9 @@ const deleteStudent = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+    getOneStudent,
     getStudents,
-    setStudent,
+    createStudent,
     updateStudent,
     deleteStudent,
     removeGroup
