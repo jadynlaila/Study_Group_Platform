@@ -1,25 +1,22 @@
 const express = require("express")
 const router = express.Router()
 const {
-    createMeeting,
-    getMeetings,
+    getOneMeeting,
     updateMeeting,
     deleteMeeting,
     getAllMeetings
 } = require("../controllers/meetingController")
 
-// localhost:6789/api/meetings/
+// localhost:6789/api/meeting
 router.route("/")
     .get(getAllMeetings)
 
-// localhost:6789/api/meetings/<groupID>
-router.route("/:groupID")
-    .get(getMeetings)
-    .post(createMeeting)
+// For creating a new meeting and getting all group meetings,
+// check the groupRoutes.js file (because the routes make more sense)
 
-// localhost:6789/api/meetings/<meetingID>
+// localhost:6789/api/meeting/<meetingID>
 router.route("/:meetingID")
-    .get(getMeetings)
+    .get(getOneMeeting)
     .put(updateMeeting)
     .delete(deleteMeeting)
 
