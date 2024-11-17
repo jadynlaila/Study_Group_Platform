@@ -20,7 +20,12 @@ app.use(cookieParser());
 
 app.use("/api/group", require("./backend/routes/groupRoutes"))
 app.use("/api/student", require("./backend/routes/studentRoutes"))
+<<<<<<< HEAD
+app.use("/api/messages", require("./backend/routes/messageRoutes"));
+app.use("/api/meeting", require("./backend/routes/meetingRoutes"));
+=======
 app.use("/api/message", require("./backend/routes/messageRoutes"));
+>>>>>>> origin/dev
 app.use(errorHandler)
 
 app.listen(port, () => console.log(`Server has started on port ${port}`))

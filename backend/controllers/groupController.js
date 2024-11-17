@@ -61,7 +61,8 @@ const createGroup = asyncHandler(async (request, result) => {
             ownerID,
             administratorIDs: [],
             profilePictureID: profilePictureID,
-            messageIDs: []
+            messageIDs: [],
+            meetingIDs: []
         });
 
         // Save the new group to MongoDB
