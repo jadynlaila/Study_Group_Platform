@@ -137,13 +137,14 @@ const getGroup = asyncHandler(async (request, result) => {
 
 const searchGroups = asyncHandler(async (request, result) => {
     try {
-        const { name, courses, majors, maxResults } = request.body
+        const { name, description, courses, majors, maxResults } = request.body
 
         console.debug(`\n\nSearching for groups with name: ${name}, courses: ${courses}, majors: ${majors}`)
 
         // search for groups with the given parameters
         const groups = await Group.find({
             name: { $regex: name, $options: 'i' },
+            description: { $regex: description, $options: 'i' },
             courses: { $in: courses },
             majors: { $in: majors },
         }).limit(maxResults)
