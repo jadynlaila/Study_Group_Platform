@@ -2,13 +2,15 @@ import React from 'react';
 import './App.css';
 import TextRegion from './components/TextRegion'; // Ensure the casing matches
 import GroupChatModule from './components/GroupChatModule';
+import LoginPage from './Login/LogIn';
 
 const App = () => {
   return (
     <div>
       <h1>Group Chat Application</h1>
+      <LoginPage/>
      {/* <TextRegion /> Doesnt need to be rendered seperatly, it is imported into GroupChatModule and loaded  dynamically */}
-      <GroupChatModule />
+      {/* <GroupChatModule /> */}
     </div>
   );
 };
