@@ -1,4 +1,5 @@
 # Deliverable 6 - Group 7
+Small changes for pull 
 
 ## Instructions
 This deliverable should describe the second release of your project. A release is a fully functional software that delivers a set of features (it doesn’t need to be the complete set, but the software needs to be usable). Structure your deliverable into the following sections. See the “Team Project Instructions” for details about formatting.
@@ -83,3 +84,4 @@ In retrospect, describe what your team learned during this second release and wh
 Grading criteria (2 points): Adequate reflection about problems and solutions, clear description with adequate use of language.
 
 [ insert content here ]
+
