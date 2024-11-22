@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
 import TextRegion from './TextRegion'; // Import the TextRegion component
+import NavBar from './Navbar/Navbar'; // Import the navbar component
 import axios from 'axios';
 
 // Sample data for group chats
