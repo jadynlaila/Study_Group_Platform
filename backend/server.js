@@ -6,6 +6,8 @@ const connectDB = require("./config/db");
 const port = process.env.PORT || 6789;
 const cors = require("cors")
 const Message = require("./routes/messageRoutes");
+const StudentRoutes = require("./routes/studentRoutes");
+const GroupRoutes = require("./routes/groupRoutes")
 const cookieParser = require("cookie-parser");
 
 connectDB()
@@ -16,10 +18,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
 
-app.use("/api/group", require("./routes/groupRoutes"))
-app.use("/api/student", require("./routes/studentRoutes"))
+app.use("/api/group", protectRoute, GroupRoutes)
+app.use("/api/student", protectRoute, StudentRoutes)
 app.use(errorHandler)
 
-app.use("/api/messages", Message);
+app.use("/api/messages", protectRoute, Message);
 
 app.listen(port, () => console.log(`Server has started on port ${port}`))

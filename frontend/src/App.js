@@ -3,7 +3,7 @@ import './App.css';
 import TextRegion from './components/TextRegion'; // Ensure the casing matches
 import GroupChatModule from './components/GroupChatModule';
 import LoginPage from './Login/LogIn';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 const App = () => {
   return (
     <div>
