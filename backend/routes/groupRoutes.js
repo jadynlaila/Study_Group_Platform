@@ -4,6 +4,7 @@ const {
     createGroup,
     getAllGroups,
     getGroup,
+    searchGroups,
     updateGroup,
     deleteGroup,
     joinGroup,
@@ -21,6 +22,10 @@ const {
 router.route("/")
     .get(getAllGroups)
     .post(createGroup)
+
+// localhost:5678/api/group/search
+router.route("/search/:query")
+    .get(searchGroups)
     
 // localhost:5678/api/group/<groupID>
 router.route("/:groupID")

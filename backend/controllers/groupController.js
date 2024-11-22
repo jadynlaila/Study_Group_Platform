@@ -135,6 +135,33 @@ const getGroup = asyncHandler(async (request, result) => {
     }
 })
 
+const searchGroups = asyncHandler(async (request, result) => {
+    try {
+        // const { name, description, courses, majors, maxResults } = request.body
+        const name = request.params.query
+
+        // console.debug(`\n\nSearching for groups with name: ${name}, courses: ${courses}, majors: ${majors}`)
+        console.debug(`\n\nSearching for groups with name: ${name}`)
+
+        // search for groups with the given parameters
+        const groups = await Group.find({
+            name: { $regex: name, $options: 'i' }
+        })
+
+        console.debug(`Found ${groups.length} groups`)
+
+        // return different result if nothing found
+        if (groups.length == 0) {
+            return result.status(404).json({ error: "No groups found" })
+        }
+
+        return result.status(200).json(groups)
+    } catch (e) {
+        console.error(e)
+        return result.status(500).json({ error: e })
+    }
+})
+
 const updateGroup = asyncHandler(async (request, result) => {
     try {
         const groupID = request.params.groupID
@@ -452,6 +479,7 @@ module.exports = {
     createGroup,
     getAllGroups,
     getGroup,
+    searchGroups,
     updateGroup,
     deleteGroup,
     joinGroup,
