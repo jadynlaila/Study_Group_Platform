@@ -31,7 +31,7 @@
   "scripts": {
     "test": "jest --coverage",
     "start": "concurrently npm:frontend npm:backend",
-    "frontend": "node react-server.js",
+    "frontend": "cd frontend && npm start",
     "backend": "node server.js",
     "server": "nodemon server.js"
   },
