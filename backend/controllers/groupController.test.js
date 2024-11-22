@@ -20,6 +20,7 @@ describe('Group Controller', () => {
     const serverAddress = `http://localhost:${process.env.PORT}`
     const studentID = "6715f0b32d87f2dadfb736fa";
 
+    // Test for createGroup
     test('should create a group', async () => {
         // Send the post request
         const response = await request(`${serverAddress}/api/group`).put('/').send({
@@ -39,7 +40,20 @@ describe('Group Controller', () => {
         // Remove the created group
         await Group.findByIdAndDelete(_id)
     });
+
+    // Test for getAllGroups
+    test('should get all groups', async () => {
+        // Send the get request
+        const response = await request(`${serverAddress}/api/group`).get('/').send();
+
+        // TEST: Make sure we get a good status code
+        expect(response.statusCode).toBe(200);
+
+        // TEST: Make sure that there is at least one group returned
+        expect(response.body.length).toBeGreaterThan(0);
+    });
     
+    // Test for getGroup
     test('should get a group', async () => {
         // Create the group first
         // Send the post request
@@ -69,6 +83,7 @@ describe('Group Controller', () => {
         await Group.findByIdAndDelete(groupID)
     });
     
+    // Test for updateGroup
     test('should update a group', async () => {
         const name = "JEST Test Group"
         const description = "This is a test"
@@ -112,6 +127,7 @@ describe('Group Controller', () => {
         await Group.findByIdAndDelete(groupID)
     });
 
+    // Test for joinGroup
     test('should join a group', async () => {
         // Make sure there are no preexisting users
         const searchedStudent = await Student.findOne({email: "testuser@example.com"})
@@ -183,6 +199,7 @@ describe('Group Controller', () => {
         await Group.findByIdAndDelete(joinedGroup._id)
     });
 
+    // Test for getMessages
     test('should get messages of a group', async () => {
         const testMessage = "Hello world"
 
