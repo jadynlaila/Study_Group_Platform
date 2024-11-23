@@ -4,27 +4,31 @@ const mongoose = require('mongoose');
 const dotenv = require("dotenv").config();
 const Group = require('../models/GroupModel');
 const Student = require('../models/StudentModel');
-const Message = require('../models/MessageModel')
+const connectDB = require("../config/db");
 
 const app = express();
 
 describe('sendMessage', () => {
-    const serverAddress = `http://localhost:${process.env.EXPRESS_PORT}`
+    const serverAddress = `localhost:5557`
     let testStudentID = null;
     let testGroupID = null;
+    let server = null;
 
     beforeAll(async () => {
-        const url = process.env.MONGO_URI;
-        await mongoose.connect(url);
+        await connectDB();
+
+        server = app.listen(5557, () => {
+            console.log(`Server started on port 5557`);
+        });
 
         // Create a test student using the API
-        const studentResponse = await request(`${serverAddress}/api/student`).post().send({
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send({
             firstName: "Test",
             lastName: "User",
             school: "Northern Arizona University",
             displayName: "TEST USER",
-            username: "testuser",
-            email: "test@jest.test",
+            username: "testuser_messagecontroller",
+            email: "test@message.controller",
             password: "password123",
             major: "Computer Science"
         });
@@ -39,7 +43,7 @@ describe('sendMessage', () => {
         testStudentID = studentResponse.body._id;
 
         // Create a test group using the API
-        const groupResponse = await request(`${serverAddress}/api/group`).post().send({
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send({
             name: "Test Group",
             description: "A test group",
             members: [testStudentID]
@@ -75,7 +79,7 @@ describe('sendMessage', () => {
 
     // Test sendMessage
     it('should send a message', async () => {
-        const response = await request(`${serverAddress}/api/message`).post().send({
+        const response = await request(`${serverAddress}/api/message`).post('/').send({
             groupID: testGroupID,
             studentID: testStudentID,
             message: "Hello, world!"

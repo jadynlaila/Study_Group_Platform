@@ -1,11 +1,10 @@
-const request = require('supertest')
-const express = require('express')
-const mongoose = require('mongoose')
-const dotenv = require("dotenv").config()
-const Group = require('../models/GroupModel')
-const Student = require('../models/StudentModel')
-const errorHandler = require("../middleware/errorMiddleware")
-const connectDB = require("../config/db")
+const request = require('supertest');
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require("dotenv").config();
+const Group = require('../models/GroupModel');
+const Student = require('../models/StudentModel');
+const connectDB = require("../config/db");
 
 const app = express()
 app.use(express.json());
@@ -16,7 +15,7 @@ app.use("/api/messages", require("../routes/messageRoutes"));
 app.use("/api/meeting", require("../routes/meetingRoutes"));
 
 describe('Meeting Controller', () => {
-    const serverAddress = `http://localhost:${process.env.EXPRESS_PORT}`
+    const serverAddress = `localhost:5556`
     let testGroupID = null;
     let testStudentID = null;
     let server = null;
@@ -24,8 +23,8 @@ describe('Meeting Controller', () => {
     beforeAll(async () => {
         await connectDB();
 
-        server = app.listen(process.env.EXPRESS_PORT, () => {
-            console.log(`Server started on port ${process.env.EXPRESS_PORT}`);
+        server = app.listen(5556, () => {
+            console.log(`Server started on port 5556`);
         });
 
         console.debug(`Using server address: ${serverAddress}`);
@@ -36,8 +35,8 @@ describe('Meeting Controller', () => {
             lastName: "User",
             school: "Northern Arizona University",
             displayName: "TEST USER",
-            username: "testuser",
-            email: "test.user@test.user",
+            username: "testuser_meetingcontroller",
+            email: "test.user@meeting.controller",
             password: "password123",
             major: "Computer Science"
         });

@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const dotenv = require("dotenv").config();
 const Group = require('../models/GroupModel');
 const Student = require('../models/StudentModel');
-const errorHandler = require("../middleware/errorMiddleware");
 const connectDB = require("../config/db");
 
 const app = express();
@@ -17,7 +16,7 @@ app.use("/api/meeting", require("../routes/meetingRoutes"));
 // app.use(errorHandler);
 
 describe('Group Controller', () => {
-    const serverAddress = `http://localhost:${process.env.EXPRESS_PORT}`
+    const serverAddress = `localhost:5555`
     let testGroupID = null;
     let testStudentID = null;
     let server = null;
@@ -25,8 +24,8 @@ describe('Group Controller', () => {
     beforeAll(async () => {
         await connectDB();
 
-        server = app.listen(process.env.EXPRESS_PORT, () => {
-            console.log(`Server started on port ${process.env.EXPRESS_PORT}`);
+        server = app.listen(5555, () => {
+            console.log(`Server started on port 5555`);
         });
 
         console.debug(`Using server address: ${serverAddress}`);
@@ -37,8 +36,8 @@ describe('Group Controller', () => {
             lastName: "User",
             school: "Northern Arizona University",
             displayName: "TEST USER",
-            username: "testuser",
-            email: "test.user@test.user",
+            username: "testuser_groupcontroller",
+            email: "test.user@group.controller",
             password: "password123",
             major: "Computer Science",
         });
