@@ -9,6 +9,7 @@ const Message = require('../models/MessageModel')
 const app = express();
 
 describe('sendMessage', () => {
+    const serverAddress = `http://localhost:${process.env.EXPRESS_PORT}`
     let testStudentID = null;
     let testGroupID = null;
 
@@ -17,7 +18,7 @@ describe('sendMessage', () => {
         await mongoose.connect(url);
 
         // Create a test student using the API
-        const studentResponse = await request(app).post('/api/student').send({
+        const studentResponse = await request(`${serverAddress}/api/student`).post().send({
             firstName: "Test",
             lastName: "User",
             school: "Northern Arizona University",
@@ -38,7 +39,7 @@ describe('sendMessage', () => {
         testStudentID = studentResponse.body._id;
 
         // Create a test group using the API
-        const groupResponse = await request(app).post('/api/group').send({
+        const groupResponse = await request(`${serverAddress}/api/group`).post().send({
             name: "Test Group",
             description: "A test group",
             members: [testStudentID]
@@ -54,8 +55,8 @@ describe('sendMessage', () => {
 
     afterAll(async () => {
         // Delete the test student and group using the API
-        const groupDeleteResponse = await request(app).delete(`/api/group/${testGroupID}`);
-        const studentDeleteResponse = await request(app).delete(`/api/student/${testStudentID}`);
+        const groupDeleteResponse = await request(`${serverAddress}/api/message`).delete(`/api/group/${testGroupID}`);
+        const studentDeleteResponse = await request(`${serverAddress}/api/message`).delete(`/api/student/${testStudentID}`);
 
         // Warn if the student wasn't deleted
         if (studentDeleteResponse.statusCode != 200) {
@@ -74,7 +75,7 @@ describe('sendMessage', () => {
 
     // Test sendMessage
     it('should send a message', async () => {
-        const response = await request(app).post('/api/messages').send({
+        const response = await request(`${serverAddress}/api/message`).post().send({
             groupID: testGroupID,
             studentID: testStudentID,
             message: "Hello, world!"
@@ -88,10 +89,7 @@ describe('sendMessage', () => {
 
     // Test getMessage
     it('should get a message', async () => {
-        const response = await request(app).get('/api/messages').send({
-            groupID: testGroupID,
-            studentID: testStudentID
-        });
+        const response = await request(`${serverAddress}/api/message`).get(`/${testMessageID}`);
 
         expect(response.statusCode).toEqual(200);
         expect(response.body.content).toEqual("Hello, world!");
