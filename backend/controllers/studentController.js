@@ -82,7 +82,6 @@ const getStudents = asyncHandler(async (req, res) => {
 // @route   POST /api/goals
 // @access  Private
 const createStudent = asyncHandler(async (req, res) => {
-    console.log(req.body)
     const {
         firstName,
         lastName,
@@ -95,6 +94,8 @@ const createStudent = asyncHandler(async (req, res) => {
         groups,
         profilePicURL
     } = req.body
+
+    console.debug(`Creating new student '${username}'`)
 
     // can use this if we install isEmail validator
     //if (!isEmail(email)) return res.status(401).send("Invalid");
@@ -135,7 +136,7 @@ const createStudent = asyncHandler(async (req, res) => {
         if(newStudent){
             generateTokenSetCookie(newStudent._id, res);
             newStudent = await newStudent.save();
-            res.status(201).json({
+            return res.status(201).json({
                 _id: newStudent._id,
                 firstName: newStudent.firstName,
                 lastName: newStudent.lastName,
@@ -149,7 +150,7 @@ const createStudent = asyncHandler(async (req, res) => {
                 profilePicURL: newStudent.profilePicURL,
             })
         } else { 
-            res.status(400).json({error: "Invalid user data"})
+            return res.status(400).json({error: "Invalid user data"})
         }
     } catch (err) {
         console.log("Error in newStudent function", err);
