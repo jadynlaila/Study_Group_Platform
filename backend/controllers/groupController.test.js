@@ -20,7 +20,6 @@ describe('Group Controller', () => {
     const serverAddress = `http://localhost:${process.env.EXPRESS_PORT}`
     let testGroupID = null;
     let testStudentID = null;
-    let testMessageID = null;
     let server = null;
 
     beforeAll(async () => {
