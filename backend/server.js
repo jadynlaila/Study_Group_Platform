@@ -20,11 +20,11 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
-
-app.use("/api/group", protectRoute, require("./routes/groupRoutes"))
+n
+app.use("/api/group", require("./routes/groupRoutes"))
 app.use("/api/student", require("./routes/studentRoutes"))
 app.use(errorHandler)
 
-app.use("/api/messages", protectRoute, Message);
+app.use("/api/messages", Message);
 
 app.listen(port, () => console.log(`Server has started on port ${port}`))

@@ -1,17 +1,18 @@
 const express = require("express")
 const router = express.Router()
+const {protectRoute} = require("../middleware/protectRoute")
 const { getStudents, createStudent, login, logout, updateStudent, deleteStudent, removeGroup, getOneStudent } = require("../controllers/studentController")
 
 router.route("/")
-    .get(getStudents)
+    .get(protectRoute, getStudents)
     .post(createStudent)
 
 router.route("/:id")
-    .get(getOneStudent)
-    .put(updateStudent)
-    .delete(deleteStudent)
+    .get(protectRoute, getOneStudent)
+    .put(protectRoute, updateStudent)
+    .delete(protectRoute, deleteStudent)
 
-router.route("/:studentId/:groupId").put(removeGroup)
+router.route("/:studentId/:groupId").put(protectRoute, removeGroup)
 
 router.route("/login").post(login)
 router.route("/logout").post(logout)
