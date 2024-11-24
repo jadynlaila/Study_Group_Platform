@@ -2,17 +2,26 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; 
     background-color: rgb(40, 40, 40);
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgb(97, 96, 96);
-    border-radius: 50px;
-    font-family: Arial, Helvetica, sans-serif
+    box-shadow: 0 2px 5px rgb(28, 27, 27);
+    border-radius: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    
+    /* position: fixed; */
+    /* top: 0;
+    right: 0px;
+    left: 0px;
+    /*width: 100%; /* Stretch across the full width of the screen */
+    height: 70px; /* Explicit height for consistent alignment */
+    /* box-sizing: border-box; */
+    
 }
 /* logo */
 .navbar-left .logo {
-    height: 40px;
-    margin-top: 4px;
+    height: 70px;
+    margin-top: 25px;
+    padding-right: 55px;
 }
 /* group stuff */
 .navbar-middle {

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './NavBarStyle.css';
-
+import logo from "./Public/StudySphere-White.svg";
+import logo2 from "./Public/Vector.png"
 const NavBar = () => {
   useEffect(() => {
     // Event listeners for navigation
@@ -29,13 +30,13 @@ const NavBar = () => {
     <nav className="navbar">
       {/* Left Section */}
       <div className="navbar-left">
-        <img src="public/StudySphere-White.svg" alt="Logo" className="logo" />
+        <img src= {logo} alt="Logo" className="logo" />
       </div>
 
       {/* Middle Section */}
       <div className="navbar-middle">
         <div className="group-chat">
-          <img src="public/download.jpg" alt="Group Profile" className="group-profile" />
+          <img src={ logo2 } alt="Group Profile" className="group-profile" />
           <div className="group-info">
             <span className="group-name">Datastructures T_T</span> {/* Placeholder */}
             <span className="field-of-study">Computer Science</span> {/* Placeholder */}
@@ -47,7 +48,7 @@ const NavBar = () => {
       {/* Right Section */}
       <div className="navbar-right">
         <div className="user-details">
-          <img src="public/vector.png" alt="User Profile" className="user-profile" />
+          <img src={ logo2 } alt="User Profile" className="user-profile" />
           <div className="user-info">
             <span className="user-name">Valentino Valero</span> {/* Placeholder */}
             <span className="user-major">ComputerScience</span> {/* Placeholder */}
