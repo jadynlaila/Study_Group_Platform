@@ -1,4 +1,5 @@
 const request = require('supertest');
+require('dotenv').config();
 
 describe('Group Controller', () => {
     const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
