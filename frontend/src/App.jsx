@@ -4,9 +4,18 @@ import GroupChatModule from './components/GroupChatModule';
 import LoginPage from './Login/LogIn';
 import {Navigate, Route, Routes} from "react-router-dom"
 import { useAuthContext } from "./context/AuthContext.jsx";
+import {useEffect, useState} from 'react'
 
 const App = () => {
-  const {authUser} = useAuthContext(); 
+  const {authUser, setAuthUser} = useAuthContext(); 
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("student");
+    if (storedUser) {
+      setAuthUser(JSON.parse(storedUser));
+    }
+  }, [setAuthUser]);
+
   return (
     <div>
       <Routes>

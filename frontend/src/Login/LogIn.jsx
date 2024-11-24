@@ -55,12 +55,10 @@ const LoginPage = () => {
       const response = await axios.post(`${baseURL}/api/student`, formData);
 
       if (response.status === 201) {
-        alert('Account created successfully!');
         setIsRegistering(false); // Switch to login form after successful registration
       }
     } catch (error) {
       console.error('Error creating student:', error);
-      alert('Error creating account. Please try again.');
     }
   };
 
@@ -71,13 +69,12 @@ const LoginPage = () => {
       const response = await axios.post(`${baseURL}/api/student/login`, loginData);
 
       if (response.status === 200) {
-        alert('Login successful!');
         localStorage.setItem("student", JSON.stringify(response.data))
         setAuthUser(response.data)
+        window.location.href = "/"
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      alert('Invalid credentials. Please try again.');
     }
   };
 
