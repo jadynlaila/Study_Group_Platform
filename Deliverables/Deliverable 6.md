@@ -35,7 +35,17 @@ Remember that all code contributions should be submitted via pull requests and t
 
 Grading criteria (20 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the scrum master. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
 
-[ insert content here ]
+Requirement: As a student, I want to be able to connect with other students so that we can communicate times to meet and study.
+
+Issue: https://github.com/jadynlaila/Study_Group_Platform/issues/125
+
+Pull request: https://github.com/jadynlaila/Study_Group_Platform/pull/157 & https://github.com/jadynlaila/Study_Group_Platform/pull/164
+
+Implemented by: Valentino Valero
+
+Approved by: Jadyn Calhoun 
+
+Print screen: 
 
 ## 3. Tests
 
