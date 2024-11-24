@@ -69,9 +69,14 @@ const LoginPage = () => {
       const response = await axios.post(`${baseURL}/api/student/login`, loginData);
 
       if (response.status === 200) {
-        localStorage.setItem("student", JSON.stringify(response.data))
-        setAuthUser(response.data)
-        window.location.href = "/"
+        console.log(response.data._id)
+        const student = await axios.get(`${baseURL}/api/student/${response.data._id}`)
+        if (student) { 
+          console.log("student", student.data)
+          localStorage.setItem("student", JSON.stringify(student.data))
+          setAuthUser(response.data)
+          window.location.href = "/"
+        }
       }
     } catch (error) {
       console.error('Error logging in:', error);

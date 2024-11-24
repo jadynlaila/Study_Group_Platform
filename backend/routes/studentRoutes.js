@@ -8,7 +8,7 @@ router.route("/")
     .post(createStudent)
 
 router.route("/:id")
-    .get(protectRoute, getOneStudent)
+    .get(getOneStudent)
     .put(protectRoute, updateStudent)
     .delete(protectRoute, deleteStudent)
 
