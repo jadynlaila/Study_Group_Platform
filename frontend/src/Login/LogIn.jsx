@@ -62,12 +62,10 @@ const LoginPage = () => {
       const response = await axios.post(`${baseURL}/api/student`, formData);
 
       if (response.status === 201) {
-        alert('Account created successfully!');
         setIsRegistering(false); // Switch to login form after successful registration
       }
     } catch (error) {
       console.error('Error creating student:', error);
-      alert('Error creating account. Please try again.');
     }
   };
 
@@ -78,11 +76,16 @@ const LoginPage = () => {
       const response = await axios.post(`${baseURL}/api/student/login`, loginData);
 
       if (response.status === 200) {
-        alert('Login successful!');
+        console.log(response.data._id)
+        const student = await axios.get(`${baseURL}/api/student/${response.data._id}`)
+        if (student) { 
+          console.log("student", student.data)
+          localStorage.setItem("student", JSON.stringify(student.data))
+          window.location.href = "/"
+        }
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      alert('Invalid credentials. Please try again.');
     }
   };
 
@@ -106,7 +109,7 @@ const LoginPage = () => {
       <div className="right-section">
         <img className="logo" src= {logo} alt="Study Sphere Logo" />
         <h2>{isRegistering ? (step === 1 ? 'Create Account' : 'Create Account') : 'Welcome Back!'}</h2>
-        <p2>{isRegistering ? (step === 1 ? 'Please fill in your details to create an account' : 'Please fill in the remaining details') : 'Please enter your username and password'}</p2>
+        <h2>{isRegistering ? (step === 1 ? 'Please fill in your details to create an account' : 'Please fill in the remaining details') : 'Please enter your username and password'}</h2>
 
         {!isRegistering ? (
           <form id="login-form" onSubmit={handleLoginSubmit}>

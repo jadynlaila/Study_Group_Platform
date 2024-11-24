@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
 import TextRegion from './TextRegion'; // Import the TextRegion component
 import axios from 'axios';
+import Cookies from 'js-cookie'
+import { useAuthContext } from '../context/AuthContext';
 
 // Sample data for group chats
 const groupChats = [
@@ -30,6 +32,14 @@ axios.interceptors.response.use(response => {
 })
 
 const GroupChatModule = () => {
+  const {authUser} = useAuthContext(); 
+  useEffect(() => {
+    if (authUser) { 
+      console.log("logged in user:", authUser.username)
+      fetchGroups();
+    }
+  }, [authUser])
+
   const [selectedGroup, setSelectedGroup] = useState(null); // State to track the selected group chat
   const [searchQuery, setSearchQuery] = useState(''); // State to track the search input
 
@@ -46,7 +56,7 @@ const GroupChatModule = () => {
   // Fetch the list of students from the API
   const fetchMessages = async () => {
       try {
-          const response = await axios.get(`${baseURL}/api/group/messages/671d57dff4700d4390bae352`);
+          const response = await axios.get(`${baseURL}/api/group/messages/${authUser._id}`);
           console.log('Students:', response.data);
           return response.data
       } catch (error) {
@@ -66,6 +76,17 @@ const GroupChatModule = () => {
           }
       }
   };
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // this doesn't return a user's groups - just all possible groups!
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  const fetchGroups = async () => {
+    try{
+      console.log(`Student groups:`, authUser.groups)
+    }catch(error) { 
+      console.error(error)
+    }
+  }
 
   // Call fetchMessages when the component mounts
   React.useEffect(() => {

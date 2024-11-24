@@ -1,15 +1,15 @@
 const express = require("express");
 const { sendMessage, deleteMessage, getMessage } = require("../controllers/messageController.js");
-// const { protectRoute } = require("../middleware/protectRoute.js");
+const {protectRoute} = require("../middleware/protectRoute")
 
 const router = express.Router();
 
 // Route for interacting with a message
 router.route("/:messageID")
-    .get(getMessage)
+    .get(protectRoute, getMessage)
 
 router.route("/")
-    .post(sendMessage)
-    .delete(deleteMessage)
+    .post(protectRoute, sendMessage)
+    .delete(protectRoute, deleteMessage)
 
 module.exports = router;

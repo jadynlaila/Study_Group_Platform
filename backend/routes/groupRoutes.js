@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const {protectRoute} = require("../middleware/protectRoute")
 const {
     createGroup,
     getAllGroups,
@@ -20,38 +21,38 @@ const {
 
 // localhost:5678/api/group/
 router.route("/")
-    .get(getAllGroups)
-    .post(createGroup)
+    .get(protectRoute, getAllGroups)
+    .post(protectRoute, createGroup)
 
 // localhost:5678/api/group/search
 router.route("/search/:query")
-    .get(searchGroups)
+    .get(protectRoute, searchGroups)
     
 // localhost:5678/api/group/<groupID>
 router.route("/:groupID")
-    .get(getGroup)
-    .put(updateGroup)
-    .delete(deleteGroup)
+    .get(protectRoute, getGroup)
+    .put(protectRoute, updateGroup)
+    .delete(protectRoute, deleteGroup)
 
 // localhost:5678/api/group/<groupID>/students
 router.route("/:groupID/students")
-    .get(getStudentsFromGroup)
+    .get(protectRoute, getStudentsFromGroup)
 
 // localhost:5678/api/group/<groupID>/messages
 router.route("/:groupID/messages")
-    .get(getMessages)
+    .get(protectRoute, getMessages)
 
 // localhost:5678/api/group/<groupID>/meetings
 router.route("/:groupID/meetings")
-    .get(getMeetings)
-    .put(createMeeting)
+    .get(protectRoute, getMeetings)
+    .put(protectRoute, createMeeting)
 
 // localhost:5678/api/group/join/<groupID>
 router.route("/join/:groupID")
-    .put(joinGroup)
+    .put(protectRoute, joinGroup)
 
 // localhost:5678/api/group/leave/<groupID>
 router.route("/leave/:groupID")
-    .put(leaveGroup)
+    .put(protectRoute, leaveGroup)
 
 module.exports = router
