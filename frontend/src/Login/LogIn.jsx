@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './styles.css'; // Assuming the same CSS file is used
 import logo from './study.svg';
@@ -7,7 +7,6 @@ let baseURL = `http://localhost:${process.env.PORT || 6789}`;
 
 const LoginPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
-  const [authUser, setAuthUser] = useState(null)
   const [step, setStep] = useState(1); // Track which step we're on
 
   // Form data state
@@ -82,7 +81,6 @@ const LoginPage = () => {
         if (student) { 
           console.log("student", student.data)
           localStorage.setItem("student", JSON.stringify(student.data))
-          setAuthUser(response.data)
           window.location.href = "/"
         }
       }
@@ -90,13 +88,6 @@ const LoginPage = () => {
       console.error('Error logging in:', error);
     }
   };
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("chat-user");
-    if (storedUser) {
-      setAuthUser(JSON.parse(storedUser));  // Set authUser state from localStorage data
-    }
-  }, []);
 
   return (
     <div className="container">
@@ -118,7 +109,7 @@ const LoginPage = () => {
       <div className="right-section">
         <img className="logo" src= {logo} alt="Study Sphere Logo" />
         <h2>{isRegistering ? (step === 1 ? 'Create Account' : 'Create Account') : 'Welcome Back!'}</h2>
-        <p2>{isRegistering ? (step === 1 ? 'Please fill in your details to create an account' : 'Please fill in the remaining details') : 'Please enter your username and password'}</p2>
+        <h2>{isRegistering ? (step === 1 ? 'Please fill in your details to create an account' : 'Please fill in the remaining details') : 'Please enter your username and password'}</h2>
 
         {!isRegistering ? (
           <form id="login-form" onSubmit={handleLoginSubmit}>
