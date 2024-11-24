@@ -9,18 +9,12 @@ const connectDB = require("../config/db");
 const app = express();
 
 describe('sendMessage', () => {
-    const serverAddress = `localhost:5557`
+    const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
     let testStudentID = null;
     let testGroupID = null;
     let server = null;
 
     beforeAll(async () => {
-        await connectDB();
-
-        server = app.listen(5557, () => {
-            console.log(`Server started on port 5557`);
-        });
-
         // Create a test student using the API
         const studentResponse = await request(`${serverAddress}/api/student`).post('/').send({
             firstName: "Test",
@@ -73,8 +67,6 @@ describe('sendMessage', () => {
             console.error("Failed to delete test group");
             console.error(groupDeleteResponse.body);
         }
-
-        await mongoose.connection.close();
     });
 
     // Test sendMessage

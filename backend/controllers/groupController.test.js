@@ -16,20 +16,11 @@ app.use("/api/meeting", require("../routes/meetingRoutes"));
 // app.use(errorHandler);
 
 describe('Group Controller', () => {
-    const serverAddress = `localhost:5555`
+    const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
     let testGroupID = null;
     let testStudentID = null;
-    let server = null;
 
     beforeAll(async () => {
-        await connectDB();
-
-        server = app.listen(5555, () => {
-            console.log(`Server started on port 5555`);
-        });
-
-        console.debug(`Using server address: ${serverAddress}`);
-
         // Create the test user using the API
         const studentResponse = await request(`${serverAddress}/api/student`).post('/').send({
             firstName: "Test",
@@ -66,8 +57,6 @@ describe('Group Controller', () => {
             console.warn("Failed to delete test student");
             console.warn(studentResponse.body);
         }
-
-        await mongoose.connection.close();
     });
 
     // Test createGroup

@@ -15,20 +15,11 @@ app.use("/api/messages", require("../routes/messageRoutes"));
 app.use("/api/meeting", require("../routes/meetingRoutes"));
 
 describe('Meeting Controller', () => {
-    const serverAddress = `localhost:5556`
+    const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
     let testGroupID = null;
     let testStudentID = null;
-    let server = null;
 
     beforeAll(async () => {
-        await connectDB();
-
-        server = app.listen(5556, () => {
-            console.log(`Server started on port 5556`);
-        });
-
-        console.debug(`Using server address: ${serverAddress}`);
-
         // Create the test user using the API
         const studentResponse = await request(`${serverAddress}/api/student`).post('/').send({
             firstName: "Test",
@@ -73,10 +64,6 @@ describe('Meeting Controller', () => {
 
             process.exit(1);
         }
-    });
-
-    afterAll(async () => {
-        await server.close();
     });
 
     // Test createMeeting
