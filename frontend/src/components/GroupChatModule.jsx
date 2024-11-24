@@ -4,6 +4,7 @@ import TextRegion from './TextRegion'; // Import the TextRegion component
 import axios from 'axios';
 import Cookies from 'js-cookie'
 import { useAuthContext } from '../context/AuthContext';
+import GroupSearchModule from './groupSearchModule';
 
 // Sample data for group chats
 const groupChats = [
@@ -115,7 +116,10 @@ const GroupChatModule = () => {
           ))}
         </ul>
       </div>
-
+      <div className='groupSearchContainer'>
+      {/* implement group search here */}
+      </div>
+      <GroupSearchModule/>
       {/* Render the chat component if a group is selected */}
       <div className="chatContainer">
         {selectedGroup && (

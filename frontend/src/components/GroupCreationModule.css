@@ -1,0 +1,64 @@
+.group-creation-page {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px;
+    background-color: #f9f9f9; /* Light background color */
+  }
+  
+  .sidebar {
+    width: 40%; /* Left and right columns take 20% each */
+    background-color: #333; /* Darker background color for sidebars */
+    padding: 0px;
+    height:100vh;
+  }
+  
+  .main-column {
+    width: 100%; /* Middle column takes 60% */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the content */
+    background-color: #3a3a3a; /* Background color for the middle column */
+    height: 100%; /* Ensure the middle column takes full height */
+  }
+  
+  .navbar {
+    margin-bottom: 20px;
+  }
+  
+  .group-creation-form {
+    display: flex;
+    flex-direction: column; /* Stack the form elements vertically */
+  }
+  
+  label {
+    margin-bottom: 20px; /* Space between labels and inputs */
+    font-weight: bold; /* Bold labels */
+  }
+  
+  .group-input {
+    padding: 10px;
+    margin-bottom: 15px; /* Space between inputs */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 15px; /* Slightly rounded edges */
+    font-size: 16px; /* Font size for inputs */
+    width: 100%; /* Full width of the parent */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    font-family: 'Arial', sans-serif; /* Change font style */
+    text-align: center; /* Center align the placeholder text */
+    height: 50px; /* Include padding and border in element's total width and height */
+  }
+  
+  .create-group-button {
+    padding: 10px;
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Text color for the button */
+    border: none; /* Remove border */
+    border-radius: 20px; /* Slightly rounded edges for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size for button */
+  }
+  
+  .create-group-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
