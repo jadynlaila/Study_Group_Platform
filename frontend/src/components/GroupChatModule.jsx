@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
 import TextRegion from './TextRegion'; // Import the TextRegion component
 import axios from 'axios';
 import Cookies from 'js-cookie'
-
-const token = Cookies.get("jwt")
-if (token) { 
-  console.log('token from cookie: ', token)
-} else  {
-  console.log('no token found')
-}
+import { useAuthContext } from '../context/AuthContext';
 
 // Sample data for group chats
 const groupChats = [
@@ -38,6 +32,13 @@ axios.interceptors.response.use(response => {
 })
 
 const GroupChatModule = () => {
+  const {authUser} = useAuthContext(); 
+  useEffect(() => {
+    if (authUser) { 
+      console.log("logged in user:", authUser.username)
+    }
+  }, [authUser])
+  
   const [selectedGroup, setSelectedGroup] = useState(null); // State to track the selected group chat
   const [searchQuery, setSearchQuery] = useState(''); // State to track the search input
 

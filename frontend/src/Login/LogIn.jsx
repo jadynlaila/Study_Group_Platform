@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './styles.css'; // Assuming the same CSS file is used
 
@@ -6,6 +6,7 @@ let baseURL = `http://localhost:${process.env.PORT || 6789}`;
 
 const LoginPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
+  const [authUser, setAuthUser] = useState(null)
 
   // Form data state
   const [formData, setFormData] = useState({
@@ -71,12 +72,21 @@ const LoginPage = () => {
 
       if (response.status === 200) {
         alert('Login successful!');
+        localStorage.setItem("student", JSON.stringify(response.data))
+        setAuthUser(response.data)
       }
     } catch (error) {
       console.error('Error logging in:', error);
       alert('Invalid credentials. Please try again.');
     }
   };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("chat-user");
+    if (storedUser) {
+      setAuthUser(JSON.parse(storedUser));  // Set authUser state from localStorage data
+    }
+  }, []);
 
   return (
     <div className="container">
