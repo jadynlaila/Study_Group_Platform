@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './styles.css';
+import './NavBarStyle.css';
 
 const NavBar = () => {
   useEffect(() => {
