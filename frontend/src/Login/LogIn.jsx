@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './styles.css'; // Assuming the same CSS file is used
+import logo from './study.svg';
 
 let baseURL = `http://localhost:${process.env.PORT || 6789}`;
 
 const LoginPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
+  const [step, setStep] = useState(1); // Track which step we're on
 
   // Form data state
   const [formData, setFormData] = useState({
@@ -43,14 +45,20 @@ const LoginPage = () => {
   // Toggle between login and register forms
   const toggleForm = () => {
     setIsRegistering(!isRegistering);
+    setStep(1); // Reset to step 1 when switching forms
   };
 
-  // Handle register form submission
+  // Go to next step in registration
+  const nextStep = () => {
+    setStep(2); // Go to step 2
+  };
+
+  // Handle register form submission (Step 2)
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Make POST request to create a new student (register user)
+      // Send the full registration data to backend
       const response = await axios.post(`${baseURL}/api/student`, formData);
 
       if (response.status === 201) {
@@ -90,15 +98,15 @@ const LoginPage = () => {
         </nav>
         <div className="slogan">
           <h1>Study Smarter,</h1>
-          <h1>Together.</h1>
+          <h2>Together.</h2>
         </div>
       </div>
 
       {/* Right Section */}
       <div className="right-section">
-        <img className="logo" src="public/S + Study.svg" alt="Study Sphere Logo" />
-        <h2>{isRegistering ? 'Create Account' : 'Welcome Back!'}</h2>
-        <p>{isRegistering ? 'Please fill in your details to create an account' : 'Please enter your username and password'}</p>
+        <img className="logo" src= {logo} alt="Study Sphere Logo" />
+        <h2>{isRegistering ? (step === 1 ? 'Create Account' : 'Create Account') : 'Welcome Back!'}</h2>
+        <p2>{isRegistering ? (step === 1 ? 'Please fill in your details to create an account' : 'Please fill in the remaining details') : 'Please enter your username and password'}</p2>
 
         {!isRegistering ? (
           <form id="login-form" onSubmit={handleLoginSubmit}>
@@ -121,72 +129,80 @@ const LoginPage = () => {
             <button type="submit">LOGIN</button>
           </form>
         ) : (
-          <form id="register-form" onSubmit={handleRegisterSubmit}>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              placeholder="First Name"
-              required
-            />
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              placeholder="Last Name"
-              required
-            />
-            <input
-              type="text"
-              name="displayName"
-              value={formData.displayName}
-              onChange={handleChange}
-              placeholder="Display Name"
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email"
-              required
-            />
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Password"
-              required
-            />
-            <input
-              type="text"
-              name="school"
-              value={formData.school}
-              onChange={handleChange}
-              placeholder="School"
-              required
-            />
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="Username"
-              required
-            />
-            <input
-              type="text"
-              name="major"
-              value={formData.major}
-              onChange={handleChange}
-              placeholder="Major"
-              required
-            />
-            <button type="submit">SIGN UP</button>
+          <form id="register-form" onSubmit={step === 2 ? handleRegisterSubmit : (e) => e.preventDefault()}>
+            {step === 1 ? (
+              <>
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  placeholder="Username"
+                  required
+                />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  required
+                />
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Password"
+                  required
+                />
+                <button type="button" onClick={nextStep}>Next Step</button>
+              </>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder="First Name"
+                  required
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder="Last Name"
+                  required
+                />
+                <input
+                  type="text"
+                  name="displayName"
+                  value={formData.displayName}
+                  onChange={handleChange}
+                  placeholder="Display Name"
+                  required
+                />
+                <input
+                  type="text"
+                  name="school"
+                  value={formData.school}
+                  onChange={handleChange}
+                  placeholder="School"
+                  required
+                />
+                <input
+                  type="text"
+                  name="major"
+                  value={formData.major}
+                  onChange={handleChange}
+                  placeholder="Major"
+                  required
+                />
+                <button type="submit">SIGN UP</button>
+              </>
+            )}
           </form>
         )}
 

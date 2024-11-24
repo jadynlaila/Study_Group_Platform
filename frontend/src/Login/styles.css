@@ -1,65 +1,52 @@
+/* Global Styles */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Helvetica;
+    font-family: Helvetica, sans-serif;
 }
 
+body {
+    background-color: #151515;
+    color: #EFEFEF;
+}
+
+/* Container Layout */
 .container {
     display: flex;
     min-height: 100vh;
-    background-color: #151515; /* Fills Corner Gap from left side */
+    background-color: #151515;
 }
 
 .left-section {
-    width: 66%;
+    flex: 2; /* This replaces width: 66% */
     background: linear-gradient(135deg, #9BBEE1, #268AD7, #1A3B53, #151515);
     color: #EFEFEF;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-top-right-radius: 40px; /* Adjust the radius to match the design */
+    border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
 }
 
-nav {
-    display: flex;
-    align-items: center;
-    gap: 20%;
-    margin-left: 10%;
-    margin-right: 10%;
-}
-
-nav a {
-    color: #151515;
-    text-decoration: none;
-    font-size: medium;
-    font-weight: bold;
-}
-
-.slogan h1 {
-    font-size: 5em;
-    font-weight: bold;
-    margin-bottom: 0px;
-}
-
 .right-section {
-    width: 34%;
+    flex: 1; /* This replaces width: 34% */
     background-color: #151515;
     color: #EFEFEF;
-    padding: 50px;
     display: flex;
-    margin-top: 150px;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Center the contents vertically */
+    padding: 50px;
 }
 
 .logo {
     width: 200px;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
 }
 
+/* Form Styles */
 form {
     display: flex;
     flex-direction: column;
@@ -77,11 +64,20 @@ input {
     transition: background-color 0.8s;
 }
 
+input:hover {
+    background-color: #202020;
+}
+
+input, select, textarea {
+    color:#EFEFEF
+}
+
 button {
     background-color: #268AD7;
     color: #EFEFEF;
     border: none;
     padding: 15px;
+    margin-bottom: 10px;
     font-weight: bold;
     font-size: large;
     cursor: pointer;
@@ -93,17 +89,14 @@ button:hover {
     background-color: #005bb5;
 }
 
-input:hover {
-    background-color: #202020;
-}
-
+/* Small Text / Links */
 .terms, .toggle-form {
     font-size: 0.7em;
     color: #EFEFEF;
 }
 
 .terms {
-    padding-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 .toggle-form a {
@@ -115,20 +108,83 @@ input:hover {
     text-decoration: underline;
 }
 
+/* Headings and Paragraphs */
 h2 {
     margin-right: 115px;
-    padding-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 p {
     padding-bottom: 10px;
+    font-size: small;
 }
 
 p2 {
-    padding-bottom: 10px;
-    margin-right: 20px;
+    margin-bottom: 10px;
+    font-size: small;
 }
 
 .forgot-password {
     font-size: x-small;
 }
+
+/* Navigation */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+nav a {
+    color: #151515;
+    text-decoration: none;
+    font-size: medium;
+    font-weight: bold;
+    transition: .5s;
+}
+
+nav a:hover {
+    color: #EFEFEF;
+}
+.slogan h1 {
+    font-size: 5em;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.slogan h2 {
+    font-size: 5em;
+    font-weight: bold;
+    margin-bottom: 0px;
+
+    background-image: linear-gradient(
+      -225deg,
+      #ff5c8d 0%, /* Pink */
+      #ff5cb0 20%, /* Light Pink */
+      #4e80ff 40%, /* Blue */
+      #39b7c5 60%, /* Teal */
+      #1dff8a 80%, /* Green */
+      #faff5c 100% /* Yellow */
+    );
+    background-size: 600% 600%; /* Large spread for vibrant, flowing effect */
+    background-clip: text;
+    color: #fff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 6s linear infinite;
+    display: inline-block;
+}
+
+@keyframes textclip {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
