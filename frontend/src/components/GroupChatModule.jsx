@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
 import TextRegion from './TextRegion'; // Import the TextRegion component
 import axios from 'axios';
+import Cookies from 'js-cookie'
+
+const token = Cookies.get("jwt")
+if (token) { 
+  console.log('token from cookie: ', token)
+} else  {
+  console.log('no token found')
+}
 
 // Sample data for group chats
 const groupChats = [
