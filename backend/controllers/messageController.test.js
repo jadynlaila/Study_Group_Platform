@@ -1,18 +1,9 @@
 const request = require('supertest');
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require("dotenv").config();
-const Group = require('../models/GroupModel');
-const Student = require('../models/StudentModel');
-const connectDB = require("../config/db");
-
-const app = express();
 
 describe('sendMessage', () => {
     const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
-    let testStudentID = null;
     let testGroupID = null;
-    let server = null;
+    let testStudentID = null;
 
     beforeAll(async () => {
         // Create a test student using the API
@@ -22,7 +13,7 @@ describe('sendMessage', () => {
             school: "Northern Arizona University",
             displayName: "TEST USER",
             username: "testuser_messagecontroller",
-            email: "test@message.controller",
+            email: "test.user@message.controller",
             password: "password123",
             major: "Computer Science"
         });

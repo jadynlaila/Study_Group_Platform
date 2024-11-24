@@ -1,19 +1,4 @@
 const request = require('supertest');
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require("dotenv").config();
-const Group = require('../models/GroupModel');
-const Student = require('../models/StudentModel');
-const connectDB = require("../config/db");
-
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use("/api/group", require("../routes/groupRoutes"));
-app.use("/api/student", require("../routes/studentRoutes"));
-app.use("/api/messages", require("../routes/messageRoutes"));
-app.use("/api/meeting", require("../routes/meetingRoutes"));
-// app.use(errorHandler);
 
 describe('Group Controller', () => {
     const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
@@ -152,7 +137,7 @@ describe('Group Controller', () => {
         const { group } = response.body;
 
         // Get the updated student
-        const updatedStudentResponse = await request(`${serverAddress}/api/student`).get(`/${studentID}`);
+        const updatedStudentResponse = await request(`${serverAddress}/api/student`).get(`/${testStudentID}`);
         const updatedStudent = updatedStudentResponse.body;
 
         // TEST: Make sure we get a good status code
@@ -190,7 +175,7 @@ describe('Group Controller', () => {
         const { group } = response.body;
 
         // Get the updated student
-        const updatedStudentResponse = await request(`${serverAddress}/api/student`).get(`/${studentID}`);
+        const updatedStudentResponse = await request(`${serverAddress}/api/student`).get(`/${testStudentID}`);
         const updatedStudent = updatedStudentResponse.body;
 
         // TEST: Make sure we get a good status code
@@ -207,8 +192,8 @@ describe('Group Controller', () => {
     test('should get messages of a group', async () => {
         // Create/Send the test message
         const sendMessageResponse = await request(`${serverAddress}/api/messages`).put('/').send({
-            groupID,
-            studentID: savedStudent._id,
+            testGroupID,
+            studentID: testStudentID,
             message: "Hello world"
         })
 
@@ -219,7 +204,7 @@ describe('Group Controller', () => {
         expect(sendMessageResponse.statusCode).toBe(201)
 
         // Check if the message ID was added to the group
-        const messagesResponse = await request(`${serverAddress}/api/group`).get(`/messages/${groupID}`)
+        const messagesResponse = await request(`${serverAddress}/api/group`).get(`/messages/${testGroupID}`)
         const messages = messagesResponse.body
 
         expect(messages[0].content).toBe("Hello world")

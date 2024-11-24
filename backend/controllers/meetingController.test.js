@@ -1,18 +1,4 @@
 const request = require('supertest');
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require("dotenv").config();
-const Group = require('../models/GroupModel');
-const Student = require('../models/StudentModel');
-const connectDB = require("../config/db");
-
-const app = express()
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use("/api/group", require("../routes/groupRoutes"));
-app.use("/api/student", require("../routes/studentRoutes"));
-app.use("/api/messages", require("../routes/messageRoutes"));
-app.use("/api/meeting", require("../routes/meetingRoutes"));
 
 describe('Meeting Controller', () => {
     const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
