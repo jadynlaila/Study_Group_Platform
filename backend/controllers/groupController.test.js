@@ -61,7 +61,7 @@ describe('Group Controller', () => {
         studentID = studentResponse.body._id;
         
         if (studentResponse.status != 201) {
-            console.error("Failed to create student");
+            console.error("Failed to create student: " + studentResponse.body.error);
             console.debug(studentResponse.body);
         }
 
@@ -120,7 +120,7 @@ describe('Group Controller', () => {
         studentID = studentResponse.body._id;
         
         if (studentResponse.status != 201) {
-            console.error("Failed to create student");
+            console.error("Failed to create student: " + studentResponse.body.error);
             console.debug(studentResponse.body);
         }
 
@@ -165,7 +165,7 @@ describe('Group Controller', () => {
         studentID = studentResponse.body._id;
         
         if (studentResponse.status != 201) {
-            console.error("Failed to create student");
+            console.error("Failed to create student: " + studentResponse.body.error);
             console.debug(studentResponse.body);
         }
 
@@ -221,7 +221,7 @@ describe('Group Controller', () => {
         studentID = studentResponse.body._id;
         
         if (studentResponse.status != 201) {
-            console.error("Failed to create student");
+            console.error("Failed to create student: " + studentResponse.body.error);
             console.debug(studentResponse.body);
         }
 
@@ -530,7 +530,7 @@ describe('Group Controller', () => {
         studentID = studentResponse.body._id;
         
         if (studentResponse.status != 201) {
-            console.error("Failed to create student");
+            console.error("Failed to create student: " + studentResponse.body.error);
             console.debug(studentResponse.body);
         }
 
