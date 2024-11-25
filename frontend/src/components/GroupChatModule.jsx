@@ -107,11 +107,6 @@ const GroupChatModule = () => {
     }
   };
 
-  // Call fetchMessages when the component mounts
-  React.useEffect(() => {
-    fetchMessages();
-  }, []);
-
   return (
     <div>
     {/* include Navbar ON TOP*/}
@@ -141,7 +136,7 @@ const GroupChatModule = () => {
       {/* Render the chat component if a group is selected */}
       <div className="chatContainer">
         {selectedGroup && (
-          <TextRegion key={selectedGroup.id} group={selectedGroup.name} />
+          <TextRegion key={selectedGroup.id} group={selectedGroup} />
         )}
       </div>
     </div>

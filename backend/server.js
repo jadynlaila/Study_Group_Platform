@@ -20,11 +20,11 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
-n
-app.use("/api/group", require("./routes/groupRoutes"))
-app.use("/api/student", require("./routes/studentRoutes"))
-app.use(errorHandler)
 
-app.use("/api/messages", Message);
+app.use("/api/group", require("./backend/routes/groupRoutes"))
+app.use("/api/student", require("./backend/routes/studentRoutes"))
+app.use("/api/message", require("./backend/routes/messageRoutes"));
+app.use("/api/meeting", require("./backend/routes/meetingRoutes"));
+app.use(errorHandler)
 
 app.listen(port, () => console.log(`Server has started on port ${port}`))
