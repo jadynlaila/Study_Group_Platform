@@ -10,7 +10,7 @@ const NavBar = () => {
     };
 
     const handleGroupClick = () => {
-      window.location.href = '/GroupSettings/GroupSettings.jsx';
+      window.location.href = '/groupSettings';
     };
 
     const userInfo = document.querySelector('.user-info');

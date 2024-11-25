@@ -22,7 +22,8 @@ const App = () => {
       <Routes>
         <Route path='/' element={authUser  ? <GroupChatModule /> : <Navigate to="/login" />} />
         <Route path='/login' element={authUser  ? <Navigate to='/' /> : <LoginPage />} />
-        <Route path='/userSettings' element={authUser ? <Navigate to='/' /> : <UserSettings />} />
+        <Route path='/userSettings' element={authUser ? <UserSettings/> : <Navigate to="/login" />} />
+        <Route path='/groupSettings' element={authUser ? <UserSettings/> : <Navigate to="/login" />} />        
       </Routes>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUserSettings, updateUserSettings } from '../studentService'; // Import the service functions
-import { useAuthContext } from  "../../context/AuthContext";
+import { useAuthContext } from '../../context/AuthContext';
+import axios from 'axios'; // Corrected import statement
 
 const UserSettings = () => {
   const [settings, setSettings] = useState({});
@@ -8,12 +9,16 @@ const UserSettings = () => {
   const [error, setError] = useState(null);
   const { authUser  } = useAuthContext();
 
-  // Get student ID from the authenticated user
-  const studentId = authUser._id; // Ensure the correct property name is used
-
   // Fetch user settings on component mount
   useEffect(() => {
     const fetchSettings = async () => {
+      if (!authUser ) {
+        setLoading(false); // Stop loading if authUser  is not available
+        return;
+      }
+
+      const studentId = authUser._id; // Ensure the correct property name is used
+
       if (!studentId) {
         setError('No student ID found in the authenticated user.');
         setLoading(false);
@@ -21,7 +26,7 @@ const UserSettings = () => {
       }
 
       try {
-        const data = await getUserSettings (studentId); // Call the function to get user settings
+        const data = await getUserSettings(studentId); // Call the function to get user settings
         setSettings(data);
       } catch (err) {
         setError(err.message);
@@ -31,15 +36,17 @@ const UserSettings = () => {
     };
 
     fetchSettings();
-  }, [studentId]); // Dependency array should include studentId
+  }, [authUser ]); // Dependency array includes authUser  
 
   // Handle form submission to update settings
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!studentId) {
-      setError('No student ID found in the authenticated user.');
+    if (!authUser ) {
+      setError('No authenticated user found.');
       return;
     }
+
+    const studentId = authUser._id; // Ensure the correct property name is used
 
     try {
       const updatedData = await updateUserSettings(studentId, settings); // Call the function to update user settings
@@ -53,6 +60,7 @@ const UserSettings = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  // Ensure that settings contain the necessary fields before rendering
   return (
     <form onSubmit={handleSubmit}>
       <h2>User Settings</h2>
@@ -61,7 +69,7 @@ const UserSettings = () => {
           First Name:
           <input
             type="text"
-            value={settings.firstName || ''}
+            value={settings.firstName || ''} // Default to an empty string if firstName is not available
             onChange={(e) => setSettings({ ...settings, firstName: e.target.value })}
           />
         </label>
@@ -71,7 +79,7 @@ const UserSettings = () => {
           Last Name:
           <input
             type="text"
-            value={settings.lastName || ''}
+            value={settings.lastName || ''} // Default to an empty string if lastName is not available
             onChange={(e) => setSettings({ ...settings, lastName: e.target.value })}
           />
         </label>
@@ -81,7 +89,7 @@ const UserSettings = () => {
           Username:
           <input
             type="text"
-            value={settings.username || ''}
+            value={settings.username || ''} // Default to an empty string if username is not available
             onChange={(e) => setSettings({ ...settings, username: e.target.value })}
           />
         </label>
@@ -91,7 +99,7 @@ const UserSettings = () => {
           Email:
           <input
             type="email"
-            value={settings.email || ''}
+            value={settings.email || ''} // Default to an empty string if email is not available
             onChange={(e) => setSettings({ ...settings, email: e.target.value })}
           />
         </label>
@@ -101,13 +109,13 @@ const UserSettings = () => {
           Profile Picture URL:
           <input
             type="text"
-            value={settings.profilePicURL || ''}
+            value={settings.profilePicURL || ''} // Default to an empty string if profilePicURL is not available
             onChange={(e) => setSettings({ ...settings, profilePicURL: e.target.value })}
           />
         </label>
       </div>
       <button type="submit">Update Settings</button>
-    </form>
+ </form>
   );
 };
 

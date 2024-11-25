@@ -52,7 +52,7 @@ const GroupChatModule = () => {
   // Fetch the list of students from the API
   const fetchMessages = async () => {
       try {
-          const response = await axios.get(`${baseURL}/api/group/messages/${authUser._id}`);
+          const response = await axios.get(`${baseURL}/api/group/${authUser._id}/messages`);
           console.log('Messages:', response.data);
           return response.data
       } catch (error) {
