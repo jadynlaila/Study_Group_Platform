@@ -24,7 +24,7 @@ Create a page for User settings, to edit details of their profile. It must be ab
 https://github.com/jadynlaila/Study_Group_Platform/issues/56
 
 ##### Pull request: 
-https://github.com/jadynlaila/Study_Group_Platform/pull/172
+https://github.com/jadynlaila/Study_Group_Platform/pull/183
 
 ##### Implemented by: 
 Jack Lealos
@@ -45,7 +45,7 @@ Create a page for Group settings to edit details of the group. It must include b
 https://github.com/jadynlaila/Study_Group_Platform/issues/56
 
 ##### Pull request:
- https://github.com/jadynlaila/Study_Group_Platform/pull/172
+ https://github.com/jadynlaila/Study_Group_Platform/pull/183
 
 ##### Implemented by: 
 Jack Lealos
