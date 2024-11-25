@@ -51,9 +51,18 @@ Grading criteria (2 points): adequate choice of a test framework, coverage of th
 
 [ insert content here ]
 
-For our project, we used `Jest` as our testing framework. The tests can be located under `Study_Group_Platform/backend/controllers` ([located here]()), and the test files will contain the extension `.test.js`.
+For our project, we used `Jest` as our testing framework. The tests can be located under `Study_Group_Platform/backend/controllers` ([GitHub link here](https://github.com/jadynlaila/Study_Group_Platform/tree/dev/backend/controllers)), and the test files will contain the extension `.test.js`.
 
+The classes that are being tested include:
+- [groupController.js](https://github.com/jadynlaila/Study_Group_Platform/blob/dev/backend/controllers/groupController.js) (test file: [groupController.test.js](https://github.com/jadynlaila/Study_Group_Platform/blob/dev/backend/controllers/groupController.test.js))
+- [messageController.js](https://github.com/jadynlaila/Study_Group_Platform/blob/dev/backend/controllers/messageController.js) (test file: [messageController.test.js](https://github.com/jadynlaila/Study_Group_Platform/blob/dev/backend/controllers/messageController.js))
 
+Each test creates a mock object, saves it to the database, runs its transactions/tests, and deletes the mock objects afterwards.
+
+#### Demo Image
+
+![Unit Test Image](res\alex_d6\unittests.png)
+*Note: The failed test suites are from other unimplemented test suites. These could not be removed in time for writing the deliverable.*
 
 ### 3.2 Acceptance tests
 
