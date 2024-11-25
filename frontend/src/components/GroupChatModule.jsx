@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
 import TextRegion from './TextRegion'; // Import the TextRegion component
 import axios from 'axios';
+import Navbar from './Navbar';
+import Cookies from 'js-cookie';
 import { useAuthContext } from '../context/AuthContext';
 
 // axios.defaults.baseURL = `http://localhost:${process.env.PORT || 3000}`
@@ -111,6 +113,9 @@ const GroupChatModule = () => {
   }, []);
 
   return (
+    <div>
+    {/* include Navbar ON TOP*/}
+    <Navbar/>
     <div className="container">
       <div className="groupChatContainer">
         <div className="searchContainer">
@@ -139,6 +144,7 @@ const GroupChatModule = () => {
           <TextRegion key={selectedGroup.id} group={selectedGroup.name} />
         )}
       </div>
+    </div>
     </div>
   );
 };
