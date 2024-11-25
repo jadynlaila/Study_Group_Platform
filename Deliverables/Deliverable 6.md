@@ -1,14 +1,10 @@
 # Deliverable 6 - Group 7
 
-## Instructions
-This deliverable should describe the second release of your project. A release is a fully functional software that delivers a set of features (it doesn’t need to be the complete set, but the software needs to be usable). Structure your deliverable into the following sections. See the “Team Project Instructions” for details about formatting.
 
 ## 1. Introduction
-Provide 1-2 paragraphs to describe your system. This description should contain the value proposition and the main features. At the end of the introduction, include a link to your project on GitHub.
+StudySphere is an intuitive platform that empowers students to create and manage accounts, connect with peers, and form study groups with ease. Upon account creation, users provide essential information such as their name, email, college, and groups they are affiliated with. Students are encouraged to join or create study groups, fostering a collaborative environment where they can interact, exchange ideas, and prepare for academic success. Each group features real-time messaging, allowing seamless communication for scheduling study sessions, planning meetings, or simply making new friends within their academic community.
 
-Grading criteria (1 point): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, and adequate use of language. The description should be consistent with the current state of the project. You should include the link to GitHub.
-
-[ insert content here ]
+The platform enables students to take ownership of their groups by managing attributes like group names, descriptions, pictures, members, and administrators. Group owners and administrators have enhanced privileges to ensure smooth group functionality. All group messages are stored in dedicated threads, ensuring easy access and continuity. By combining user-friendly design with robust features, StudySphere provides an innovative way for students to "study smarter together" and build meaningful connections, both virtually and in person. The current project can be found at the following link: [StudySphere GitHub Repository](https://github.com/jadynlaila/Study_Group_Platform)
 
 ## 2. Implemented requirements
 List in this section the requirements and associated pull request that you implemented for this release, following the example below---include the description of the requirement, a link to the issue,  a link to the pull request(s) that implement the requirement, who implemented the requirement, who approved it, and a print screen that depicts the implemented feature (if applicable). Order the requirements by the name of the student who implemented them. Everyone in the group is expected to have code contributions documented by means of pull requests. Every pull request should be reviewed and approved before the merge. 
@@ -31,7 +27,90 @@ Approved by: Ada Lovelace
 Print screen: A print screen that depicts the implemented feature (if applicable)
 ```
 
+**Rudra Amin:** 
+
+Issue: https://github.com/jadynlaila/Study_Group_Platform/issues/115
+
+Pull request: https://github.com/jadynlaila/Study_Group_Platform/pull/170
+
+Implemented By: Rudra Amin (backend) and Jadyn Calhoun (frontend)
+
+Approved by: Rudra Amin
+
+Print screen: ![messageInGC](./res/sending_message.png)
+
+
 Remember that all code contributions should be submitted via pull requests and the reviewer should review and approve each pull request. 
+
+### Jadyn Calhoun 
+
+**Requirement:** As a student, I want to be able to create an account
+
+**Issue:** [User Story - Account Creation ](https://github.com/jadynlaila/Study_Group_Platform/issues/100)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/159)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:** Alexander Anthis
+
+**Print screen:** ![Create Student Page 1](res/jadyn_d6/d6_creating1.png)
+
+**Print screen:** ![Create Student Page 2](res/jadyn_d6/d6_creating2.png)
+
+**Print screen:** ![Student Created](res/jadyn_d6/d6_created.png)
+
+
+**Requirement:** As a student, I want to be able to log in to my account
+
+**Issue:** [User Story - Student Login ](https://github.com/jadynlaila/Study_Group_Platform/issues/173)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/159)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:** Alexander Anthis
+
+**Print screen:** ![Login Student](res/jadyn_d6/d6_loggingIn.png)
+
+
+**Requirement:** As a student, I want to access my own information when I log in
+
+**Issue:** [User Story - User Info ](https://github.com/jadynlaila/Study_Group_Platform/issues/174)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/165)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:** Jack Lealos
+
+**Print screen:** ![Access Student Info](res/jadyn_d6/d6_storedStudent.png)
+
+
+**Requirement:** As a student, I want to see what groups I am a member of
+
+**Issue:** [User Story - Group View ](https://github.com/jadynlaila/Study_Group_Platform/issues/175)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/166)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:** Jack Lealos
+
+**Print screen:** ![Access Student Groups](res/jadyn_d6/d6_groups.png)
+
+
+**Requirement:** As a student, I would like to see messages that are sent in groups I am a member of
+
+**Issue:** [User Story - View Messages ](https://github.com/jadynlaila/Study_Group_Platform/issues/176)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/170)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:** Rudra Amin
+
+**Print screen:** ![Access Group Messages](res/jadyn_d6/d6_messages.png)
 
 Grading criteria (20 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the scrum master. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
 
@@ -81,16 +160,19 @@ Grading criteria (10 points): This section will be graded based on the quality o
 [ insert content here ]
 
 ## 5. Code quality
-Describe how your team managed code quality. What were your policies, conventions, adopted best practices, etc., to foster high-quality code? 
 
-Grading criteria (3 points): Adequate list of practices that were adopted to improve code quality and clear description with adequate use of language.
-
-[ insert content here ]
-FRONTEND: For frontend code quality we made good use of Figma's built in dev mode. By using devmode we effectively have pre-built CSS that helps us keep consistent in terms of format and aesthetic. Secondarily, proper use of commenting helps us understand implementations as well as any potential changes we may have made on a branch such as consolidating a bunch of CSS aspects into one that effectively does all. In regards to policies, we kept it pretty standard with line character limits, proper spacing and indenting, having brackets on their own lines, and overall keeping things in a linear manner thats easy to understand ( having the navbar CSS go left to right as you proceed down the code ). Ideally if we were to change things in the future, we shouldve implemented linters.
+**Backend:** To ensure high-quality code, our team implemented several practices and adhered to specific conventions and policies. First, we adopted a consistent coding style, this ensured uniformity and made our code easier to read and maintain. We also emphasized descriptive naming conventions for variables, functions, and classes to enhance clarity. Our team ensured high-quality code by also following SOLID principles, including the Single Responsibility, Open-Closed, and Liskov Substitution Principles, while acknowledging that our current implementation does not fully adhere to the Interface Segregation Principle. We also used the Service Layer Design Pattern to separate business logic from controllers, ensuring modularity and scalability. To validate functionality, we implemented unit testing for individual components and acceptance testing to ensure the system met user requirements.
 
 ## 6. Lessons learned
-In retrospect, describe what your team learned during this second release and what you would change if you would continue developing the project. 
 
-Grading criteria (2 points): Adequate reflection about problems and solutions, clear description with adequate use of language.
+**Alexander Anthis:**: During the second release of StudySphere, I learned write Unit Tests as well as acceptance test for our website. I also learned how to link backend functions to frontend and make the webitse functional.
 
-[ insert content here ]
+**Daira Santacruz:** Through the second release I learned how to make and search for groups. I also learned how to link backend functions to the front UI, more specifically searching and joining groups. One thing I would maybe change is have a seperate page for what users see once they login instead of the current home/groups page.
+
+**Rudra Amin:** I had no previous expirience with building a website so this was all very new to me.Through our second release I learened how to write backend function as well as work with routes for the functions. I also learend how to implement desgin patterns in our code. I learned different design patterns and then implemented them into our code. 
+
+**Jack Lealos:** During the second release I learned different design patterns as well as implemented them in our code. I also learned how to link the backend code with the frontend, More specifically I linked the groups and user settings functions. 
+
+**Jadyn Calhoun:** Throught the second release I learned how to link backend funcitons with the UI. More specifically I learned how to link the login and user registration page as well as the navigation panel. I also learned how to input mock data into out server to test functions.
+
+**Valentino Valero:** Over the duration of this project, I have learned the importance of having a gameplan. Specifically frontend, having built a figma prototype for each and every page proved very beneficial. Without this figma prototype, frontend wouldve been very lost and it would be harder to communicate and understand what needs to be built.
