@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
-import TextRegion from './TextRegion'; // Import the TextRegion component
+import TextRegion from './TextRegion/TextRegion.jsx'; // Import the TextRegion component
 import axios from 'axios';
-import Navbar from './Navbar';
+import Navbar from './Navbar.jsx';
 import Cookies from 'js-cookie';
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext.jsx';
 
 // axios.defaults.baseURL = `http://localhost:${process.env.PORT || 3000}`
 let baseURL = `http://localhost:${process.env.PORT || 6789}`
@@ -44,6 +44,33 @@ const GroupChatModule = () => {
     }catch (error) { 
       console.error(`Group details not found`)
     }
+  };
+
+  // Filtered group chats based on the search query
+
+
+  // Fetch the list of students from the API
+  const fetchMessages = async () => {
+      try {
+          const response = await axios.get(`${baseURL}/api/group/${authUser._id}/messages`);
+          console.log('Messages:', response.data);
+          return response.data
+      } catch (error) {
+          console.error("WERIUHERGUH AXIOS ERGHUIAERWGUIHERAGIUH")
+
+          if (error.response) {
+            // Server responded with a status other than 200 range
+            console.error('Error response:', error.response.data);
+          }
+          if (error.request) {
+            // Request was made but no response received
+            console.error('Error request:', error.request);
+          }
+          if (error.message) {
+            // Something else caused the error
+            console.error('Error message:', error.message);
+          }
+      }
   };
 
 

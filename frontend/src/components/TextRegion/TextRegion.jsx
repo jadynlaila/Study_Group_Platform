@@ -6,6 +6,7 @@ import axios from 'axios';
 
 let baseURL = `http://localhost:${process.env.PORT || 6789}`
 
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const TextRegion = ({ group }) => {
   const [inputText, setInputText] = useState('');
@@ -28,7 +29,7 @@ const TextRegion = ({ group }) => {
     }
   }
 
-
+  const navigate = useNavigate(); // Initialize useNavigate for navigation
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
@@ -41,10 +42,17 @@ const TextRegion = ({ group }) => {
       setInputText('');
     }
   };
+  const handleGroupSettingsClick = () => {
+    navigate(`/groupSettings/${group._id}`); // Include the group ID in the path
+  };
+  
 
   return (
     <div className="text-region">
-      <h2>{group.name} Chat</h2> {/* Display the group name */}
+      <div className="header">
+        <h2>{group} Chat</h2>
+        <button onClick={handleGroupSettingsClick} className="settings-button">Settings</button>
+      </div>
       <div className="chat-display">
         {messages.map((msg, index) => (
           <div key={index} className={`chat-message ${msg.author}`}>
