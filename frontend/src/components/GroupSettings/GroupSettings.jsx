@@ -4,7 +4,7 @@ import axios from 'axios'; // Import axios for making API requests
 import './GroupSettings.css'; // Import the CSS file
 
 
-const BASE_URL = 'http://localhost:3000'; // Adjust the base URL as needed
+const BASE_URL = 'http://localhost:6789'; // Adjust the base URL as needed
 
 
 const GroupSettings = () => {

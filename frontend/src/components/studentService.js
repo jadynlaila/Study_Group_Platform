@@ -1,4 +1,4 @@
-// src/services/studentService.js
+// src/studentService.js
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:6789'; // Adjust the base URL as needed
