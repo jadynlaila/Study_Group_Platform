@@ -97,7 +97,7 @@ const deleteMessage = asyncHandler(async (req,res) => {
         );
 
         // Delete the message
-        await message.remove();
+        await message.deleteOne();
 
         // Send success response
         console.debug(`Message with id ${messageID} deleted successfully`);

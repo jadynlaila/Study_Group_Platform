@@ -1,101 +1,196 @@
 const request = require('supertest');
 require('dotenv').config();
 
-describe('sendMessage', () => {
+// Sample data
+const sampleStudentData = {
+    firstName: "Test",
+    lastName: "User",
+    school: "Northern Arizona University",
+    displayName: "TEST USER",
+    username: null,
+    email: null,
+    password: "password123",
+    major: "Computer Science"
+};
+
+const sampleGroupData = {
+    name: "JEST Test Group",
+    description: "This is a test",
+    courses: "CS386",
+    majors: "Computer Science",
+    memberLimit: 10,
+    ownerID: null,
+    profilePictureID: null
+};
+
+const sampleMessageData = {
+    groupID: null,
+    studentID: null,
+    message: "Hello world"
+};
+
+describe('messageController', () => {
     const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
-    let testGroupID = null;
-    let testStudentID = null;
-
-    beforeAll(async () => {
-        // Create a test student using the API
-        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send({
-            firstName: "Test",
-            lastName: "User",
-            school: "Northern Arizona University",
-            displayName: "TEST USER",
-            username: "testuser_messagecontroller",
-            email: "test.user@message.controller",
-            password: "password123",
-            major: "Computer Science"
-        });
-
-        // Bail if the student wasn't created
-        if (studentResponse.statusCode != 201) {
-            console.error("Failed to create test student");
-            console.error(studentResponse.body);
-            process.exit(1);
-        }
-
-        testStudentID = studentResponse.body._id;
-
-        // Create a test group using the API
-        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send({
-            name: "Test Group",
-            description: "A test group",
-            members: [testStudentID]
-        });
-
-        // Bail if the group wasn't created
-        if (groupResponse.statusCode != 201) {
-            console.error("Failed to create test group");
-            console.error(groupResponse.body);
-            process.exit(1);
-        }
-    });
-
-    afterAll(async () => {
-        // Delete the test student and group using the API
-        const groupDeleteResponse = await request(`${serverAddress}/api/message`).delete(`/api/group/${testGroupID}`);
-        const studentDeleteResponse = await request(`${serverAddress}/api/message`).delete(`/api/student/${testStudentID}`);
-
-        // Warn if the student wasn't deleted
-        if (studentDeleteResponse.statusCode != 200) {
-            console.error("Failed to delete test student");
-            console.error(studentDeleteResponse.body);
-        }
-
-        // Warn if the group wasn't deleted
-        if (groupDeleteResponse.statusCode != 200) {
-            console.error("Failed to delete test group");
-            console.error(groupDeleteResponse.body);
-        }
-    });
 
     // Test sendMessage
     it('should send a message', async () => {
-        const response = await request(`${serverAddress}/api/message`).post('/').send({
-            groupID: testGroupID,
-            studentID: testStudentID,
-            message: "Hello, world!"
-        });
+        // Create a sample student
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_sendMessage";
+        studentData.email = "sendMessage@test.user"
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create FIRST student");
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the FIRST student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+
+        // Create the message data
+        let messageData = { ...sampleMessageData };
+        messageData.groupID = groupID;
+        messageData.studentID = studentID;
+
+        const response = await request(`${serverAddress}/api/message`).post('/').send(messageData);
+        const messageID = response.body._id;
+
+        // Remove the sample data
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+        await request(`${serverAddress}/api/message`).delete(`/${messageID}`);
 
         expect(response.statusCode).toEqual(201);
-        expect(response.body.content).toEqual("Hello, world!");
-        expect(response.body.author).toEqual(testStudentID);
-        expect(response.body.groupID).toEqual(testGroupID);
+        expect(response.body.content).toEqual(sampleMessageData.message);
+        expect(response.body.author).toEqual(studentID);
+        expect(response.body.groupID).toEqual(groupID);
     });
 
     // Test getMessage
     it('should get a message', async () => {
-        const response = await request(`${serverAddress}/api/message`).get(`/${testMessageID}`);
+        // Create a sample student
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_getMessage";
+        studentData.email = "getMessage@test.user"
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create FIRST student");
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the FIRST student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+
+        // Create the message data
+        let messageData = { ...sampleMessageData };
+        messageData.groupID = groupID;
+        messageData.studentID = studentID;
+
+        const messageResponse = await request(`${serverAddress}/api/message`).post('/').send(messageData);
+        const createMessageID = messageResponse.body._id;
+
+        // Get the message via the API
+        const response = await request(`${serverAddress}/api/message`).get(`/${createMessageID}`);
+        const messageID = response.body._id;
+
+        // Remove the sample data
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+        await request(`${serverAddress}/api/message`).delete(`/${messageID}`);
 
         expect(response.statusCode).toEqual(200);
-        expect(response.body.content).toEqual("Hello, world!");
-        expect(response.body.author).toEqual(testStudentID);
-        expect(response.body.groupID).toEqual(testGroupID);
+        expect(response.body.content).toEqual(sampleMessageData.message);
     });
 
     // Test deleteMessage
     it('should delete a message', async () => {
-        const response = await request(app).delete('/api/messages').send({
-            messageID: testMessageID,
-            senderID: testStudentID
-        });
+        // Create a sample student
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_deleteMessage";
+        studentData.email = "deleteMessage@test.user"
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create FIRST student");
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the FIRST student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+
+        // Create the message data
+        let messageData = { ...sampleMessageData };
+        messageData.groupID = groupID;
+        messageData.studentID = studentID;
+
+        const messageResponse = await request(`${serverAddress}/api/message`).post('/').send(messageData);
+        const createMessageID = messageResponse.body._id;
+
+        // Delete the message via the API
+        const response = await request(`${serverAddress}/api/message`).delete(`/`).send({ messageID: createMessageID, senderID: studentID });
+
+        // Remove the sample data
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
 
         expect(response.statusCode).toEqual(200);
-        expect(response.body.content).toEqual("Hello, world!");
-        expect(response.body.author).toEqual(testStudentID);
-        expect(response.body.groupID).toEqual(testGroupID);
+        expect(response.body.message).toEqual('Message deleted successfully');
     });
         
 });
