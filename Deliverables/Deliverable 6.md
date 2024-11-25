@@ -39,7 +39,8 @@ Implemented By: Rudra Amin (backend) and Jadyn Calhoun (frontend)
 
 Approved by: Rudra Amin
 
-Print screen: ![message in group chat](Deliverables/res/sending_message.png)
+Print screen: ![messageInGC](Deliverables/res/sending_message.png)
+
 
 Remember that all code contributions should be submitted via pull requests and the reviewer should review and approve each pull request. 
 
