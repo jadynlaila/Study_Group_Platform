@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUserSettings, updateUserSettings } from '../studentService'; // Import the service functions
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from  "../../context/AuthContext";
 
 const UserSettings = () => {
   const [settings, setSettings] = useState({});

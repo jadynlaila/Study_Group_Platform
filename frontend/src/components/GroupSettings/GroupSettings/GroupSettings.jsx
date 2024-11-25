@@ -3,6 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios'; // Import axios for making API requests
 import './GroupSettings.css'; // Import the CSS file
 
+
+const BASE_URL = 'http://localhost:3000'; // Adjust the base URL as needed
+
+
 const GroupSettings = () => {
   const navigate = useNavigate(); // Initialize useNavigate for navigation
   const { groupId } = useParams(); // Get the group ID from the route parameters
@@ -13,7 +17,7 @@ const GroupSettings = () => {
   useEffect(() => {
     const fetchGroupData = async () => {
       try {
-        const response = await axios.get(`/api/groups/${groupId}`); // Fetch group data from API using the getGroup endpoint
+        const response = await axios.get(`${BASE_URL}/api/groups/${groupId}`); // Fetch group data from API using the getGroup endpoint
         setGroupData(response.data); // Set the group data in state
       } catch (err) {
         setError('Error fetching group data'); // Set error message if request fails
