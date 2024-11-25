@@ -1,0 +1,109 @@
+/* box */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    background-color: #2a2a2a;
+    box-shadow: 0 2px 5px rgb(28, 27, 27);
+    border-radius: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    
+    /* position: fixed; */
+    /* top: 0;
+    right: 0px;
+    left: 0px;
+    /*width: 100%; /* Stretch across the full width of the screen */
+    height: 70px; /* Explicit height for consistent alignment */
+    /* box-sizing: border-box; */
+    
+}
+/* logo */
+.navbar-left .logo {
+    height: 70px;
+    margin-top: 25px;
+    padding-right: 55px;
+}
+/* group stuff */
+.navbar-middle {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+/* all */
+.group-chat {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #F1E4E8
+}
+/* group profile picture */
+.group-profile {
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+/* Computer Science */
+.group-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: smaller;
+}
+/* STUDY GROUP NAME */
+.group-name {
+    font-weight: bold;
+    font-size: large;
+    color: #F1E4E8
+}
+/* ?/? */
+.user-count {
+    color: gray;
+    font-weight: light;
+    font-size: smaller;
+}
+/* User Stuff */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+/* All */
+.user-details {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #F1E4E8
+}
+/* user profile picture */
+.user-profile {
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+/* Computer Science */
+.user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: smaller;
+}
+/* Valentino Valero */
+.user-name {
+    font-weight: bold;
+    font-size: large;
+    color: #F1E4E8
+}
+/* NAU */
+.user-college {
+    color: gray;
+    font-weight: light;
+    font-size: smaller;
+}
+/* darkens the groupchat name on hover */
+.group-name:hover {
+    color:gray;
+}
+/* dakrnes the user name on hover */
+.user-name:hover {
+    color: gray;
+}

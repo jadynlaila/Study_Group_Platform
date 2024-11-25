@@ -109,7 +109,7 @@ const LoginPage = () => {
       <div className="right-section">
         <img className="logo" src= {logo} alt="Study Sphere Logo" />
         <h2>{isRegistering ? (step === 1 ? 'Create Account' : 'Create Account') : 'Welcome Back!'}</h2>
-        <h2>{isRegistering ? (step === 1 ? 'Please fill in your details to create an account' : 'Please fill in the remaining details') : 'Please enter your username and password'}</h2>
+        <p2>{isRegistering ? (step === 1 ? 'Please fill in your details to create an account' : 'Please fill in the remaining details') : 'Please enter your username and password'}</p2>
 
         {!isRegistering ? (
           <form id="login-form" onSubmit={handleLoginSubmit}>

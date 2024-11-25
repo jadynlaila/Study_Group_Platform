@@ -1,5 +1,6 @@
 /* GroupChatModule.css */
 .container {
+    /*margin-top: 70px; /* Adjust based on the height of the navbar */
     display: flex; /* Use flexbox for layout */
     flex-direction: row; /* Align items in a row */
     height: 90vh; /* Full height */
