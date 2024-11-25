@@ -126,16 +126,6 @@ Alex
 
 ### 3.1 Unit tests
 
-A unit test is an automated test that aims to verify the behavior of a component isolated from the rest of the system. For this deliverable, show an example of a unit test that uses mock objects to isolate the class from the rest of the system. 
-
-Test framework you used to develop your tests (e.g., JUnit, unittest, pytest, etc.)
-Link to your GitHub folder where your automated unit tests are located
-An example of a test case that makes use of mock objects. Include in your answer a GitHub link to the class being tested and to the test
-A print screen showing the result of the unit test execution
-Grading criteria (2 points): adequate choice of a test framework, coverage of the tests, quality of the tests, adequate use of Mock objects, and a print screen showing successful test execution.
-
-[ insert content here ]
-
 For our project, we used `Jest` as our testing framework. The tests can be located under `Study_Group_Platform/backend/controllers` ([GitHub link here](https://github.com/jadynlaila/Study_Group_Platform/tree/dev/backend/controllers)), and the test files will contain the extension `.test.js`.
 
 The classes that are being tested include:
