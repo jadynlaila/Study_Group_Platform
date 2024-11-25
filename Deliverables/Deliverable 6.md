@@ -33,6 +33,72 @@ Print screen: A print screen that depicts the implemented feature (if applicable
 
 Remember that all code contributions should be submitted via pull requests and the reviewer should review and approve each pull request. 
 
+### Jadyn Calhoun 
+
+**Requirement:** As a student, I want to be able to create an account
+
+**Issue:** [User Story - Account Creation ](https://github.com/jadynlaila/Study_Group_Platform/issues/100)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/159)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:** 
+
+**Print screen:** ![Create Student]
+
+
+**Requirement:** As a student, I want to be able to log in to my account
+
+**Issue:** [User Story - Student Login ](https://github.com/jadynlaila/Study_Group_Platform/issues/173)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/159)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:** 
+
+**Print screen:** ![Login Student]
+
+
+**Requirement:** As a student, I want to access my own information when I log in
+
+**Issue:** [User Story - User Info ](https://github.com/jadynlaila/Study_Group_Platform/issues/174)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/165)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:** 
+
+**Print screen:** ![Access Student Info]
+
+
+**Requirement:** As a student, I want to see what groups I am a member of
+
+**Issue:** [User Story - Group View ](https://github.com/jadynlaila/Study_Group_Platform/issues/175)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/166)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:** 
+
+**Print screen:** ![Access Student Groups]
+
+
+**Requirement:** As a student, I would like to see messages that are sent in groups I am a member of
+
+**Issue:** [User Story - View Messages ](https://github.com/jadynlaila/Study_Group_Platform/issues/176)
+
+**Pull request:** [Pull Request](https://github.com/jadynlaila/Study_Group_Platform/pull/170)
+
+**Implemented by:** Jadyn Calhoun
+
+**Approved by:** 
+
+**Print screen:** ![Access Student Groups]
+
 Grading criteria (20 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the scrum master. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
 
 [ insert content here ]
