@@ -47,8 +47,8 @@ const TextRegion = ({ group }) => {
       <h2>{group.name} Chat</h2> {/* Display the group name */}
       <div className="chat-display">
         {messages.map((msg, index) => (
-          <div key={index} className={`chat-message ${msg.sender}`}>
-            {msg.text}
+          <div key={index} className={`chat-message ${msg.author}`}>
+            {msg.content}
           </div>
         ))}
       </div>
