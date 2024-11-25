@@ -114,7 +114,17 @@ Remember that all code contributions should be submitted via pull requests and t
 
 Grading criteria (20 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the scrum master. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
 
-[ insert content here ]
+Requirement: As a student, I want a simple clean login experience without too many eye-peering requirements.
+
+Issue: https://github.com/jadynlaila/Study_Group_Platform/issues/125
+
+Pull request: https://github.com/jadynlaila/Study_Group_Platform/pull/157 & https://github.com/jadynlaila/Study_Group_Platform/pull/164
+
+Implemented by: Valentino Valero & Jadyn Calhoun ( linking )
+
+Approved by: Jadyn Calhoun 
+
+Print screen: ![LoginScreen](res/valentino_d6/LoginScreenShot.png)
 
 ## 3. Tests
 
@@ -166,6 +176,3 @@ Grading criteria (10 points): This section will be graded based on the quality o
 **Jadyn Calhoun:** Throught the second release I learned how to link backend funcitons with the UI. More specifically I learned how to link the login and user registration page as well as the navigation panel. I also learned how to input mock data into out server to test functions.
 
 **Valentino Valero:** Over the duration of this project, I have learned the importance of having a gameplan. Specifically frontend, having built a figma prototype for each and every page proved very beneficial. Without this figma prototype, frontend wouldve been very lost and it would be harder to communicate and understand what needs to be built.
-
-
-
