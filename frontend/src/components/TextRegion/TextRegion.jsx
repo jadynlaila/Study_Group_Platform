@@ -19,7 +19,7 @@ const TextRegion = ({ group }) => {
     }
   };
   const handleGroupSettingsClick = () => {
-    navigate('/group-settings'); // Navigate to the GroupSettings component
+    navigate('/groupSettings'); // Navigate to the GroupSettings component
   };
 
   return (

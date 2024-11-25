@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import GroupChatModule from './components/GroupChatModule.jsx';
 import UserSettings from './components/UserSettings/UserSettings.jsx';
+import GroupSettings from './components/GroupSettings/GroupSettings.jsx';
 import LoginPage from './Login/LogIn';
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuthContext } from "./context/AuthContext.jsx";
@@ -23,7 +24,7 @@ const App = () => {
         <Route path='/' element={authUser  ? <GroupChatModule /> : <Navigate to="/login" />} />
         <Route path='/login' element={authUser  ? <Navigate to='/' /> : <LoginPage />} />
         <Route path='/userSettings' element={authUser ? <UserSettings/> : <Navigate to="/login" />} />
-        <Route path='/groupSettings' element={authUser ? <UserSettings/> : <Navigate to="/login" />} />        
+        <Route path='/groupSettings' element={authUser ? <GroupSettings/> : <Navigate to="/login" />} />        
       </Routes>
     </div>
   );

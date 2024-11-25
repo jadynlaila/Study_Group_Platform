@@ -38,7 +38,7 @@ const GroupChatModule = () => {
     try{ 
       const groupDetails = await getGroup(groupId);
       if (groupDetails) { 
-        setSelectedGroup(groupId); 
+        setSelectedGroup(groupDetails); 
         console.log(`Group details: `, JSON.stringify(groupDetails, null, 2))
       }
     }catch (error) { 
