@@ -1,193 +1,196 @@
 const request = require('supertest');
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require("dotenv").config();
-const Group = require('../models/GroupModel');
-const Student = require('../models/StudentModel');
-const Message = require('../models/MessageModel')
+require('dotenv').config();
 
-const app = express();
+// Sample data
+const sampleStudentData = {
+    firstName: "Test",
+    lastName: "User",
+    school: "Northern Arizona University",
+    displayName: "TEST USER",
+    username: null,
+    email: null,
+    password: "password123",
+    major: "Computer Science"
+};
 
-describe('sendMessage', () => {
-    beforeAll(async () => {
-        const url = process.env.MONGO_URI;
-        await mongoose.connect(url);
-    });
+const sampleGroupData = {
+    name: "JEST Test Group",
+    description: "This is a test",
+    courses: "CS386",
+    majors: "Computer Science",
+    memberLimit: 10,
+    ownerID: null,
+    profilePictureID: null
+};
 
-    afterAll(async () => {
-        await mongoose.connection.db.dropDatabase();
-        await mongoose.connection.close();
-    });
+const sampleMessageData = {
+    groupID: null,
+    studentID: null,
+    message: "Hello world"
+};
 
-    const serverAddress = `http://localhost:${process.env.PORT}`
-    const targetStudentID = "6715f0b32d87f2dadfb736fa";
-    const targetGroupID = "671d5733cc35a4ba93af2adf"
-    
-    it('should create and save a new message', async () => {
-        const response = await request(`${serverAddress}/api/messages`).post("/").send({
-            groupID: targetGroupID,
-            studentID: targetStudentID,
-            message: "Happy birthday"
-        })
+describe('messageController', () => {
+    const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
 
-        console.log(response.body)
+    // Test sendMessage
+    it('should send a message', async () => {
+        // Create a sample student
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_sendMessage";
+        studentData.email = "sendMessage@test.user"
 
-        expect(response.statusCode).toBe(201)
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
         
-        messageID = response.body._id
-        searchedMessage = Message.findById(messageID)
+        if (studentResponse.status != 201) {
+            console.error("Failed to create FIRST student");
+            console.debug(studentResponse.body);
+        }
 
-        expect(searchedMessage.Message).toBe("Happy birthday")
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the FIRST student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+
+        // Create the message data
+        let messageData = { ...sampleMessageData };
+        messageData.groupID = groupID;
+        messageData.studentID = studentID;
+
+        const response = await request(`${serverAddress}/api/message`).post('/').send(messageData);
+        const messageID = response.body._id;
+
+        // Remove the sample data
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+        await request(`${serverAddress}/api/message`).delete(`/${messageID}`);
+
+        expect(response.statusCode).toEqual(201);
+        expect(response.body.content).toEqual(sampleMessageData.message);
+        expect(response.body.author).toEqual(studentID);
+        expect(response.body.groupID).toEqual(groupID);
     });
 
-    // it('should return 500 if message does not exist', async () => {
-    //     // app.get()
+    // Test getMessage
+    it('should get a message', async () => {
+        // Create a sample student
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_getMessage";
+        studentData.email = "getMessage@test.user"
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
         
-    //     Group.findOne.mockResolvedValue(null);
+        if (studentResponse.status != 201) {
+            console.error("Failed to create FIRST student");
+            console.debug(studentResponse.body);
+        }
 
-    //     await sendMessage(req, res);
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the FIRST student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
 
-    //     expect(res.statusCode).toBe(500);
-    //     expect(res._getJSONData()).toEqual({ error: "Group chat doesn't exist" });
-    // });
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
 
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
 
-    // it('should return 500 if there is an error', async () => {
-    //     Group.findOne.mockRejectedValue(new Error('Database error'));
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
 
-    //     await sendMessage(req, res);
+        // Create the message data
+        let messageData = { ...sampleMessageData };
+        messageData.groupID = groupID;
+        messageData.studentID = studentID;
 
-    //     expect(res.statusCode).toBe(500);
-    //     expect(res._getJSONData()).toEqual({ error: "Internal server error" });
-    // });
+        const messageResponse = await request(`${serverAddress}/api/message`).post('/').send(messageData);
+        const createMessageID = messageResponse.body._id;
 
-    // jest.mock('../models/MessageModel');
-    // jest.mock('../models/GroupModel');
+        // Get the message via the API
+        const response = await request(`${serverAddress}/api/message`).get(`/${createMessageID}`);
+        const messageID = response.body._id;
 
-    // describe('sendMessage', () => {
-    //     let req, res;
+        // Remove the sample data
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+        await request(`${serverAddress}/api/message`).delete(`/${messageID}`);
 
-    //     beforeEach(() => {
-    //         req = httpMocks.createRequest();
-    //         res = httpMocks.createResponse();
-    //         req.student = { _id: mongoose.Types.ObjectId() };
-    //         req.body = { message: 'Test message' };
-    //         req.params = { id: mongoose.Types.ObjectId() };
-    //     });
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.content).toEqual(sampleMessageData.message);
+    });
 
-    //     it('should return 500 if group chat does not exist', async () => {
-    //         Group.findOne.mockResolvedValue(null);
+    // Test deleteMessage
+    it('should delete a message', async () => {
+        // Create a sample student
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_deleteMessage";
+        studentData.email = "deleteMessage@test.user"
 
-    //         await sendMessage(req, res);
+        let studentID;
 
-    //         expect(res.statusCode).toBe(500);
-    //         expect(res._getJSONData()).toEqual({ error: "Group chat doesn't exist" });
-    //     });
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create FIRST student");
+            console.debug(studentResponse.body);
+        }
 
-    //     it('should create and save a new message', async () => {
-    //         const groupChat = { 
-    //             _id: mongoose.Types.ObjectId(), 
-    //             participants: [req.student._id, req.params.id], 
-    //             messages: [], 
-    //             save: jest.fn() 
-    //         };
-    //         Group.findOne.mockResolvedValue(groupChat);
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the FIRST student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
 
-    //         const newMessage = { 
-    //             _id: mongoose.Types.ObjectId(), 
-    //             content: req.body.message, 
-    //             sender: req.student._id, 
-    //             group: req.params.id, 
-    //             save: jest.fn().mockResolvedValue(true) 
-    //         };
-    //         Message.mockImplementation(() => newMessage);
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
 
-    //         await sendMessage(req, res);
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
 
-    //         expect(Message).toHaveBeenCalledWith({
-    //             content: req.body.message,
-    //             sender: req.student._id,
-    //             group: req.params.id,
-    //         });
-    //         expect(newMessage.save).toHaveBeenCalled();
-    //         expect(groupChat.messages).toContain(newMessage._id);
-    //         expect(groupChat.save).toHaveBeenCalled();
-    //         expect(res.statusCode).toBe(201);
-    //         expect(res._getJSONData()).toEqual(newMessage);
-    //     });
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
 
-    //     it('should return 500 if there is an error', async () => {
-    //         Group.findOne.mockRejectedValue(new Error('Database error'));
+        // Create the message data
+        let messageData = { ...sampleMessageData };
+        messageData.groupID = groupID;
+        messageData.studentID = studentID;
 
-    //         await sendMessage(req, res);
+        const messageResponse = await request(`${serverAddress}/api/message`).post('/').send(messageData);
+        const createMessageID = messageResponse.body._id;
 
-    //         expect(res.statusCode).toBe(500);
-    //         expect(res._getJSONData()).toEqual({ error: "Internal server error" });
-    //     });
-    // });
+        // Delete the message via the API
+        const response = await request(`${serverAddress}/api/message`).delete(`/`).send({ messageID: createMessageID, senderID: studentID });
 
-    // describe('deleteMessage', () => {
-    //     let req, res;
+        // Remove the sample data
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
 
-    //     beforeEach(() => {
-    //         req = httpMocks.createRequest();
-    //         res = httpMocks.createResponse();
-    //         req.student = { _id: mongoose.Types.ObjectId() };
-    //         req.params = { id: mongoose.Types.ObjectId() };
-    //     });
-
-    //     it('should return 404 if message does not exist', async () => {
-    //         Message.findById.mockResolvedValue(null);
-
-    //         await deleteMessage(req, res);
-
-    //         expect(res.statusCode).toBe(404);
-    //         expect(res._getJSONData()).toEqual({ error: 'Message not found' });
-    //     });
-
-    //     it('should return 403 if user is not the sender', async () => {
-    //         const message = {
-    //             _id: req.params.id,
-    //             author: mongoose.Types.ObjectId(),
-    //             group: mongoose.Types.ObjectId(),
-    //         };
-    //         Message.findById.mockResolvedValue(message);
-
-    //         await deleteMessage(req, res);
-
-    //         expect(res.statusCode).toBe(403);
-    //         expect(res._getJSONData()).toEqual({ error: 'You do not have permission to delete this message' });
-    //     });
-
-    //     it('should delete the message if user is the sender', async () => {
-    //         const message = {
-    //             _id: req.params.id,
-    //             author: req.student._id,
-    //             group: mongoose.Types.ObjectId(),
-    //             remove: jest.fn().mockResolvedValue(true),
-    //         };
-    //         Message.findById.mockResolvedValue(message);
-
-    //         Group.updateOne.mockResolvedValue({ nModified: 1 });
-
-    //         await deleteMessage(req, res);
-
-    //         expect(Group.updateOne).toHaveBeenCalledWith(
-    //             { _id: message.group },
-    //             { $pull: { messages: req.params.id } }
-    //         );
-    //         expect(message.remove).toHaveBeenCalled();
-    //         expect(res.statusCode).toBe(200);
-    //         expect(res._getJSONData()).toEqual({ message: 'Message deleted successfully' });
-    //     });
-
-    //     it('should return 500 if there is an error', async () => {
-    //         Message.findById.mockRejectedValue(new Error('Database error'));
-
-    //         await deleteMessage(req, res);
-
-    //         expect(res.statusCode).toBe(500);
-    //         expect(res._getJSONData()).toEqual({ error: 'Internal server error' });
-    //     });
-    // });
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.message).toEqual('Message deleted successfully');
+    });
+        
 });

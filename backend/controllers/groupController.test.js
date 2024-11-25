@@ -1,249 +1,563 @@
 const request = require('supertest');
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require("dotenv").config();
-const Group = require('../models/GroupModel');
-const Student = require('../models/StudentModel');
+require('dotenv').config();
 
-const app = express();
+// Sample data
+const sampleStudentData = {
+    firstName: "Test",
+    lastName: "User",
+    school: "Northern Arizona University",
+    displayName: "TEST USER",
+    username: null,
+    email: null,
+    password: "password123",
+    major: "Computer Science"
+};
+
+const sampleGroupData = {
+    name: "JEST Test Group",
+    description: "This is a test",
+    courses: "CS386",
+    majors: "Computer Science",
+    memberLimit: 10,
+    ownerID: null,
+    profilePictureID: null
+};
+
+const sampleMessageData = {
+    groupID: null,
+    studentID: null,
+    message: "Hello world"
+};
+
+function createUser(userData) {
+    request(`${serverAddress}/api/student`).post('/').send(userData)
+        .end((err, res) => {
+            if (err) {
+                console.debug("Error creating user");
+                console.debug(err);
+            }
+
+            console.debug("Got a status code of " + res.statusCode);
+            expect(res.statusCode).toBe(201);
+            return res.body;
+        }
+    );
+}
 
 describe('Group Controller', () => {
-    beforeAll(async () => {
-        const url = process.env.MONGO_URI;
-        await mongoose.connect(url);
-    });
+    const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
 
-    afterAll(async () => {
-        await mongoose.connection.close();
-    });
-
-    const serverAddress = `http://localhost:${process.env.PORT}`
-    const studentID = "6715f0b32d87f2dadfb736fa";
-
+    // Test createGroup
     test('should create a group', async () => {
-        // Send the post request
-        const response = await request(`${serverAddress}/api/group`).put('/').send({
-            name: "JEST Test group",
-            description: "This is a test",
-            courses: "CS386",
-            majors: "Computer Science",
-            ownerID: studentID,
-            profilePictureID: null
-        });
+        // Create a sample student
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_createGroup";
+        studentData.email = "createGroup@test.user"
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create student: " + studentResponse.body.error);
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+        
+        // Create the target group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+        console.debug(groupData)
+        
+        const response = await request(`${serverAddress}/api/group`).post('/').send(groupData);
 
         const { _id, group } = response.body;
+        const groupID = _id;
 
-        expect(response.status).toBe(201)
-        expect(group.name).toBe("JEST Test group")
-
-        // Remove the created group
-        await Group.findByIdAndDelete(_id)
-    });
-    
-    test('should get a group', async () => {
-        // Create the group first
-        // Send the post request
-        const createResponse = await request(`${serverAddress}/api/group`).put('/').send({
-            name: "JEST Test Group",
-            description: "This is a test",
-            courses: "CS386",
-            majors: "Computer Science",
-            ownerID: studentID,
-            profilePictureID: null
-        });
-        
-        // Deconstruct the body of the response
-        const { groupID, group } = createResponse.body;
-        
-        // TEST: Make sure the group was created
-        expect(createResponse.status).toBe(201)
-        
-        // Attempt to grab the newly created group
-        const getResponse = await request(`${serverAddress}/api/group`).get(`/`).send({ groupID })
-        
-        // TEST: Make sure that we got the group back
-        expect(getResponse.statusCode).toBe(200);
-        // TEST: Make sure the group's name is the same as the one we created
-        expect(getResponse.body.name).toBe('JEST Test Group');
-        
-        await Group.findByIdAndDelete(groupID)
-    });
-    
-    test('should update a group', async () => {
-        const name = "JEST Test Group"
-        const description = "This is a test"
-        const courses = "CS386"
-        const updatedCourses = "CS300"
-        const majors = "Computer Science"
-        const ownerID = studentID
-        const profilePictureID = null
-
-        // Create the group first
-        // Send the put request
-        const createResponse = await request(`${serverAddress}/api/group`).put('/').send({
-            name, description, courses, majors, memberLimit: 6, ownerID, profilePictureID
-        });
-        
-        // Deconstruct the body of the response
-        const { groupID, group } = createResponse.body;
-        
-        // TEST: Make sure the group was created
-        expect(createResponse.status).toBe(201)
-
-        // Send an updated group
-        // Send the post request
-        const updateResponse = await request(`${serverAddress}/api/group`).post('/').send({
-            groupID,
-            courses: updatedCourses,
-        })
-
-        // TEST: make sure we get a good status code
-        expect(updateResponse.statusCode).toBe(200)
-
-        // Instead of using the response object, obtain the updated object from Mongo
-        let searchedGroup = await Group.findById(groupID)
-
-        console.log(`Old group: ${JSON.stringify(group)}`)
-        console.log(`Updated group: ${searchedGroup}`)
-
-        // TEST: make sure the group was updated
-        expect(searchedGroup.courses).toBe("CS300")
-
-        await Group.findByIdAndDelete(groupID)
-    });
-
-    test('should join a group', async () => {
-        // Make sure there are no preexisting users
-        const searchedStudent = await Student.findOne({email: "testuser@example.com"})
-        if (searchedStudent) {
-            // console.log(JSON.stringify(searchedStudent))
-            console.log(`FOUND PREEXISTING USER, DELETING NOW: ${searchedStudent._id}`)
-            await Student.findByIdAndDelete(searchedStudent._id)
+        if (response.status != 201) {
+            console.debug(response.body.error);
         }
 
-        // Create a sample user
-        const newStudent = new Student({
-            firstName: "Test",
-            lastName: "User",
-            school: "Northern Arizona University",
-            displayName: "TEST USER (Join Group)",
-            username: "testuser_joingroup",
-            email: "testuser@example.com",
-            password: "password123",
-            groups: [],
-            profilePicURL: null
-        });
-        const savedStudent = await newStudent.save();
+        // Delete the stuff we created
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
 
-        console.log(`Student ID: ${savedStudent._id}`)
-
-        // Create the group
-        // Send the post request
-        const response = await request(`${serverAddress}/api/group`).put('/').send({
-            name: "JEST Test group",
-            description: "This is a test",
-            courses: "CS386",
-            majors: "Computer Science",
-            ownerID: studentID,
-            profilePictureID: null
-        });
-
-        const { groupID, group } = response.body;
-
-        console.log(`Target group ID: ${groupID}`)
-
+        // TEST: Make sure the group is a-okay
         expect(response.status).toBe(201)
-        expect(group.name).toBe("JEST Test group")
+        expect(group.name).toBe("JEST Test Group")
+
+    });
+
+    // Test getAllGroups
+    test('should get all groups', async () => {
+        // NOTE: this assumes that there are groups in the database
+
+        // Get all groups using the API
+        const response = await request(`${serverAddress}/api/group`).get('/');
+
+        // TEST: Make sure we get an array back
+        console.debug(response.body);
+        expect(Array.isArray(response.body)).toBe(true);
+    });
+    
+    // Test getGroup
+    test('should get a group', async () => {
+        // Create a student to own the group
+        const studentData = { ...sampleStudentData };
+        studentData.username = "testuser_getGroup";
+        studentData.email = "getGroup@test.user";
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create student: " + studentResponse.body.error);
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+
+        // Get the group we created
+        const response = await request(`${serverAddress}/api/group`).get(`/${groupID}`);
+
+        // Delete the test data
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+ 
+        // Run our tests
+        expect(response.statusCode).toBe(200);
+        expect(response.body.name).toBe('JEST Test Group');
+    });
+    
+    // Test updateGroup
+    test('should update a group', async () => {
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_updateGroup";
+        studentData.email = "updateGroup@test.user"
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create student: " + studentResponse.body.error);
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+
+        // Update the local data
+        const updatedName = "JEST Test Group (Updated)";
+        const updatedDescription = "This is an updated test";
+
+        // Send the update request
+        const response = await request(`${serverAddress}/api/group`).put(`/${groupID}`).send({
+            name: updatedName,
+            description: updatedDescription
+        })
+
+        // Delete the test stuff before we test
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+
+        // TEST: Make sure we get a good status code
+        expect(response.statusCode).toBe(200);
+
+        // TEST: Make sure the group was updated
+        console.debug(response.body);
+        expect(response.body.group.name).toBe(updatedName);
+        expect(response.body.group.description).toBe(updatedDescription);
+    });
+
+    // Test searchGroups
+    test('should search for groups', async () => {
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_getGroup";
+        studentData.email = "getGroup@test.user"
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create student: " + studentResponse.body.error);
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+
+        // Send the get request
+        const response = await request(`${serverAddress}/api/group`).get(`/search/${groupData.name}`);
+
+        // Delete the test stuff before we test
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+
+        // TEST: Make sure we get a good status code
+        expect(response.statusCode).toBe(200);
+        expect(Array.isArray(response.body)).toBe(true);
+    });
+
+    // Test joinGroup
+    test('should join a group', async () => {
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_joinGroup";
+        studentData.email = "joinGroup@test.user"
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create FIRST student");
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the FIRST student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create a second student
+        const studentData2 = { ...sampleStudentData };
+        studentData2.username = "testuser_joinGroup2";
+        studentData2.email = "joinGroup2@test.user";
+
+        const studentResponse2 = await request(`${serverAddress}/api/student`).post('/').send(studentData2);
+        const studentID2 = studentResponse2.body._id;
+
+        if (studentResponse2.status != 201) {
+            console.error("Failed to create SECOND student");
+            console.debug(studentResponse2.body);
+        }
+
+        if (studentID2 == null || studentID2 == undefined) {
+            console.error("Because the SECOND student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
 
         // Have the student join the group
-        const joinResponse = await request(`${serverAddress}/api/group`).put(`/join/${groupID}`).send({
-            studentID: savedStudent._id
+        const response = await request(`${serverAddress}/api/group`).put(`/join/${groupID}`).send({
+            studentID: studentID2
         })
 
-        const { group: joinedGroup, student: joinedStudent } = joinResponse.body;
+        const { group } = response.body;
 
-        // Print the error if it did error out
-        if (joinResponse.statusCode != 201) {
-            console.debug(JSON.stringify(joinResponse.body))
-        }
+        // Get the updated student
+        const updatedStudentResponse = await request(`${serverAddress}/api/student`).get(`/${studentID2}`);
+        const updatedStudent = updatedStudentResponse.body;
 
-        console.debug(JSON.stringify(joinResponse.body))
+        // Delete the test stuff before we test
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID2}`);
 
-        // TEST: Make sure the status code is correct
-        expect(joinResponse.statusCode).toBe(201)
-        
-        // TEST: Make sure the student has the correct groupID
-        expect(joinedStudent.groups).toContain(joinedGroup._id);
-
-        // TEST: Make sure the group contains the studentID
-        expect(joinedGroup.memberIDs).toContain(joinedStudent._id);
-
-        // Remove the created group and student
-        await Student.findByIdAndDelete(joinedStudent._id)
-        await Group.findByIdAndDelete(joinedGroup._id)
+        // Run our tests
+        expect(response.statusCode).toBe(201);
+        expect(group.memberIDs).toContain(studentID2);
+        expect(updatedStudent.groups).toContain(groupID);
     });
 
+    // Test getStudentsFromGroup
+    test('should get students from a group', async () => {
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_getStudentsFromGroup";
+        studentData.email = "getStudentsFromGroup@test.user";
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create FIRST student");
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the FIRST student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+
+        // Send the get request
+        const response = await request(`${serverAddress}/api/group`).get(`/${groupID}/students`);
+
+        // Delete the test stuff before we test
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+
+        // Run our test conditions
+        expect(response.statusCode).toBe(200);
+        expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body[0]._id).toBe(studentID);
+    });
+
+    // Test leaveGroup
+    test('should leave a group', async () => {
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_leaveGroup";
+        studentData.email = "leaveGroup@test.user"
+
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create FIRST student");
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the FIRST student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create a second student
+        const studentData2 = { ...sampleStudentData };
+        studentData2.username = "testuser_leaveGroup2";
+        studentData2.email = "leaveGroup2@test.user";
+
+        const studentResponse2 = await request(`${serverAddress}/api/student`).post('/').send(studentData2);
+        const studentID2 = studentResponse2.body._id;
+
+        if (studentResponse2.status != 201) {
+            console.error("Failed to create SECOND student");
+            console.debug(studentResponse2.body);
+        }
+
+        if (studentID2 == null || studentID2 == undefined) {
+            console.error("Because the SECOND student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+
+        // Have the student join the group
+        await request(`${serverAddress}/api/group`).put(`/join/${groupID}`).send({
+            studentID: studentID2
+        });
+
+        // Have the second student leave the group
+        const leaveResponse = await request(`${serverAddress}/api/group`).put(`/leave/${groupID}`).send({
+            studentID: studentID2
+        });
+
+        // Get the updated student
+        const updatedStudentResponse = await request(`${serverAddress}/api/student`).get(`/${studentID2}`);
+        const updatedStudent = updatedStudentResponse.body;
+
+        // Get the updated group
+        const updatedGroupResponse = await request(`${serverAddress}/api/group`).get(`/${groupID}`);
+        const updatedGroup = updatedGroupResponse.body;
+
+        // Delete the test stuff before we test
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID2}`);
+
+        // Run our tests
+        expect(leaveResponse.statusCode).toBe(200);
+        expect(updatedGroup.memberIDs).not.toContain(studentID2);
+        expect(updatedStudent.groups).not.toContain(groupID);
+    });
+
+    // Test getMessages
     test('should get messages of a group', async () => {
-        const testMessage = "Hello world"
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_getGroupMessages";
+        studentData.email = "getGroupMessages@test.user"
 
-        // Create a mock group
-        const createGroupResponse = await request(`${serverAddress}/api/group`).put('/').send({
-            name: "JEST Test group",
-            description: "This is a test",
-            courses: "CS386",
-            majors: "Computer Science",
-            ownerID: studentID,
-            profilePictureID: null
-        });
+        let studentID;
 
-        const { groupID, group } = createGroupResponse.body;
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create FIRST student");
+            console.debug(studentResponse.body);
+        }
 
-        console.debug(`groupID: ${groupID}`)
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the FIRST student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
 
-        expect(createGroupResponse.status).toBe(201)
-        expect(group.name).toBe("JEST Test group")
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
 
-        // Create the mock student
-        // Create a sample user
-        const newStudent = new Student({
-            firstName: "Test",
-            lastName: "User",
-            school: "Northern Arizona University",
-            displayName: "TEST USER (Join Group)",
-            username: "testuser_joingroup",
-            email: "testuser@example.com",
-            password: "password123",
-            groups: [],
-            profilePicURL: null
-        });
-        const savedStudent = await newStudent.save();
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
 
-        console.debug(`Student ID: ${savedStudent._id}`)
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
 
-        // Create/Send the test message
-        const sendMessageResponse = await request(`${serverAddress}/api/messages`).put('/').send({
+        // Create/"Send" the test message
+        const sendMessageResponse = await request(`${serverAddress}/api/message`).post('/').send({
             groupID,
-            studentID: savedStudent._id,
-            message: testMessage
+            studentID: studentID,
+            message: "Hello world"
         })
 
-        if (sendMessageResponse.statusCode != 201)
+        if (sendMessageResponse.statusCode != 201) {
+            console.error("Failed to send message");
             console.debug(sendMessageResponse.body)
-
-        // TEST: Check if the message was sent successfully
-        expect(sendMessageResponse.statusCode).toBe(201)
-
-        // Check if the message ID was added to the group
-        const messagesResponse = await request(`${serverAddress}/api/group`).get(`/messages/${groupID}`)
+        }
+        
+        // Get the messages from the group
+        const messagesResponse = await request(`${serverAddress}/api/group`).get(`/${groupID}/messages`)
         const messages = messagesResponse.body
+        
+        // Delete the test stuff before we test
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+        await request(`${serverAddress}/api/message`).delete(`/${messages[0]._id}`, {
+            groupID,
+            studentID
+        });
+        
+        // Deconstruct the response
+        const message = messages[0]
 
-        console.debug(JSON.stringify(messagesResponse.body))
-        console.debug(`Data type of messages: ${typeof messages}`);
+        // Run the tests
+        expect(sendMessageResponse.statusCode).toBe(201)
+        expect(message.content).toBe("Hello world")
+    });
 
-        expect(messages[0].content).toBe(testMessage)
+    // Test deleteGroup
+    test('should delete a group', async () => {
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_deleteGroup";
+        studentData.email = "deleteGroup@test.user"
 
-        // Remove the created group and student
-        await Group.findByIdAndDelete(groupID)
-        await Student.findByIdAndDelete(savedStudent._id)
+        let studentID;
+
+        // Create the student
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create student: " + studentResponse.body.error);
+            console.debug(studentResponse.body);
+        }
+
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the student ID is null, we can't continue with the test");
+            expect(true).toBe(false);   // force the test to fail
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body.groupID;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+        
+        // Send the delete request
+        const response = await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+
+        // Delete the test stuff before we test
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+
+        // TEST: Make sure we get a good status code
+        expect(response.statusCode).toBe(200);
+        expect(response.body.success).toBe(true);
     });
 });
