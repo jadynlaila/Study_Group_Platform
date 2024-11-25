@@ -6,19 +6,6 @@ import Navbar from './Navbar';
 import Cookies from 'js-cookie';
 import { useAuthContext } from '../context/AuthContext';
 
-// Sample data for group chats
-const groupChats = [
-  { id: '1', name: 'Automata Theory Peeps' },
-  { id: '2', name: 'THE bio gc' },
-  { id: '3', name: 'Bio182Lab' },
-  { id: '4', name: 'SENDHELP CS480gc' },
-  { id: '5', name: 'CS460 Networks Midterm' },
-  { id: '6', name: 'CS386 Midterm and Final' },
-  { id: '7', name: 'CALC3 Exam 3' },
-  { id: '8', name: 'CS126 f24' },
-  { id: '9', name: 'The best group chat ever' },
-];
-
 // axios.defaults.baseURL = `http://localhost:${process.env.PORT || 3000}`
 let baseURL = `http://localhost:${process.env.PORT || 6789}`
 
@@ -34,31 +21,39 @@ axios.interceptors.response.use(response => {
 
 const GroupChatModule = () => {
   const {authUser} = useAuthContext(); 
+  const [selectedGroup, setSelectedGroup] = useState(null); // State to track the selected group chat
+  const [searchQuery, setSearchQuery] = useState(''); // State to track the search input
+  const [filteredChats, setFilteredChats] = useState([]); 
+  const [groups, setGroups] = useState([]);
+
   useEffect(() => {
     if (authUser) { 
       console.log("logged in user:", authUser.username)
-      fetchGroups();
+      fetchUserWithGroups();
     }
   }, [authUser])
 
-  const [selectedGroup, setSelectedGroup] = useState(null); // State to track the selected group chat
-  const [searchQuery, setSearchQuery] = useState(''); // State to track the search input
-
   // Function to handle selecting a group chat
-  const handleGroupSelect = (group) => {
-    setSelectedGroup(group); // Set the selected group, replacing any previous selection
+  const handleGroupSelect = async (groupId) => {
+    try{ 
+      const groupDetails = await getGroup(groupId);
+      if (groupDetails) { 
+        setSelectedGroup(groupId); 
+        console.log(`Group details: `, JSON.stringify(groupDetails, null, 2))
+      }
+    }catch (error) { 
+      console.error(`Group details not found`)
+    }
   };
 
   // Filtered group chats based on the search query
-  const filteredChats = groupChats.filter((group) =>
-    group.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+
 
   // Fetch the list of students from the API
   const fetchMessages = async () => {
       try {
           const response = await axios.get(`${baseURL}/api/group/messages/${authUser._id}`);
-          console.log('Students:', response.data);
+          console.log('Messages:', response.data);
           return response.data
       } catch (error) {
           console.error("WERIUHERGUH AXIOS ERGHUIAERWGUIHERAGIUH")
@@ -78,16 +73,39 @@ const GroupChatModule = () => {
       }
   };
 
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  // this doesn't return a user's groups - just all possible groups!
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  const fetchGroups = async () => {
-    try{
-      console.log(`Student groups:`, authUser.groups)
-    }catch(error) { 
-      console.error(error)
+
+  const getGroup = async (groupId) => {
+    try {
+      const response = await axios.get(`${baseURL}/api/group/${groupId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching group details:', error);
+      return null;
     }
-  }
+  };
+  
+
+  const fetchUserWithGroups = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/api/student/${authUser._id}`);
+      console.log('User with groups:', response.data);
+      console.log(response.data)
+      const groupDetailsPromises = response.data.groups.map(groupId => getGroup(groupId));
+      
+      const populatedGroups = await Promise.all(groupDetailsPromises);
+      
+      const validGroups = populatedGroups.filter(group => group !== null);
+  
+      setGroups(validGroups); 
+  
+      const filtered = validGroups.filter((group) =>
+        group.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredChats(filtered);  
+    } catch (error) {
+      console.error('Error fetching user or groups:', error);
+    }
+  };
 
   // Call fetchMessages when the component mounts
   React.useEffect(() => {
@@ -111,8 +129,8 @@ const GroupChatModule = () => {
         </div>
         <ul className="listContent">
           {filteredChats.map((item) => (
-            <li key={item.id} className="groupChatItem">
-              <button onClick={() => handleGroupSelect(item)} className="groupChatName">
+            <li key={item} className="groupChatItem">
+              <button onClick={() => handleGroupSelect(item._id)} className="groupChatName">
                 {item.name}
               </button>
             </li>

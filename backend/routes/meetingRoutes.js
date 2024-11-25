@@ -1,6 +1,5 @@
 const express = require("express")
 const router = express.Router()
-const {protectRoute} = require("../middleware/protectRoute")
 
 const {
     getOneMeeting,
@@ -18,8 +17,8 @@ router.route("/")
 
 // localhost:6789/api/meeting/<meetingID>
 router.route("/:meetingID")
-    .get(protectRoute, getOneMeeting)
-    .put(protectRoute, updateMeeting)
-    .delete(protectRoute, deleteMeeting)
+    .get(getOneMeeting)
+    .put(updateMeeting)
+    .delete(deleteMeeting)
 
 module.exports = router
