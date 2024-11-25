@@ -43,9 +43,13 @@ Remember that all code contributions should be submitted via pull requests and t
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:** 
+**Approved by:** Alexander Anthis
 
-**Print screen:** ![Create Student]
+**Print screen:** ![Create Student Page 1](res/jadyn_d6/d6_creating1.png)
+
+**Print screen:** ![Create Student Page 2](res/jadyn_d6/d6_creating2.png)
+
+**Print screen:** ![Student Created](res/jadyn_d6/d6_created.png)
 
 
 **Requirement:** As a student, I want to be able to log in to my account
@@ -56,9 +60,9 @@ Remember that all code contributions should be submitted via pull requests and t
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:** 
+**Approved by:** Alexander Anthis
 
-**Print screen:** ![Login Student]
+**Print screen:** ![Login Student](res/jadyn_d6/d6_loggingIn.png)
 
 
 **Requirement:** As a student, I want to access my own information when I log in
@@ -69,9 +73,9 @@ Remember that all code contributions should be submitted via pull requests and t
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:** 
+**Approved by:** Jack Lealos
 
-**Print screen:** ![Access Student Info]
+**Print screen:** ![Access Student Info](res/jadyn_d6/d6_storedStudent.png)
 
 
 **Requirement:** As a student, I want to see what groups I am a member of
@@ -82,9 +86,9 @@ Remember that all code contributions should be submitted via pull requests and t
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:** 
+**Approved by:** Jack Lealos
 
-**Print screen:** ![Access Student Groups]
+**Print screen:** ![Access Student Groups](res/jadyn_d6/d6_groups.png)
 
 
 **Requirement:** As a student, I would like to see messages that are sent in groups I am a member of
@@ -95,9 +99,9 @@ Remember that all code contributions should be submitted via pull requests and t
 
 **Implemented by:** Jadyn Calhoun
 
-**Approved by:** 
+**Approved by:** Rudra Amin
 
-**Print screen:** ![Access Student Groups]
+**Print screen:** ![Access Group Messages](res/jadyn_d6/d6_messages.png)
 
 Grading criteria (20 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the scrum master. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
 
