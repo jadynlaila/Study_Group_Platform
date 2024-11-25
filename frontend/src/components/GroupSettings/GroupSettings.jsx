@@ -3,9 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios'; // Import axios for making API requests
 import './GroupSettings.css'; // Import the CSS file
 
-const BASE_URL = 'http://localhost:6789'; // Adjust the base URL as needed
+const BASE_URL = `http://localhost:${process.env.PORT || 3000}`; // Adjust the base URL as needed
 
-const GroupSettings = (groupData) => {
+const GroupSettings = () => {
   const navigate = useNavigate(); // Initialize useNavigate for navigation
   const { groupId } = useParams(); // Get the group ID from the route parameters
   const [groupData, setGroupData] = useState(null); // State to store group data
@@ -14,19 +14,44 @@ const GroupSettings = (groupData) => {
   const [isEditing, setIsEditing] = useState(false); // State to manage edit mode
 
 
+  console.log(groupId);
+  console.log('HELLLOOOO');
+  // Function to fetch group data
+  const fetchGroupData = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/api/groups/${groupId}`); // Fetch group data from API
+      setGroupData(response.data); // Set the group data in state
+    } catch (err) {
+      setError('Error fetching group data'); // Set error message if request fails
+      console.log(err);
+    } finally {
+      setLoading(false); // Set loading to false after request completes
+    }
+  };
+
   // Function to handle updating group data
   const handleUpdateGroup = async (e) => {
     e.preventDefault(); // Prevent default form submission
     try {
       const response = await axios.put(`${BASE_URL}/api/groups/${groupId}`, groupData); // Update group data
       setGroupData(response.data); // Update local state with the new group data
-      console.log(response.data)
       setIsEditing(false); // Exit edit mode
       alert('Group settings updated successfully!'); // Notify user of success
     } catch (err) {
       setError('Error updating group data'); // Handle error
     }
   };
+
+  // Fetch group data when the component mounts
+  useEffect(() => {
+    fetchGroupData(); // Call the fetch function
+  }, [groupId]); // Re-run effect if groupId changes
+
+  // Handle loading state
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   // Handle error state
   if (error) {
     return <div>{error}</div>;
@@ -86,15 +111,6 @@ const GroupSettings = (groupData) => {
               ` ${groupData.memberLimit}`
             )}
           </p>
-          <p>
-            <strong>Current Members:</strong> {groupData.memberCount}
-          </p>
-          <p><strong>Members:</strong></p>
-          <ul>
-            {groupData.studentIds.map(studentId => (
-              <li key={studentId}>{studentId}</li> // Replace with actual member info if available
- ))}
-          </ul>
         </div>
         <button type="button" onClick={() => setIsEditing(!isEditing)}>
           {isEditing ? 'Cancel' : 'Edit'}

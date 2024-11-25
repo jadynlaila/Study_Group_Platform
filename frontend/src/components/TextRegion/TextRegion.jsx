@@ -19,8 +19,9 @@ const TextRegion = ({ group }) => {
     }
   };
   const handleGroupSettingsClick = () => {
-    navigate('/groupSettings'); // Navigate to the GroupSettings component
+    navigate(`/groupSettings/${group._id}`); // Include the group ID in the path
   };
+  
 
   return (
     <div className="text-region">
