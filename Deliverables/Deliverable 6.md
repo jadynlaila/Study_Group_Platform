@@ -41,7 +41,7 @@ Issue: https://github.com/jadynlaila/Study_Group_Platform/issues/125
 
 Pull request: https://github.com/jadynlaila/Study_Group_Platform/pull/157 & https://github.com/jadynlaila/Study_Group_Platform/pull/164
 
-Implemented by: Valentino Valero
+Implemented by: Valentino Valero & Jadyn Calhoun ( linking )
 
 Approved by: Jadyn Calhoun 
 
