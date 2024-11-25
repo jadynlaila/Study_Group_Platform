@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import GroupChatModule from './components/GroupChatModule/GroupChatModule.jsx';
-import UserSettingsButton from './components/UserSettings/'
+import UserSettingsButton from './components/UserSettings/Us'
 import LoginPage from './Login/LogIn';
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuthContext } from "./context/AuthContext.jsx";

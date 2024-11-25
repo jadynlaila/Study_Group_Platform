@@ -1,18 +1,30 @@
 // UserSettings.js
 import React, { useEffect, useState } from 'react';
-const axios= require("axios");
 import { getUserSettings, updateUserSettings } from '../studentService'; // Import the service functions
 import Cookies from 'js-cookie'; // Import js-cookie for cookie management
+import { useAuthContext } from '../context/AuthContext';
+
+
+
 
 const UserSettings = () => {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const {authUser} = useAuthContext();
+
+  console.log(authUser);
+
+  // get studentID (logged in)
+  const studentId = authUser._Id;
+  const studentEmail = authUser.email
+  const studentName = authUser.name
+  
+
 
   // Fetch user settings on component mount
   useEffect(() => {
-    const fetchSettings = async () => {
-      const studentId = Cookies.get('studentId'); // Get the student ID from cookies
+    const fetchSettings(studentId) = async () => {
       if (!studentId) {
         setError('No student ID found in cookies');
         setLoading(false);
