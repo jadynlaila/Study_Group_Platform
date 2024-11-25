@@ -1,5 +1,4 @@
 # Deliverable 6 - Group 7
-Small changes for pull 
 
 ## Instructions
 This deliverable should describe the second release of your project. A release is a fully functional software that delivers a set of features (it doesn’t need to be the complete set, but the software needs to be usable). Structure your deliverable into the following sections. See the “Team Project Instructions” for details about formatting.
@@ -12,16 +11,14 @@ Grading criteria (1 point): This section will be evaluated in terms of correctne
 [ insert content here ]
 
 ## 2. Implemented requirements
-List in this section the requirements and associated pull request that you implemented for this release, following the example below---include the description of the requirement, a link to the issue,  a link to the pull request(s) that implement the requirement, who implemented the requirement, who approved it, and a print screen that depicts the implemented feature (if applicable). Order the requirements by the name of the student who implemented them. Everyone in the group is expected to have code contributions documented by means of pull requests. Every pull request should be reviewed and approved before the merge. 
 
-At this point, we expect that you implement/prototype the features you specified in your MVP (c.f. D.2 Requirements). Pivots and changes are allowed as soon as you justify them.
 
 
 ##### User Story: 
 https://github.com/jadynlaila/Study_Group_Platform/issues/178
 
 ##### Requirement: 
-Create a page for User settings, to edit details of their profile. 
+Create a page for User settings, to edit details of their profile. It must be able to edit Name, Username, Email, and edit the profile picture displayed.
 
 ##### Issue: 
 https://github.com/jadynlaila/Study_Group_Platform/issues/56
@@ -36,12 +33,14 @@ Jack Lealos
 Alex
 
 ##### Print screen: 
+![Postman Remove Group](res/Jack_D6//UserSettingButton.png)
+![Postman Remove Group](res/Jack_D6//UserSettings.png)
 
 ##### User Story: 
 
 https://github.com/jadynlaila/Study_Group_Platform/issues/180
 ##### Requirement: 
-Create a page for Group settings to edit details of the group.
+Create a page for Group settings to edit details of the group. It must include being able to edit Name, Description, max members, and see a list of members in the group.
 ##### Issue: 
 https://github.com/jadynlaila/Study_Group_Platform/issues/56
 
@@ -55,15 +54,12 @@ Jack Lealos
 Alex
 
 ##### Print screen: 
+![Postman Remove Group](res/Jack_D6//GroupSettingsButton.png)
+![Postman Remove Group](res/Jack_D6//GroupSettingsError.png)
 
 (The group settings do not properly allocate the groupID from the specific groups. However they would have similar styling and function to the user settings.)
 
 
-Remember that all code contributions should be submitted via pull requests and the reviewer should review and approve each pull request. 
-
-Grading criteria (20 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the scrum master. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
-
-[ insert content here ]
 
 ## 3. Tests
 
