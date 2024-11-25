@@ -137,6 +137,7 @@ Each test creates a mock object, saves it to the database, runs its transactions
 #### Demo Image
 
 ![Unit Test Image](https://github.com/jadynlaila/Study_Group_Platform/blob/deliverable_6/Deliverables/res/alex_d6/unittests.png)
+
 *Note: The failed test suites are from other unimplemented test suites. These could not be removed in time for writing the deliverable.*
 
 ### 3.2 Acceptance tests
