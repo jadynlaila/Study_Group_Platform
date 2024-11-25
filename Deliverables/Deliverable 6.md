@@ -146,6 +146,7 @@ Unfortunately, we do not have any acceptance tests available.
 
 ## 4. Demo
 Include a link to a video showing the system working.
+StudySphere Demo: https://youtu.be/oaFezWNzrK8
 
 Grading criteria (10 points): This section will be graded based on the quality of the video and on the evidence that the features are running as expected. Additional criteria are the relevance of the demonstrated functionalities, the correctness of the functionalities, and the quality of the developed system from the external point of view (user interface).
 
