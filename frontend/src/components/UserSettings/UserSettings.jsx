@@ -1,38 +1,27 @@
-// UserSettings.js
 import React, { useEffect, useState } from 'react';
 import { getUserSettings, updateUserSettings } from '../studentService'; // Import the service functions
-import Cookies from 'js-cookie'; // Import js-cookie for cookie management
 import { useAuthContext } from '../context/AuthContext';
-
-
-
 
 const UserSettings = () => {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const {authUser} = useAuthContext();
+  const { authUser  } = useAuthContext();
 
-  console.log(authUser);
-
-  // get studentID (logged in)
-  const studentId = authUser._Id;
-  const studentEmail = authUser.email
-  const studentName = authUser.name
-  
-
+  // Get student ID from the authenticated user
+  const studentId = authUser._id; // Ensure the correct property name is used
 
   // Fetch user settings on component mount
   useEffect(() => {
-    const fetchSettings(studentId) = async () => {
+    const fetchSettings = async () => {
       if (!studentId) {
-        setError('No student ID found in cookies');
+        setError('No student ID found in the authenticated user.');
         setLoading(false);
         return;
       }
 
       try {
-        const data = await getUserSettings(studentId); // Call the function to get user settings
+        const data = await getUserSettings (studentId); // Call the function to get user settings
         setSettings(data);
       } catch (err) {
         setError(err.message);
@@ -42,14 +31,13 @@ const UserSettings = () => {
     };
 
     fetchSettings();
-  }, []);
+  }, [studentId]); // Dependency array should include studentId
 
   // Handle form submission to update settings
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const studentId = Cookies.get('studentId'); // Get the student ID from cookies
     if (!studentId) {
-      setError('No student ID found in cookies');
+      setError('No student ID found in the authenticated user.');
       return;
     }
 
