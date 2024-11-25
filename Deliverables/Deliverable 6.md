@@ -45,7 +45,7 @@ Implemented by: Valentino Valero
 
 Approved by: Jadyn Calhoun 
 
-Print screen: 
+Print screen: ![LoginScreen](res/valentino_d6/LoginScreenShot.png)
 
 ## 3. Tests
 
@@ -86,6 +86,7 @@ Describe how your team managed code quality. What were your policies, convention
 Grading criteria (3 points): Adequate list of practices that were adopted to improve code quality and clear description with adequate use of language.
 
 [ insert content here ]
+FRONTEND: For frontend code quality we made good use of Figmas built in devmode. By using devmode we effectively have pre-built css that help us keep consistent in terms of format. Secondarily, proper use of commenting helps us understand implemntations aswell as any potential changes we may have made on a branch such as consolidating a bunch of css aspects into one that effectively does all. In regards to policies, we kept it pretty standard with line character limits, proper spacing, having brackets on their own lines, and overall keeping things a linear manner thats easy to understand ( having the navbar css go left to right as you proceed down the code ).
 
 ## 6. Lessons learned
 In retrospect, describe what your team learned during this second release and what you would change if you would continue developing the project. 
