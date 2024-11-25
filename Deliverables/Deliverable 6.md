@@ -7,41 +7,6 @@ StudySphere is an intuitive platform that empowers students to create and manage
 The platform enables students to take ownership of their groups by managing attributes like group names, descriptions, pictures, members, and administrators. Group owners and administrators have enhanced privileges to ensure smooth group functionality. All group messages are stored in dedicated threads, ensuring easy access and continuity. By combining user-friendly design with robust features, StudySphere provides an innovative way for students to "study smarter together" and build meaningful connections, both virtually and in person. The current project can be found at the following link: [StudySphere GitHub Repository](https://github.com/jadynlaila/Study_Group_Platform)
 
 ## 2. Implemented requirements
-List in this section the requirements and associated pull request that you implemented for this release, following the example below---include the description of the requirement, a link to the issue,  a link to the pull request(s) that implement the requirement, who implemented the requirement, who approved it, and a print screen that depicts the implemented feature (if applicable). Order the requirements by the name of the student who implemented them. Everyone in the group is expected to have code contributions documented by means of pull requests. Every pull request should be reviewed and approved before the merge. 
-
-At this point, we expect that you implement/prototype the features you specified in your MVP (c.f. D.2 Requirements). Pivots and changes are allowed as soon as you justify them.
-
-See the example:
-```
-Example of Requirement Description
-Requirement: As a Student, I want to add a homework assignment so that I can organize my ToDo list.
-
-Issue: <link to your GitHub issue>
-
-Pull request: https://github.com/user/project/pull/426 Links to an external site.
-
-Implemented by: Martin Fowler
-
-Approved by: Ada Lovelace
-
-Print screen: A print screen that depicts the implemented feature (if applicable)
-```
-
-**Rudra Amin:** 
-
-Issue: https://github.com/jadynlaila/Study_Group_Platform/issues/115
-
-Pull request: https://github.com/jadynlaila/Study_Group_Platform/pull/170
-
-Implemented By: Rudra Amin (backend) and Jadyn Calhoun (frontend)
-
-Approved by: Rudra Amin
-
-Print screen: ![messageInGC](./res/sending_message.png)
-
-
-Remember that all code contributions should be submitted via pull requests and the reviewer should review and approve each pull request. 
-
 ### Jadyn Calhoun 
 
 **Requirement:** As a student, I want to be able to create an account
@@ -112,19 +77,50 @@ Remember that all code contributions should be submitted via pull requests and t
 
 **Print screen:** ![Access Group Messages](res/jadyn_d6/d6_messages.png)
 
-Grading criteria (20 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the scrum master. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
+##### User Story: 
+https://github.com/jadynlaila/Study_Group_Platform/issues/178
 
-Requirement: As a student, I want a simple clean login experience without too many eye-peering requirements.
+##### Requirement: 
+Create a page for User settings, to edit details of their profile. It must be able to edit Name, Username, Email, and edit the profile picture displayed.
 
-Issue: https://github.com/jadynlaila/Study_Group_Platform/issues/125
+##### Issue: 
+https://github.com/jadynlaila/Study_Group_Platform/issues/56
 
-Pull request: https://github.com/jadynlaila/Study_Group_Platform/pull/157 & https://github.com/jadynlaila/Study_Group_Platform/pull/164
+##### Pull request: 
+https://github.com/jadynlaila/Study_Group_Platform/pull/183
 
-Implemented by: Valentino Valero & Jadyn Calhoun ( linking )
+##### Implemented by: 
+Jack Lealos
 
-Approved by: Jadyn Calhoun 
+##### Approved by: 
+Alex
 
-Print screen: ![LoginScreen](res/valentino_d6/LoginScreenShot.png)
+##### Print screen: 
+![Postman Remove Group](res/Jack_D6//UserSettingButton.png)
+![Postman Remove Group](res/Jack_D6//UserSettings.png)
+
+##### User Story: 
+
+https://github.com/jadynlaila/Study_Group_Platform/issues/180
+##### Requirement: 
+Create a page for Group settings to edit details of the group. It must include being able to edit Name, Description, max members, and see a list of members in the group.
+##### Issue: 
+https://github.com/jadynlaila/Study_Group_Platform/issues/56
+
+##### Pull request:
+ https://github.com/jadynlaila/Study_Group_Platform/pull/183
+
+##### Implemented by: 
+Jack Lealos
+
+##### Approved by: 
+Alex
+
+##### Print screen: 
+![Postman Remove Group](res/Jack_D6//GroupSettingsButton.png)
+![Postman Remove Group](res/Jack_D6//GroupSettingsError.png)
+
+(The group settings do not properly allocate the groupID from the specific groups. However they would have similar styling and function to the user settings.)
 
 ## 3. Tests
 
@@ -160,6 +156,7 @@ Grading criteria (10 points): This section will be graded based on the quality o
 [ insert content here ]
 
 ## 5. Code quality
+Describe how your team managed code quality. What were your policies, conventions, adopted best practices, etc., to foster high-quality code? 
 
 **Backend:** To ensure high-quality code, our team implemented several practices and adhered to specific conventions and policies. First, we adopted a consistent coding style, this ensured uniformity and made our code easier to read and maintain. We also emphasized descriptive naming conventions for variables, functions, and classes to enhance clarity. Our team ensured high-quality code by also following SOLID principles, including the Single Responsibility, Open-Closed, and Liskov Substitution Principles, while acknowledging that our current implementation does not fully adhere to the Interface Segregation Principle. We also used the Service Layer Design Pattern to separate business logic from controllers, ensuring modularity and scalability. To validate functionality, we implemented unit testing for individual components and acceptance testing to ensure the system met user requirements.
 
