@@ -25,6 +25,6 @@ app.use("/api/group", require("./routes/groupRoutes"))
 app.use("/api/student", require("./routes/studentRoutes"))
 app.use(errorHandler)
 
-app.use("/api/messages", Message);
+app.use("/api/message", Message);
 
 app.listen(port, () => console.log(`Server has started on port ${port}`))

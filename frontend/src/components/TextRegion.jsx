@@ -1,9 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './TextRegionStyle.css'; // Ensure this path is correct
+import { useAuthContext } from '../context/AuthContext';
+import axios from 'axios';
+
+
+let baseURL = `http://localhost:${process.env.PORT || 6789}`
+
 
 const TextRegion = ({ group }) => {
   const [inputText, setInputText] = useState('');
   const [messages, setMessages] = useState([]);
+  const {authUser} = useAuthContext();
+
+  useEffect(() => {
+    if (group) { 
+      getMessages(group._id)
+    }
+  }, [group])
+
+  const getMessages = async (groupId) => {
+    try {
+      const response = await axios.get(`${baseURL}/api/group/${groupId}/messages`)
+      console.log(`Messages: ${JSON.stringify(response.data, null, 2)}`)
+      setMessages(response.data)
+    } catch(error) { 
+      console.error('Error fetching messages:', error);
+    }
+  }
+
 
   const handleInputChange = (event) => {
     setInputText(event.target.value);
@@ -20,7 +44,7 @@ const TextRegion = ({ group }) => {
 
   return (
     <div className="text-region">
-      <h2>{group} Chat</h2> {/* Display the group name */}
+      <h2>{group.name} Chat</h2> {/* Display the group name */}
       <div className="chat-display">
         {messages.map((msg, index) => (
           <div key={index} className={`chat-message ${msg.sender}`}>

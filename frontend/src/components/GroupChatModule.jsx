@@ -38,39 +38,12 @@ const GroupChatModule = () => {
     try{ 
       const groupDetails = await getGroup(groupId);
       if (groupDetails) { 
-        setSelectedGroup(groupId); 
+        setSelectedGroup(groupDetails); 
         console.log(`Group details: `, JSON.stringify(groupDetails, null, 2))
       }
     }catch (error) { 
       console.error(`Group details not found`)
     }
-  };
-
-  // Filtered group chats based on the search query
-
-
-  // Fetch the list of students from the API
-  const fetchMessages = async () => {
-      try {
-          const response = await axios.get(`${baseURL}/api/group/messages/${authUser._id}`);
-          console.log('Messages:', response.data);
-          return response.data
-      } catch (error) {
-          console.error("WERIUHERGUH AXIOS ERGHUIAERWGUIHERAGIUH")
-
-          if (error.response) {
-            // Server responded with a status other than 200 range
-            console.error('Error response:', error.response.data);
-          }
-          if (error.request) {
-            // Request was made but no response received
-            console.error('Error request:', error.request);
-          }
-          if (error.message) {
-            // Something else caused the error
-            console.error('Error message:', error.message);
-          }
-      }
   };
 
 
@@ -107,11 +80,6 @@ const GroupChatModule = () => {
     }
   };
 
-  // Call fetchMessages when the component mounts
-  React.useEffect(() => {
-    fetchMessages();
-  }, []);
-
   return (
     <div>
     {/* include Navbar ON TOP*/}
@@ -141,7 +109,7 @@ const GroupChatModule = () => {
       {/* Render the chat component if a group is selected */}
       <div className="chatContainer">
         {selectedGroup && (
-          <TextRegion key={selectedGroup.id} group={selectedGroup.name} />
+          <TextRegion key={selectedGroup.id} group={selectedGroup} />
         )}
       </div>
     </div>
