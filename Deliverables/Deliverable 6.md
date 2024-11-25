@@ -51,17 +51,13 @@ Grading criteria (2 points): adequate choice of a test framework, coverage of th
 
 [ insert content here ]
 
+For our project, we used `Jest` as our testing framework. The tests can be located under `Study_Group_Platform/backend/controllers` ([located here]()), and the test files will contain the extension `.test.js`.
+
+
+
 ### 3.2 Acceptance tests
 
-An acceptance test is a test that verifies the correct implementation of a feature from the user interface perspective. An acceptance test is a black box test (the system is tested without knowledge about its internal implementation). Provide the following information:
-
-Test framework you used to develop your tests (e.g., Selenium, Katalon Studio, Espresso2, Cucumber, etc.)
-Link to your GitHub folder where your automated acceptance tests are located
-An example of an acceptance test. Include a GitHub link to the test and an explanation about the tested feature in your answer.
-A print screen/video showing the acceptance test execution
-Grading criteria (2 points): adequate choice of a test framework, coverage of the tests, quality of the tests, adequate example of an acceptance test, print screen/video showing successful test execution.
-
-[ insert content here ]
+Unfortunately, we do not have any acceptance tests available.
 
 ## 4. Demo
 Include a link to a video showing the system working.
