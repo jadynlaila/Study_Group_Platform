@@ -35,7 +35,7 @@ Remember that all code contributions should be submitted via pull requests and t
 
 Grading criteria (20 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the scrum master. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
 
-Requirement: As a student, I want to be able to connect with other students so that we can communicate times to meet and study.
+Requirement: As a student, I want a simple clean login experience without too many eye-peering requirements.
 
 Issue: https://github.com/jadynlaila/Study_Group_Platform/issues/125
 
@@ -86,7 +86,7 @@ Describe how your team managed code quality. What were your policies, convention
 Grading criteria (3 points): Adequate list of practices that were adopted to improve code quality and clear description with adequate use of language.
 
 [ insert content here ]
-FRONTEND: For frontend code quality we made good use of Figmas built in devmode. By using devmode we effectively have pre-built css that help us keep consistent in terms of format. Secondarily, proper use of commenting helps us understand implemntations aswell as any potential changes we may have made on a branch such as consolidating a bunch of css aspects into one that effectively does all. In regards to policies, we kept it pretty standard with line character limits, proper spacing, having brackets on their own lines, and overall keeping things a linear manner thats easy to understand ( having the navbar css go left to right as you proceed down the code ).
+FRONTEND: For frontend code quality we made good use of Figma's built in dev mode. By using devmode we effectively have pre-built CSS that helps us keep consistent in terms of format and aesthetic. Secondarily, proper use of commenting helps us understand implementations as well as any potential changes we may have made on a branch such as consolidating a bunch of CSS aspects into one that effectively does all. In regards to policies, we kept it pretty standard with line character limits, proper spacing and indenting, having brackets on their own lines, and overall keeping things in a linear manner thats easy to understand ( having the navbar CSS go left to right as you proceed down the code ). Ideally if we were to change things in the future, we shouldve implemented linters.
 
 ## 6. Lessons learned
 In retrospect, describe what your team learned during this second release and what you would change if you would continue developing the project. 
