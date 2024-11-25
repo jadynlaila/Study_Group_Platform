@@ -29,6 +29,18 @@ Approved by: Ada Lovelace
 Print screen: A print screen that depicts the implemented feature (if applicable)
 ```
 
+**Rudra Amin:** 
+
+Issue: https://github.com/jadynlaila/Study_Group_Platform/issues/115
+
+Pull request: https://github.com/jadynlaila/Study_Group_Platform/pull/170
+
+Implemented By: Rudra Amin (backend) and Jadyn Calhoun (frontend)
+
+Approved by: Rudra Amin
+
+Print screen: ![message in group chat](Deliverables/res/sending_message.png)
+
 Remember that all code contributions should be submitted via pull requests and the reviewer should review and approve each pull request. 
 
 Grading criteria (20 points): This section will be evaluated in terms of correctness, completeness, thoroughness, consistency, coherence, adequate use of language, and amount of work put into the implementation. Students can receive different grades depending on their involvement. It is expected that all members contribute with non-trivial implementation. All pull requests should be approved and integrated by the scrum master. You should follow an adequate workflow (description of the requirement on the issue tracker, submission of the implemented requirement as a pull request, and review of the pull request by another developer). 
