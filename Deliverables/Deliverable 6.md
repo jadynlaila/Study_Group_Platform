@@ -16,21 +16,48 @@ List in this section the requirements and associated pull request that you imple
 
 At this point, we expect that you implement/prototype the features you specified in your MVP (c.f. D.2 Requirements). Pivots and changes are allowed as soon as you justify them.
 
-See the example:
-```
-Example of Requirement Description
-Requirement: As a Student, I want to add a homework assignment so that I can organize my ToDo list.
 
-Issue: <link to your GitHub issue>
+##### User Story: 
+https://github.com/jadynlaila/Study_Group_Platform/issues/178
 
-Pull request: https://github.com/user/project/pull/426 Links to an external site.
+##### Requirement: 
+Create a page for User settings, to edit details of their profile. 
 
-Implemented by: Martin Fowler
+##### Issue: 
+https://github.com/jadynlaila/Study_Group_Platform/issues/56
 
-Approved by: Ada Lovelace
+##### Pull request: 
+https://github.com/jadynlaila/Study_Group_Platform/pull/172
 
-Print screen: A print screen that depicts the implemented feature (if applicable)
-```
+##### Implemented by: 
+Jack Lealos
+
+##### Approved by: 
+Alex
+
+##### Print screen: 
+
+##### User Story: 
+
+https://github.com/jadynlaila/Study_Group_Platform/issues/180
+##### Requirement: 
+Create a page for Group settings to edit details of the group.
+##### Issue: 
+https://github.com/jadynlaila/Study_Group_Platform/issues/56
+
+##### Pull request:
+ https://github.com/jadynlaila/Study_Group_Platform/pull/172
+
+##### Implemented by: 
+Jack Lealos
+
+##### Approved by: 
+Alex
+
+##### Print screen: 
+
+(The group settings do not properly allocate the groupID from the specific groups. However they would have similar styling and function to the user settings.)
+
 
 Remember that all code contributions should be submitted via pull requests and the reviewer should review and approve each pull request. 
 
