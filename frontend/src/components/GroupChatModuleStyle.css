@@ -5,7 +5,18 @@
     flex-direction: row; /* Align items in a row */
     height: 90vh; /* Full height */
   }
-  
+  .groupSearchContainer {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh; /* Full viewport height */
+    width: 60%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the content */
+    background-color: #4a4a4a; /* Background color for the middle column */
+    height: 100%;
+  }
   .groupChatContainer {
     width: 20%; /* 1/5 of the screen width */
     border-right: 1px solid #4a4a4a; /* Dark gray divider */
