@@ -175,7 +175,10 @@ const updateGroup = asyncHandler(async (request, result) => {
         console.debug(`Updating group '${groupID}'`)
         console.debug(request.body)
 
-        if (!mongoose.Types.ObjectId.isValid(groupID)) {
+        if (groupID == null
+            || groupID == undefined
+            || !mongoose.Types.ObjectId.isValid(groupID)
+        ) {
             console.debug("Invalid group ID")
             return response.status(400).send('Invalid group ID')
         }

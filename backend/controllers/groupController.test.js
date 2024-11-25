@@ -92,21 +92,20 @@ describe('Group Controller', () => {
             console.debug(response.body.error);
         }
 
-        // TEST: Make sure we get a good status code
-        expect(response.status).toBe(201)
+        // Delete the stuff we created
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
 
-        // TEST: Make sure the group was created
+        // TEST: Make sure the group is a-okay
+        expect(response.status).toBe(201)
         expect(group.name).toBe("JEST Test Group")
 
-        // Delete the test group
-        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
-
-        // Delete the sample data
-        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
     });
 
     // Test getAllGroups
     test('should get all groups', async () => {
+        // NOTE: this assumes that there are groups in the database
+
         // Get all groups using the API
         const response = await request(`${serverAddress}/api/group`).get('/');
 
@@ -138,6 +137,9 @@ describe('Group Controller', () => {
 
         // Get the group we created
         const response = await request(`${serverAddress}/api/group`).get(`/${testGroupID}`);
+
+        // Delete the test group
+        await request(`${serverAddress}/api/group`).delete(`/${testGroupID}`);
  
         // TEST: Make sure that we got the group back
         expect(response.statusCode).toBe(200);
@@ -145,24 +147,60 @@ describe('Group Controller', () => {
         expect(response.body.name).toBe('JEST Test Group');
     });
     
-    // // Test updateGroup
-    // test('should update a group', async () => {
-    //     const updatedName = "JEST Test Group (Updated)";
-    //     const updatedDescription = "This is an updated test";
+    // Test updateGroup
+    test('should update a group', async () => {
+        let studentData = { ...sampleStudentData };
+        studentData.username = "testuser_updateGroup";
+        studentData.email = "updateGroup@test.user"
 
-    //     // Send the put request
-    //     const response = await request(`${serverAddress}/api/group`).post(`/${testGroupID}`).send({
-    //         name: updatedName,
-    //         description: updatedDescription
-    //     })
+        let studentID;
 
-    //     // TEST: Make sure we get a good status code
-    //     expect(response.statusCode).toBe(200);
+        // Create
+        const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
+        studentID = studentResponse.body._id;
+        
+        if (studentResponse.status != 201) {
+            console.error("Failed to create student");
+            console.debug(studentResponse.body);
+        }
 
-    //     // TEST: Make sure the group was updated
-    //     expect(response.body.name).toBe(updatedName);
-    //     expect(response.body.description).toBe(updatedDescription);
-    // });
+        if (studentID == null || studentID == undefined) {
+            console.error("Because the student ID is null, we can't continue with the test");
+            return;
+        }
+
+        // Create the test group
+        let groupData = { ...sampleGroupData };
+        groupData.ownerID = studentID;
+
+        const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        const groupID = groupResponse.body._id;
+
+        if (groupResponse.status != 201) {
+            console.error("Failed to create group");
+        }
+
+        // Update the local data
+        const updatedName = "JEST Test Group (Updated)";
+        const updatedDescription = "This is an updated test";
+
+        // Send the update request
+        const response = await request(`${serverAddress}/api/group`).post(`/${groupID}`).send({
+            name: updatedName,
+            description: updatedDescription
+        })
+
+        // Delete the test stuf before we test
+        await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
+        await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
+
+        // TEST: Make sure we get a good status code
+        expect(response.statusCode).toBe(200);
+
+        // TEST: Make sure the group was updated
+        expect(response.body.name).toBe(updatedName);
+        expect(response.body.description).toBe(updatedDescription);
+    });
 
     // // Test searchGroups
     // test('should search for groups', async () => {
