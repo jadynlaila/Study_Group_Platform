@@ -1,7 +1,5 @@
 # Deliverable 6 - Group 7
 
-## Instructions
-This deliverable should describe the second release of your project. A release is a fully functional software that delivers a set of features (it doesn’t need to be the complete set, but the software needs to be usable). Structure your deliverable into the following sections. See the “Team Project Instructions” for details about formatting.
 
 ## 1. Introduction
 StudySphere is an intuitive platform that empowers students to create and manage accounts, connect with peers, and form study groups with ease. Upon account creation, users provide essential information such as their name, email, college, and groups they are affiliated with. Students are encouraged to join or create study groups, fostering a collaborative environment where they can interact, exchange ideas, and prepare for academic success. Each group features real-time messaging, allowing seamless communication for scheduling study sessions, planning meetings, or simply making new friends within their academic community.
