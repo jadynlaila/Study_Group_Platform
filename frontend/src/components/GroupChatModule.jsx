@@ -5,12 +5,13 @@ import axios from 'axios';
 import Navbar from './Navbar.jsx';
 // import Cookies from 'js-cookie';
 import { useAuthContext } from '../context/AuthContext.jsx';
+// require('dotenv').config()   // npm is stupid, so this is not an option
 
 /*
 /  Axios Setup and Wrappers
 */
 
-let baseURL = `http://localhost:${process.env.PORT || 6789}`
+const baseURL = "http://localhost:6789"
 
 axios.interceptors.request.use(request => {
   console.log('Starting Request', JSON.stringify(request, null, 2))
@@ -25,42 +26,63 @@ axios.interceptors.response.use(response => {
 /*
 /  Helper Functions
 */
-async function getDataFromURL(url, expectedStatus=200) {
-  const response = await axios.get(url);
+async function getDataFromURL(url, expectedStatus = 200) {
+  try {
+    const response = await axios.get(url);
 
-  if (response.status !== expectedStatus) {
-    console.error(`Failed to obtain data from '${url}'.
-      Obtained a status code ${response.status} instead of ${expectedStatus}.`);
+    if (response.status !== expectedStatus) {
+      console.error(`Failed to obtain data from '${url}'.
+        Obtained a status code ${response.status} instead of ${expectedStatus}.`);
 
-    return;
+      return;
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message)
   }
-
-  return response.data;
 }
 
 async function getGroup(groupID) {
-  return getDataFromURL(`${baseURL}/api/group/${groupID}`);
+  if (!groupID) {
+    console.error("Tried to get group data when no group ID was provided.");
+    return;
+  }
+  return await getDataFromURL(`${baseURL}/api/group/${groupID}`);
 }
 
 async function getUserData(userID) {
-  return getDataFromURL(`${baseURL}/api/student/${userID}`);
+  if (!userID) {
+    console.error("Tried to get user data when no user ID was provided.");
+    return;
+  }
+  return await getDataFromURL(`${baseURL}/api/student/${userID}`);
 }
 
 async function getMessagesFromGroup(groupID) {
-  return getDataFromURL(`${baseURL}/api/group/${groupID}/messages`);
+  if (!groupID) {
+    console.error("Tried to get messages from a group when no group ID was provided.");
+  }
+  return await getDataFromURL(`${baseURL}/api/group/${groupID}/messages`);
 }
 
 async function getGroupDataFromGroupIDs(groupIDs) {
   let groups = [];
 
   for (const groupID in groupIDs) {
-    const response = getDataFromURL(`${baseURL}/api/group/${groupID}`)
+    if (!groupID || groupID == 0) continue;
 
-    if (response.status !== 200) {
-      continue;
+    try {
+      const response = await getDataFromURL(`${baseURL}/api/group/${groupID}`)
+
+      if (response.status !== 200) {
+        continue;
+      }
+
+      groups.push(response.data);
+    } catch (error) {
+      console.error(error.message)
     }
-
-    groups.push(response.data);
   }
 
   return groups;
@@ -70,9 +92,12 @@ async function getGroupDataFromGroupIDs(groupIDs) {
 /  React Containers
 */
 
-function GroupChatContents() {
-  const [filteredChats, ] = useState([]);
+function GroupChatList() {
+  const [userGroups, setUserGroups] = useState([]);
   const [, setSelectedGroup] = useState('');
+  const { authUser } = useAuthContext();
+  
+  console.log(userGroups)
 
   async function handleGroupSelect(groupID) {
     try {
@@ -90,15 +115,27 @@ function GroupChatContents() {
   }
 
   function GroupChatList() {
-    <ul className="listContent">
-      {filteredChats.map((item) => (
-        <li key={item} className="groupChatItem">
-          <button onClick={() => handleGroupSelect(item._id)} className="groupChatName">
-            {item.name}
-          </button>
-        </li>
-      ))}
-    </ul>
+    useEffect(() => {
+      async function fetchUserGroups() {
+        const userData = await getUserData(authUser._id);
+        const groups = await getGroupDataFromGroupIDs(userData.groups);
+        setUserGroups(groups);
+      }
+
+      fetchUserGroups();
+    }, [authUser]);
+
+    return (
+      <ul className="listContent">
+        {userGroups.map((currentGroup) => (
+          <li key={currentGroup._id} className="groupChatItem">
+            <button onClick={() => handleGroupSelect(currentGroup._id)} className="groupChatName">
+              {currentGroup.name}
+            </button>
+          </li>
+        ))}
+      </ul>
+    );
   }
 
   return (
@@ -145,36 +182,40 @@ function GroupChatModule() {
   // Create context variables to be used by helper functions
   const { authUser } = useAuthContext();
   //! Variable names conflict with helper functions
-  const [, setGroups] = useState([]);
+  const [, setShownGroups] = useState([]);
 
   useEffect(() => {
-    /*
-    /  Helper Functions
-    */
-
-    async function updateGroupList() {
-      const userData = await getUserData();
-
+    async function getUpdatedGroups() {
+      const userData = getUserData(authUser._id);
+  
       // If we failed to get a user, don't do anything else
       if (!userData) {
         return;
       }
-
+  
       const groupData = getGroupDataFromGroupIDs(userData.groups);
-
+  
       // If we failed to get a group, don't do anything else
       if (!groupData) {
         return;
       }
-
-      // Perform the react component update
-      setGroups(groupData);
+      
+      return groupData;
     }
 
     // Update the group list if the user is logged in
     //? Not sure why we're checking if we're logged in here.
     //? Shouldn't this check be done somewhere up the stack?
-    if (authUser) updateGroupList();
+    if (!authUser) {
+      console.error("Unauthorized.");
+      return;
+    }
+    
+    // Perform the react component update
+    if (authUser) {
+      const groupData = getUpdatedGroups()
+      setShownGroups(groupData);
+    }
 
   }, [authUser]);
 
@@ -182,7 +223,7 @@ function GroupChatModule() {
     <div>
       <Navbar />
       <div className="container">
-        <GroupChatContents />
+        <GroupChatList />
         <ChatContainer />
       </div>
     </div>
