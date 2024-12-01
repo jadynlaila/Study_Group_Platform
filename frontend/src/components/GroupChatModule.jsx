@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
-import TextRegion from './TextRegion'; // Import the TextRegion component
+import TextRegion from './TextRegion.jsx'; // Import the TextRegion component
 import axios from 'axios';
-import Navbar from './Navbar';
+import Navbar from './Navbar.jsx';
 import Cookies from 'js-cookie';
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext.jsx';
 
 // axios.defaults.baseURL = `http://localhost:${process.env.PORT || 3000}`
 let baseURL = `http://localhost:${process.env.PORT || 6789}`

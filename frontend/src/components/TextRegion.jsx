@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './TextRegionStyle.css'; // Ensure this path is correct
-import { useAuthContext } from '../../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
