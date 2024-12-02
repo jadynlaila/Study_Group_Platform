@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import './NavBarStyle.css';
 import logo from "./Public/StudySphere-White.svg";
 import logo2 from "./Public/Vector.png"
-const NavBar = () => {
+import noPic from "./Public/no-pic.png";
+
+const NavBar = ({group, user}) => {
   useEffect(() => {
     // Event listeners for navigation
     const handleUserClick = () => {
@@ -24,6 +26,7 @@ const NavBar = () => {
       if (userInfo) userInfo.removeEventListener('click', handleUserClick);
       if (groupChat) groupChat.removeEventListener('click', handleGroupClick);
     };
+
   }, []);
 
   return (
@@ -36,11 +39,11 @@ const NavBar = () => {
       {/* Middle Section */}
       <div className="navbar-middle">
         <div className="group-chat">
-          <img src={ logo2 } alt="Group Profile" className="group-profile" />
+          <img src={ group && group.profilePictureID ? group.profilePictureID : noPic } alt="Group Profile" className="group-profile" />
           <div className="group-info">
-            <span className="group-name">Datastructures T_T</span> {/* Placeholder */}
-            <span className="field-of-study">Computer Science</span> {/* Placeholder */}
-            <span className="user-count">?/?</span> {/* Placeholder */}
+            <span className="group-name">{group ? group.name : "Select a Group"}</span> 
+            <span className="field-of-study">{group ? group.majors : ""}</span> 
+            <span className="user-count">{group ? `${group.memberCount}/${group.memberLimit}` : ""}</span> 
           </div>
         </div>
       </div>
@@ -48,11 +51,11 @@ const NavBar = () => {
       {/* Right Section */}
       <div className="navbar-right">
         <div className="user-details">
-          <img src={ logo2 } alt="User Profile" className="user-profile" />
+          <img src={ user ? user.profilePicURL : noPic } alt="User Profile" className="user-profile" />
           <div className="user-info">
-            <span className="user-name">Valentino Valero</span> {/* Placeholder */}
-            <span className="user-major">ComputerScience</span> {/* Placeholder */}
-            <span className="user-college">NAU</span> {/* Placeholder */}
+            <span className="user-name">{user ? `${user.firstName} ${user.lastName}` : ""}</span>
+            <span className="user-major">{user ? user.major : ""}</span> 
+            <span className="user-college">{user ? user.school : ""}</span>
           </div>
         </div>
       </div>

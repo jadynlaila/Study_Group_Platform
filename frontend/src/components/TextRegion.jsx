@@ -10,7 +10,6 @@ let baseURL = `http://localhost:${process.env.PORT || 6789}`
 const TextRegion = ({ group }) => {
   const [inputText, setInputText] = useState('');
   const [messages, setMessages] = useState([]);
-  const {authUser} = useAuthContext();
 
   useEffect(() => {
     if (group) { 

@@ -44,7 +44,7 @@ const GroupSchema = new mongoose.Schema({
         ref: "Student"
     }],
     profilePictureID: {
-        type: mongoose.Schema.Types.ObjectId
+        type: String
     },
     messageIDs: [{
         type: mongoose.Schema.Types.ObjectId, 

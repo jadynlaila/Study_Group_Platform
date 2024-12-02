@@ -24,6 +24,7 @@ function scrubPrivateStudentInfo(studentObject) {
         username: studentObject.username,
         school: studentObject.school,
         displayName: studentObject.displayName,
+        major: studentObject.major,
         groups: studentObject.groups,
         profilePicURL: studentObject.profilePicURL
     }
