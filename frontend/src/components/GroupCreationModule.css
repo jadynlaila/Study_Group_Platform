@@ -59,3 +59,14 @@
   .create-group-button:hover {
     background-color: #0056b3; /* Darker shade on hover */
   }
+
+  .success-message {
+    background-color: #6881ff; /* Green background */
+    color: white; /* White text */
+    padding: 15px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+    margin: 20px 0; /* Margin above and below the message */
+    text-align: center; /* Center the text */
+    font-size: 16px; /* Font size */
+    transition: opacity 0.5s ease; /* Smooth transition for fading out */
+  }

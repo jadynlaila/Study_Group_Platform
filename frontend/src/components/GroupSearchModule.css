@@ -1,76 +1,111 @@
 html, body {
-    height: 100%; /* Ensure the body takes the full height of the viewport */
-    margin: 0; /* Remove default margin */
-  }
-  
-  .group-search-page {
-    display: flex;
-    justify-content: space-between;
-    height: 100vh; /* Full viewport height */
-    width: 100%;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center align the content */
-    background-color: #4a4a4a; /* Background color for the middle column */
-    height: 50%;
-  }
-  
-  
-  .main-column {
-    width: 100%; /* Middle column takes 60% */
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center align the content */
-    background-color: #4a4a4a; /* Background color for the middle column */
-    height: 100%; /* Ensure the middle column takes full height */
-  }
-  
-  .search-container {
-    width: 100%; /* Full width */
-    margin-bottom: 20px; /* Space below the search bar */
-  }
-  
-  .search-input {
-    width: 100%; /* Full width */
-    padding: 10px; /* Padding for input */
-    border: 1px solid #ccc; /* Border for input */
-    border-radius: 5px; /* Rounded edges */
-    font-size: 16px; /* Font size */
-  }
-  
-  .group-list {
-    width: 100%; /* Full width */
-    display: flex; /* Use flex to stack buttons */
-    flex-direction: column; /* Stack items vertically */
-    align-items: stretch; /* Make buttons stretch to full width */
-  }
-  
-  .create-group-button,
-  .group-item {
-    background: linear-gradient(45deg, #007BFF, #00CFFF, #FF007B); /* Multi-color gradient */
-    border-radius: 10px; /* Rounded edges */
-    color: white;
-    padding: 20px 0; /* Increased padding for more height */
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    text-align: center;
-    width: 100%; /* Full width of the middle column */
-    margin: 0; /* Remove any default margin */
-    margin-bottom: 10px; /* Space below the button */
-  }
-  
-  .create-group-button:hover,
-  .group-item:hover {
-    background: linear-gradient(45deg, #0056b3, #00BFFF, #FF0056); /* Darker gradient on hover */
-  }
-  
-  .create-group-button:active,
-  .group-item:active {
-    background: linear-gradient(45deg, #004085, #0099CC, #CC0040); /* Even darker gradient when clicked */
-  }
+  height: 100%; /* Ensure the body takes the full height of the viewport */
+  margin: 0; /* Remove default margin */
+}
+
+.group-search-page {
+  display: flex;
+  justify-content: center; /* Center align the content horizontally */
+  height: 100vh; /* Full viewport height */
+  width: 100%;
+  padding: 0; /* Remove padding */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center align the content */
+  background-color: #4a4a4a; /* Background color for the middle column */
+}
+
+.search-container {
+  width: 100%; /* Full width */
+  margin: 0; /* Remove space below the search bar */
+  padding: 10px; /* Optional: add padding for aesthetics */
+}
+
+.search-input {
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding for input */
+  border: 1px solid #ccc; /* Border for input */
+  border-radius: 5px; /* Rounded edges */
+  font-size: 16px; /* Font size */
+}
+
+.group-list {
+  width: 100%; /* Full width */
+  display: flex; /* Use flex to stack items */
+  flex-direction: column; /* Stack items vertically */
+  align-items: stretch; /* Make items stretch to full width */
+  max-height: 650px; /* Set a maximum height for the group list */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 10px; /* Add some padding */
+  background-color: #363535; /* Background color for the list */
+  border-radius: 10px; /* Rounded edges */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-top: 10px; /* Ensure some space above the group list */
+}
+
+.create-group-button,
+.group-item {
+  background: linear-gradient(60deg, #22aad0, #9000ff); /* Multi-color gradient */
+  border-radius: 10px; /* Rounded edges */
+  color: white;
+  padding: 20px; /* Increased padding for more height */
+  font-size: 18px; /* Font size */
+  font-weight: bold; /* Bold text */
+  border: none; /* Remove border */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Transition effect */
+  text-align: center; /* Center text */
+  width: 100%; /* Full width of the container */
+  margin: 0; /* Remove any default margin */
+  margin-bottom: 10px; /* Space below the button */
+}
+
+.create-group-button:hover,
+.group-item:hover {
+  background: linear-gradient(45deg, #137c99, #6d02c0); /* Darker gradient on hover */
+}
+
+.create-group-button:active,
+.group-item:active {
+  background: linear-gradient(45deg, #137c99, #6d02c0); /* Even darker gradient when clicked */
+}
+
+.group-details-container {
+  display: flex;
+  justify-content: space-between; /* Pushes button to the right */
+  width: 100%; /* Ensures the container takes full width */
+}
+
+.group-details {
+  flex-grow: 1; /* Allow this section to grow */
+}
+
+.group-name {
+  font-size: 18px; /* Font size for group name */
+  margin: 0; /* Remove default margin */
+}
+
+.group-description {
+  font-size: 14px; /* Font size for description */
+  margin: 5px 0; /* Margin around the description */
+}
+
+.group-info {
+  display: flex; /* Use flexbox for group info */
+  justify-content: space-between; /* Space out members and class */
+  font-size: 12px; /* Smaller font for info */
+}
+
+.join-group-button {
+  background: linear-gradient(45deg, #20cfff, #c377fc); /* Green background */
+  border: none; /* Remove border */
+  color: white; /* White text */
+  padding: 10px 15px; /* Padding for the button */
+  border-radius: 20px; /* Rounded edges */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+  margin-left: 20px;
+}
+
+.join-group-button:hover {
+  background: #20cfff; /* Darker green on hover */
+}
