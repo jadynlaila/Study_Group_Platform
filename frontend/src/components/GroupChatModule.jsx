@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
-import TextRegion from './TextRegion.jsx'; // Import the TextRegion component
+import TextRegion from './TextRegion/TextRegion.jsx'; // Import the TextRegion component
 import axios from 'axios';
 import Navbar from './Navbar.jsx';
 import Cookies from 'js-cookie';
