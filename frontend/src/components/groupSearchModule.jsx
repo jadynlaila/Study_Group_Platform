@@ -15,32 +15,32 @@ const GroupSearchModule = (user) => {
   ];
 
   // Filter groups based on search term
-  const fetchGroups = groups.filter((group) =>
+  const filteredGroups = groups.filter((group) =>
     group.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const fetchMessages = async () => {
-    try {
-        const response = await axios.get(`${baseURL}/api/group/messages/${authUser._id}`);
-        console.log('Messages:', response.data);
-        return response.data
-    } catch (error) {
-        console.error("WERIUHERGUH AXIOS ERGHUIAERWGUIHERAGIUH")
+  //   const fetchMessages = async () => {
+  //     try {
+  //         const response = await axios.get(`${baseURL}/api/group/messages/${authUser._id}`);
+  //         console.log('Messages:', response.data);
+  //         return response.data
+  //     } catch (error) {
+  //         console.error("WERIUHERGUH AXIOS ERGHUIAERWGUIHERAGIUH")
 
-        if (error.response) {
-          // Server responded with a status other than 200 range
-          console.error('Error response:', error.response.data);
-        }
-        if (error.request) {
-          // Request was made but no response received
-          console.error('Error request:', error.request);
-        }
-        if (error.message) {
-          // Something else caused the error
-          console.error('Error message:', error.message);
-        }
-    }
-};
+  //         if (error.response) {
+  //           // Server responded with a status other than 200 range
+  //           console.error('Error response:', error.response.data);
+  //         }
+  //         if (error.request) {
+  //           // Request was made but no response received
+  //           console.error('Error request:', error.request);
+  //         }
+  //         if (error.message) {
+  //           // Something else caused the error
+  //           console.error('Error message:', error.message);
+  //         }
+  //     }
+  // };
 
   return (
     <div className="group-search-page">

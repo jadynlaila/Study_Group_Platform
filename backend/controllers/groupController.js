@@ -60,7 +60,7 @@ const createGroup = asyncHandler(async (request, result) => {
             memberIDs: [],
             ownerID,
             administratorIDs: [],
-            profilePictureID: profilePictureID,
+            profilePictureID,
             messageIDs: [],
             meetingIDs: []
         });

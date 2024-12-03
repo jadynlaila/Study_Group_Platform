@@ -112,7 +112,7 @@ const GroupChatModule = () => {
   return (
     <div>
     {/* include Navbar ON TOP*/}
-    <Navbar/>
+    <Navbar group={selectedGroup} user={authUser}/>
     <div className="container">
       <div className="groupChatContainer">
         <div className="searchContainer">

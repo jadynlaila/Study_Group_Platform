@@ -50,7 +50,7 @@ const TextRegion = ({ group }) => {
   return (
     <div className="text-region">
       <div className="header">
-        <h2>{group} Chat</h2>
+        <h2>{group.name}</h2>
         <button onClick={handleGroupSettingsClick} className="settings-button">Settings</button>
       </div>
       <div className="chat-display">
