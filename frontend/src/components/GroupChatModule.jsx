@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
-import TextRegion from './TextRegion'; // Import the TextRegion component
+import TextRegion from './TextRegion/TextRegion.jsx'; // Import the TextRegion component
 import axios from 'axios';
-import Navbar from './Navbar';
+import Navbar from './Navbar.jsx';
 import Cookies from 'js-cookie';
 import { useAuthContext } from '../context/AuthContext';
 import GroupSearchModule from './groupSearchModule';
@@ -40,7 +40,7 @@ const GroupChatModule = () => {
     try{ 
       const groupDetails = await getGroup(groupId);
       if (groupDetails) { 
-        setSelectedGroup(groupId); 
+        setSelectedGroup(groupDetails); 
         console.log(`Group details: `, JSON.stringify(groupDetails, null, 2))
       }
     }catch (error) { 
@@ -54,7 +54,7 @@ const GroupChatModule = () => {
   // Fetch the list of students from the API
   const fetchMessages = async () => {
       try {
-          const response = await axios.get(`${baseURL}/api/group/messages/${authUser._id}`);
+          const response = await axios.get(`${baseURL}/api/group/${authUser._id}/messages`);
           console.log('Messages:', response.data);
           return response.data
       } catch (error) {
@@ -109,11 +109,6 @@ const GroupChatModule = () => {
     }
   };
 
-  // Call fetchMessages when the component mounts
-  React.useEffect(() => {
-    fetchMessages();
-  }, []);
-
   return (
     <div>
     {/* include Navbar ON TOP*/}
@@ -146,7 +141,7 @@ const GroupChatModule = () => {
       </div>
       <div className="chatContainer">
         {selectedGroup && (
-          <TextRegion key={selectedGroup.id} group={selectedGroup.name} />
+          <TextRegion key={selectedGroup.id} group={selectedGroup} />
         )}
       </div>
     </div>
