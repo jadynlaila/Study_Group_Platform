@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios for making API requests
 import './GroupCreationModule.css'; // Import CSS for styling
 import GroupSearchModule from './groupSearchModule';
 
-const GroupCreationModule = () => {
+let baseURL = `http://localhost:${process.env.PORT || 6789}`
+
+
+const GroupCreationModule = ({user}) => {
   const [groupName, setGroupName] = useState('');
   const [groupDescription, setGroupDescription] = useState('');
   const [courses, setCourses] = useState('');
@@ -13,15 +16,14 @@ const GroupCreationModule = () => {
 
   const handleCreateGroup = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post('/api/groups', {
+      const response = await axios.post(`${baseURL}/api/group`, {
         name: groupName,
         description: groupDescription,
         courses: courses.split(','), // Assuming courses are comma-separated
         majors: majors.split(','), // Assuming majors are comma-separated
         memberLimit,
-        
+        ownerID: user._id
       });
       console.log('Group created:', response.data);
       // Reset form or redirect as needed

@@ -1,52 +1,70 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import './GroupSearchModule.css';
-import GroupCreationModule from './groupCreationModule'; // Import the form component
+import GroupCreationModule from './groupCreationModule';
+import axios from 'axios';
 
-const GroupSearchModule = (user) => {
+let baseURL = `http://localhost:${process.env.PORT || 6789}`
+
+
+const GroupSearchModule = ({user}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isCreatingGroup, setIsCreatingGroup] = useState(false);
+  const[allGroups, setAllGroups] = useState([])
+  const [filteredGroups, setFilteredGroups] = useState([])
 
-  // Sample group data
-  const groups = [
-    { id: 1, name: 'Study Group A' },
-    { id: 2, name: 'Study Group B' },
-    { id: 3, name: 'Study Group C' },
-  ];
+  useEffect(() => {
+    if (user) { 
+      console.log('userrr', user.username)
+      fetchAllGroups(); 
+    }
+  }, [user])
 
-  // Filter groups based on search term
-  const filteredGroups = groups.filter((group) =>
-    group.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const fetchAllGroups = async () => {
+    try {
+          const response = await axios.get(`${baseURL}/api/group`);
+          const groups = response.data
+          console.log('groups', groups)
+          console.log('user', user.username)
+          const availableGroups = groups.filter(group =>
+            !user.groups.includes(group._id)
+          )
+          
+          setAllGroups(groups)
+          setFilteredGroups(availableGroups)
+    } catch (error) {
+          console.error("Error fetching groups", error)
+    }
+  };
 
-  //   const fetchMessages = async () => {
-  //     try {
-  //         const response = await axios.get(`${baseURL}/api/group/messages/${authUser._id}`);
-  //         console.log('Messages:', response.data);
-  //         return response.data
-  //     } catch (error) {
-  //         console.error("WERIUHERGUH AXIOS ERGHUIAERWGUIHERAGIUH")
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value)
 
-  //         if (error.response) {
-  //           // Server responded with a status other than 200 range
-  //           console.error('Error response:', error.response.data);
-  //         }
-  //         if (error.request) {
-  //           // Request was made but no response received
-  //           console.error('Error request:', error.request);
-  //         }
-  //         if (error.message) {
-  //           // Something else caused the error
-  //           console.error('Error message:', error.message);
-  //         }
-  //     }
-  // };
+    const filtered = allGroups.filter((group) => 
+      group.name.toLowerCase().includes(e.target.value.toLowerCase()) &&
+      !user.groups.includes(group._id)
+    )
+    setFilteredGroups(filtered)
+  }
+
+
+  const addGroup = async(groupId) => {
+    try{ 
+      const updatedUser = await axios.put(`${baseURL}/api/student/${user._id}`, {
+        groups: [...user.groups, groupId]
+      })
+      console.log('updated user', updatedUser)
+      setFilteredGroups(filteredGroups.filter(group => group._id !== groupId))
+    }catch(error) { 
+      console.error('error adding group', error)
+    }
+  }
+
 
   return (
     <div className="group-search-page">
 
         {isCreatingGroup ? (
-          <GroupCreationModule /> // Reference the form from GroupCreationPage.jsx
+          <GroupCreationModule user={user}/> // Reference the form from GroupCreationPage.jsx
         ) : (
           <>
             <div className="search-container">
@@ -54,7 +72,7 @@ const GroupSearchModule = (user) => {
                 type="text"
                 placeholder="Find a study group"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange= {handleSearchChange}
                 className="search-input"
               />
             </div>
@@ -67,9 +85,11 @@ const GroupSearchModule = (user) => {
                 <span>+</span> Create New Group
               </button>
               {filteredGroups.map((group) => (
-                <Link to={`/group/${group.id}`} key={group.id}>
-                  <button className="group-item">{group.name}</button>
-                </Link>
+                  <button className="group-item" key={group._id} onClick={() => addGroup(group._id)}>
+                    <div>{group.name}</div>
+                    <div>{group.courses}</div>
+                    <div>{group.memberCount && group.memberLimit ? `${group.memberCount}/${group.memberLimit} members` : ""}</div>
+                  </button>
               ))}
             </div>
           </>
