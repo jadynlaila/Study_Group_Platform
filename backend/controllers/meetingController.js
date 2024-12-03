@@ -10,51 +10,61 @@ const localServerAddress = `http://127.0.0.1:${process.env.EXPRESS_PORT}`
 
 async function validateMeeting(meeting) {
     // ensure that the meeting has a name
+    console.debug(`Validating meeting name '${meeting.name}'`)
     if (!meeting.name) {
         return { valid: false, message: "Meeting must have a name" }
     }
 
     // ensure that the meeting start date is before the end date
+    console.debug(`Validating meeting start date '${meeting.start}' and end date '${meeting.end}'`);
     if (meeting.start >= meeting.end) {
         return { valid: false, message: "Meeting start date must be before the end date" }
     }
 
     // ensure that the frequency is valid
+    console.debug(`Validating meeting frequency '${meeting.frequency}'`);
     if (meeting.frequency && !['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'].includes(meeting.frequency)) {
         return { valid: false, message: "Meeting frequency must be null, DAILY, WEEKLY, MONTHLY, or YEARLY" }
     }
 
     // ensure that frequency is not null if until, count, interval, or byday are provided
+    console.debug(`Validating meeting frequency '${meeting.frequency}' with until '${meeting.until}', count '${meeting.count}', interval '${meeting.interval}', and byday '${meeting.byday}'`);
     if (!meeting.frequency && (meeting.until || meeting.count || meeting.interval || meeting.byday)) {
         return { valid: false, message: "Meeting frequency must be provided if until, count, interval, or byday are provided" }
     }
 
     // ensure that the until date is after the start date
+    console.debug(`Validating meeting until date '${meeting.until}' and start date '${meeting.start}'`);
     if (meeting.until && meeting.until <= meeting.start) {
         return { valid: false, message: "Meeting until date must be after the start date" }
     }
 
     // ensure that the byday is valid
+    console.debug(`Validating meeting byday '${meeting.byday}'`);
     if (meeting.byday && !['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'].includes(meeting.byday)) {
         return { valid: false, message: "Meeting byday must be null, SU, MO, TU, WE, TH, FR, or SA" }
     }
 
     // ensure that the interval is valid
+    console.debug(`Validating meeting interval '${meeting.interval}'`);
     if (meeting.interval && meeting.interval < 1) {
         return { valid: false, message: "Meeting interval must be null or greater than 0" }
     }
 
     // ensure that the count is valid
+    console.debug(`Validating meeting count '${meeting.count}'`);
     if (meeting.count && meeting.count < 1) {
         return { valid: false, message: "Meeting count must be null or greater than 0" }
     }
 
     // ensure that the meeting creator is a valid user
+    console.debug(`Validating meeting creator '${meeting.creatorID}'`);
     const creator = await Student.findById(meeting.creatorID)
     if (!creator) {
         return { valid: false, message: "Meeting creator is not a valid user" }
     }
 
+    console.debug(`Meeting validation passed`);
     return { valid: true, message: null }
 }
 
@@ -188,20 +198,43 @@ const createMeeting = asyncHandler(async (request, response) => {
         })
 
         // Validate the meeting
-        const {isValid, message} = await validateMeeting(newMeeting)
+        const {valid: isValid, message} = await validateMeeting(newMeeting)
         if (!isValid) {
             console.error(`Meeting validation failed: ${message}`)
             return response.status(403).json({ error: message })
         }
 
         // Save the meeting to Mongo
-        const savedMeeting = await newMeeting.save()
+        const savedMeeting = await newMeeting.save();
+    
+        // Add the meeting ID to the group
+        console.log(`Adding meeting ${savedMeeting._id} to group ${request.params.groupID}`)
+
+        console.debug(`Sending GET request to ${localServerAddress}/api/group/${request.params.groupID}`);
+        const groupData = await axios.get(`${localServerAddress}/api/group/${request.params.groupID}`);
+        console.debug(`Group data: ${groupData.data}`);
+
+        console.debug(`Sending PUT request to ${localServerAddress}/api/group/${request.params.groupID}`);
+        const groupAddResponse = await axios.put(`${localServerAddress}/api/group/${request.params.groupID}`, {
+            meetingIDs: [savedMeeting._id, ...groupData.data.meetingIDs]
+        });
+        console.debug(`Group add response: ${groupAddResponse.data}`);
+
+        if (groupAddResponse.status !== 200) {
+            console.error(`Failed to add meeting ${savedMeeting._id} to group ${request.params.groupID}`)
+
+            // Delete the meeting from Mongo
+            savedMeeting.deleteOne();
+
+            return response.status(403).json({ error: `Failed to add meeting ${savedMeeting._id} to group ${request.params.groupID}` })
+        }
 
         console.debug(`Meeting ${name} created with an ID of ${savedMeeting._id}`)
 
         // Send/Return the meeting
         response.status(201).json(savedMeeting)
     } catch (error) {
+        console.error(`Failed to create meeting: ${error.message}`);
         return response.status(500).json({ error: error.message });
     }
 })
