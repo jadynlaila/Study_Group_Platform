@@ -3,8 +3,9 @@ import './TextRegionStyle.css'; // Ensure this path is correct
 import { useAuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import getApiUrl from '../../utils/apiUrl.js'
 
-let baseURL = `http://localhost:${process.env.EXPRESS_PORT || 3000}`
+const apiURL = getApiUrl();
 
 
 
@@ -21,7 +22,7 @@ const TextRegion = ({ group }) => {
 
   const getMessages = async (groupId) => {
     try {
-      const response = await axios.get(`${baseURL}/api/group/${groupId}/messages`)
+      const response = await axios.get(`${apiURL}/api/group/${groupId}/messages`)
       console.log(`Messages: ${JSON.stringify(response.data, null, 2)}`)
       setMessages(response.data)
     } catch(error) { 

@@ -5,9 +5,10 @@ import axios from 'axios';
 import Navbar from './Navbar.jsx';
 import Cookies from 'js-cookie';
 import { useAuthContext } from '../context/AuthContext.jsx';
+import getApiUrl from '../utils/apiUrl.js'
 
-// axios.defaults.baseURL = `http://localhost:${process.env.PORT || 3000}`
-let baseURL = `http://localhost:${process.env.PORT || 6789}`
+const apiURL = getApiUrl();
+console.log(`API URL is ${apiURL}`)
 
 axios.interceptors.request.use(request => {
   console.log('Starting Request', JSON.stringify(request, null, 2))
@@ -52,7 +53,7 @@ const GroupChatModule = () => {
   // Fetch the list of students from the API
   const fetchMessages = async () => {
       try {
-          const response = await axios.get(`${baseURL}/api/group/${authUser._id}/messages`);
+          const response = await axios.get(`${apiURL}/api/group/${authUser._id}/messages`);
           console.log('Messages:', response.data);
           return response.data
       } catch (error) {
@@ -76,7 +77,7 @@ const GroupChatModule = () => {
 
   const getGroup = async (groupId) => {
     try {
-      const response = await axios.get(`${baseURL}/api/group/${groupId}`);
+      const response = await axios.get(`${apiURL}/api/group/${groupId}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching group details:', error);
@@ -87,7 +88,7 @@ const GroupChatModule = () => {
 
   const fetchUserWithGroups = async () => {
     try {
-      const response = await axios.get(`${baseURL}/api/student/${authUser._id}`);
+      const response = await axios.get(`${apiURL}/api/student/${authUser._id}`);
       console.log('User with groups:', response.data);
       console.log(response.data)
       const groupDetailsPromises = response.data.groups.map(groupId => getGroup(groupId));

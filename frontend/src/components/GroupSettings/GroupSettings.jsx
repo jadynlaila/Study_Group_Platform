@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate and useParams for navigation and route parameters
 import axios from 'axios'; // Import axios for making API requests
 import './GroupSettings.css'; // Import the CSS file
+import getApiUrl from '../../utils/apiUrl.js'
 
-const BASE_URL = `http://localhost:${process.env.PORT || 3000}`; // Adjust the base URL as needed
+const apiURL = getApiUrl();
 
 const GroupSettings = () => {
   const navigate = useNavigate(); // Initialize useNavigate for navigation
@@ -19,7 +20,7 @@ const GroupSettings = () => {
   // Function to fetch group data
   const fetchGroupData = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/groups/${groupId}`); // Fetch group data from API
+      const response = await axios.get(`${apiURL}/api/groups/${groupId}`); // Fetch group data from API
       setGroupData(response.data); // Set the group data in state
     } catch (err) {
       setError('Error fetching group data'); // Set error message if request fails
@@ -33,7 +34,7 @@ const GroupSettings = () => {
   const handleUpdateGroup = async (e) => {
     e.preventDefault(); // Prevent default form submission
     try {
-      const response = await axios.put(`${BASE_URL}/api/groups/${groupId}`, groupData); // Update group data
+      const response = await axios.put(`${apiURL}/api/groups/${groupId}`, groupData); // Update group data
       setGroupData(response.data); // Update local state with the new group data
       setIsEditing(false); // Exit edit mode
       alert('Group settings updated successfully!'); // Notify user of success

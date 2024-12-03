@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './styles.css'; // Assuming the same CSS file is used
 import logo from './study.svg';
+import getApiUrl from '../utils/apiUrl.js'
 
-let baseURL = `http://localhost:${process.env.PORT || 6789}`;
+const apiURL = getApiUrl();
 
 const LoginPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -59,7 +60,7 @@ const LoginPage = () => {
 
     try {
       // Send the full registration data to backend
-      const response = await axios.post(`${baseURL}/api/student`, formData);
+      const response = await axios.post(`${apiURL}/api/student`, formData);
 
       if (response.status === 201) {
         setIsRegistering(false); // Switch to login form after successful registration
@@ -73,11 +74,11 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${baseURL}/api/student/login`, loginData);
+      const response = await axios.post(`${apiURL}/api/student/login`, loginData);
 
       if (response.status === 200) {
         console.log(response.data._id)
-        const student = await axios.get(`${baseURL}/api/student/${response.data._id}`)
+        const student = await axios.get(`${apiURL}/api/student/${response.data._id}`)
         if (student) { 
           console.log("student", student.data)
           localStorage.setItem("student", JSON.stringify(student.data))

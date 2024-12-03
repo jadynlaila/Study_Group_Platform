@@ -8,10 +8,13 @@ const cors = require("cors")
 const protectRoute = require("./middleware/protectRoute")
 const Message = require("./routes/messageRoutes");
 const cookieParser = require("cookie-parser");
+import getApiUrl from '../utils/apiUrl.js'
+
+const apiURL = getApiUrl();
 
 connectDB()
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: apiURL,
     credentials: true,
   };
 
