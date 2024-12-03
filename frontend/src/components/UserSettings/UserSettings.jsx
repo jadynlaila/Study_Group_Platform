@@ -62,7 +62,7 @@ const UserSettings = () => {
       localStorage.setItem("student", JSON.stringify(updatedData));
 
       // Redirect back to the main page
-      navigate("/");
+      window.location.href = '/'
 
     } catch (err) {
       setError(err.message);
