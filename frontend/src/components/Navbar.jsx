@@ -43,7 +43,7 @@ const NavBar = ({group, user}) => {
           <div className="group-info">
             <span className="group-name">{group ? group.name : "Select a Group"}</span> 
             <span className="field-of-study">{group ? group.majors : ""}</span> 
-            <span className="user-count">{group ? `${group.memberCount}/${group.memberLimit}` : ""}</span> 
+            <span className="user-count">{group && group.memberCount && group.memberLimit ? `${group.memberCount}/${group.memberLimit}` : ""}</span> 
           </div>
         </div>
       </div>
