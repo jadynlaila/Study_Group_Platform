@@ -4,12 +4,21 @@ import { getUserSettings, updateUserSettings } from '../studentService'; // Impo
 import { useAuthContext } from '../../context/AuthContext';
 import axios from 'axios'; // Corrected import statement
 
+
 const UserSettings = () => {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { authUser  } = useAuthContext();
   const navigate = useNavigate();
+  
+  function logout() {
+    console.log("Logging out...")
+
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    localStorage.removeItem('student');
+    navigate('/login');
+  }
 
   // Fetch user settings on component mount
   useEffect(() => {
@@ -123,6 +132,7 @@ const UserSettings = () => {
           />
         </label>
       </div>
+      <button type="button" onClick={logout}>Log out</button>
       <button type="submit">Update Settings</button>
  </form>
   );
