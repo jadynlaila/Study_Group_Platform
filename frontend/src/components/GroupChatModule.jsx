@@ -142,7 +142,7 @@ const GroupChatModule = () => {
 
       {/* Render the chat component if a group is selected */}
       <div className='groupSearchContainer'>
-        <GroupSearchModule/>
+        <GroupSearchModule user={authUser}/>
       </div>
       <div className="chatContainer">
         {selectedGroup && (
