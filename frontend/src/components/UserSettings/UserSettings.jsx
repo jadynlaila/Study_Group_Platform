@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getUserSettings, updateUserSettings } from '../studentService'; // Import the service functions
 import { useAuthContext } from '../../context/AuthContext';
 import axios from 'axios'; // Corrected import statement
@@ -8,6 +9,7 @@ const UserSettings = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { authUser  } = useAuthContext();
+  const navigate = useNavigate();
 
   // Fetch user settings on component mount
   useEffect(() => {
@@ -52,6 +54,13 @@ const UserSettings = () => {
       const updatedData = await updateUserSettings(studentId, settings); // Call the function to update user settings
       setSettings(updatedData);
       alert('Settings updated successfully!');
+
+      // Update the token data so that the user information is updated.
+      localStorage.setItem("student", JSON.stringify(updatedData));
+
+      // Redirect back to the main page
+      navigate("/");
+
     } catch (err) {
       setError(err.message);
     }
