@@ -46,6 +46,33 @@ const GroupChatModule = () => {
     }
   };
 
+  // Filtered group chats based on the search query
+
+
+  // Fetch the list of students from the API
+  const fetchMessages = async () => {
+      try {
+          const response = await axios.get(`${baseURL}/api/group/${authUser._id}/messages`);
+          console.log('Messages:', response.data);
+          return response.data
+      } catch (error) {
+          console.error("WERIUHERGUH AXIOS ERGHUIAERWGUIHERAGIUH")
+
+          if (error.response) {
+            // Server responded with a status other than 200 range
+            console.error('Error response:', error.response.data);
+          }
+          if (error.request) {
+            // Request was made but no response received
+            console.error('Error request:', error.request);
+          }
+          if (error.message) {
+            // Something else caused the error
+            console.error('Error message:', error.message);
+          }
+      }
+  };
+
 
   const getGroup = async (groupId) => {
     try {

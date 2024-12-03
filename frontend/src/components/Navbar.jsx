@@ -8,11 +8,11 @@ const NavBar = ({group, user}) => {
   useEffect(() => {
     // Event listeners for navigation
     const handleUserClick = () => {
-      window.location.href = 'user-settings.html';
+      window.location.href = '/userSettings';
     };
 
     const handleGroupClick = () => {
-      window.location.href = 'group-settings.html';
+      window.location.href = '/groupSettings';
     };
 
     const userInfo = document.querySelector('.user-info');

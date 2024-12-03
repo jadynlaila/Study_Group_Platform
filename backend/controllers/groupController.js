@@ -76,10 +76,12 @@ const createGroup = asyncHandler(async (request, result) => {
         })
 
         if (response.status != 200) {
+            console.debug(`Failed to update student ${ownerID} when creating group ${savedGroup._id}`)
             return result.status(response.status).json(response.data)
         }
 
         // Return the saved group object
+        console.debug("Returning the saved group object")
         return result.status(201).json({groupID: savedGroup._id, group: savedGroup});
     } catch (error) {
         console.debug(`Exception occurred: ${error}`)
@@ -97,6 +99,7 @@ const getAllGroups = asyncHandler(async (request, result) => {
 
         return result.status(200).json(groups)
     } catch (error) {
+        console.error("Error in getAllGroups function", error)
         return result.status(500).json({ error })
     }
 })
@@ -131,6 +134,7 @@ const getGroup = asyncHandler(async (request, result) => {
         return result.status(200).json(searchedGroup)
     
     } catch (error) {
+        console.error("Error in getGroup function", error)
         return result.status(500).json({ error })
     }
 })
@@ -152,12 +156,14 @@ const searchGroups = asyncHandler(async (request, result) => {
 
         // return different result if nothing found
         if (groups.length == 0) {
+            console.debug("No groups found")
             return result.status(404).json({ error: "No groups found" })
         }
 
+        console.debug("Returning groups")
         return result.status(200).json(groups)
     } catch (e) {
-        console.error(e)
+        console.error("Error in searchGroups function", e)
         return result.status(500).json({ error: e })
     }
 })
@@ -169,7 +175,11 @@ const updateGroup = asyncHandler(async (request, result) => {
         console.debug(`Updating group '${groupID}'`)
         console.debug(request.body)
 
-        if (!mongoose.Types.ObjectId.isValid(groupID)) {
+        if (groupID == null
+            || groupID == undefined
+            || !mongoose.Types.ObjectId.isValid(groupID)
+        ) {
+            console.debug("Invalid group ID")
             return response.status(400).send('Invalid group ID')
         }
 
@@ -179,6 +189,7 @@ const updateGroup = asyncHandler(async (request, result) => {
         const group = await Group.findById(groupID)
 
         if (!group) {
+            console.debug(`Group '${groupID}' not found`)
             return result.status(400).send(`Group '${groupID}' not found`)
         }
 
@@ -190,11 +201,10 @@ const updateGroup = asyncHandler(async (request, result) => {
         );
 
         console.debug(`DB update sent for group ${groupID}`)
-
         return result.status(200).json({ group: updatedGroup });
     
     } catch (error) {
-        console.error(error)
+        console.error("Error in updateGroup function", error)
         return result.status(500).json({ error });
     }
 })
@@ -210,6 +220,7 @@ const deleteGroup = asyncHandler(async (request, result) => {
         const searchedGroup = await Group.findById(groupID)
 
         if (!searchedGroup) {
+            console.debug(`Group ${groupID} not found`)
             return result.status(404).json({ error: `Group with ID ${groupID} was not found` })
         }
 
@@ -248,7 +259,7 @@ const deleteGroup = asyncHandler(async (request, result) => {
         return result.status(200).json({ success: true });
         
     } catch (error) {
-        console.error(error)
+        console.error("Error in deleteGroup function", error)
         return result.status(500).json({ error });
     }
 })
@@ -263,10 +274,12 @@ const joinGroup = asyncHandler(async (request, result) => {
 
         // Verify that all parameters are not empty
         if (!studentID) {
+            console.debug("Failed to provide variable 'studentID'")
             return result.status(400).json({ error: "Required variable 'studentID' not provided"})
         }
 
         if (!groupID) {
+            console.debug("Failed to provide variable 'groupID'")
             return result.status(400).json({ error: "Required variable 'groupID' not provided" })
         }
 
@@ -309,12 +322,11 @@ const joinGroup = asyncHandler(async (request, result) => {
         await searchedGroup.save();
         await searchedStudent.save();
 
-        console.debug(`${searchedStudent.username} has been added to group ${searchedGroup.name}`)
-
         // Send back a response
+        console.debug(`${searchedStudent.username} has been added to group ${searchedGroup.name}`)
         return result.status(201).json({ group: searchedGroup, student: searchedStudent })
     } catch (error) {
-        console.error(error)
+        console.error("Error in joinGroup function", error)
         return result.status(500).json(error);
     }
 })
@@ -377,10 +389,11 @@ const leaveGroup = asyncHandler(async (request, result) => {
         }
 
         // return success
+        console.debug(`Student ${studentID} has successfully left group ${groupID}`)
         return result.status(200).json({ success: true })
 
     } catch (error) {
-        console.error(error)
+        console.error("Error in leaveGroup function", error)
         return result.status(500).send(error)
     }
 })
@@ -401,6 +414,7 @@ const getStudentsFromGroup = asyncHandler(async (request, result) => {
         const searchedGroup = response.data
 
         if (response.status != 200) {
+            console.debug(`Failed to find group ${groupID}`)
             return result.status(response.status).json(response.body)
         }
 
@@ -445,6 +459,7 @@ const getMessages = asyncHandler(async (request, result) => {
 
         // Verify that the parameters are not empty
         if (!groupID) {
+            console.debug("Failed to provide variable 'groupID'")
             return request.status(400).json({ error: "Required variable 'groupID' not provided" })
         }
 
@@ -453,6 +468,7 @@ const getMessages = asyncHandler(async (request, result) => {
         // Get the user and group from Mongo
         const searchedGroup = await Group.findById(groupID)
         if (!searchedGroup) {
+            console.debug(`Group ${groupID} not found`)
             return request.status(403).json({ error: `Group with ID ${groupID} was not found` })
         }
 
@@ -466,11 +482,11 @@ const getMessages = asyncHandler(async (request, result) => {
             })
         );
 
-        console.debug("Returning messages...")
-
         // Send/Return the messages
+        console.debug("Returning messages...")
         result.status(200).json(messages)
     } catch (error) {
+        console.error("Error in getMessages function", error)
         return result.status(500).json({ error });
     }
 })

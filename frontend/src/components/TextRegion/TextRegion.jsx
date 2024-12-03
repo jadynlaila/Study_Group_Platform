@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './TextRegionStyle.css'; // Ensure this path is correct
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
-let baseURL = `http://localhost:${process.env.PORT || 6789}`
+let baseURL = `http://localhost:${process.env.EXPRESS_PORT || 3000}`
+
 
 
 const TextRegion = ({ group }) => {
   const [inputText, setInputText] = useState('');
   const [messages, setMessages] = useState([]);
+  const {authUser} = useAuthContext();
 
   useEffect(() => {
     if (group) { 
@@ -27,7 +29,7 @@ const TextRegion = ({ group }) => {
     }
   }
 
-
+  const navigate = useNavigate(); // Initialize useNavigate for navigation
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
@@ -40,10 +42,17 @@ const TextRegion = ({ group }) => {
       setInputText('');
     }
   };
+  const handleGroupSettingsClick = () => {
+    navigate(`/groupSettings/${group._id}`); // Include the group ID in the path
+  };
+  
 
   return (
     <div className="text-region">
-      <h2>{group.name} Chat</h2> {/* Display the group name */}
+      <div className="header">
+        <h2>{group.name}</h2>
+        <button onClick={handleGroupSettingsClick} className="settings-button">Settings</button>
+      </div>
       <div className="chat-display">
         {messages.map((msg, index) => (
           <div key={index} className={`chat-message ${msg.author}`}>

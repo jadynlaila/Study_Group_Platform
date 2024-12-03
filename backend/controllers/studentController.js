@@ -51,13 +51,16 @@ const getOneStudent = asyncHandler(async (req, res) => {
             searchedStudent = await Student.findOne({ username: studentID })
 
             if (!searchedStudent) {
+                console.debug(`Failed to find student with id/username '${studentID}'`)
                 return res.status(404).json({ error: `Failed to find student with id/username '${studentID}'` })
             }
         }
 
         // return neutered info (remove private info)
+        console.debug(`Found student with id/username '${studentID}'`)
         return res.status(200).json(scrubPrivateStudentInfo(searchedStudent))
     } catch (err) {
+        console.error("Error in getOneStudent function", err)
         return res.status(500).json({ error: err })
     }
 })
@@ -83,7 +86,6 @@ const getStudents = asyncHandler(async (req, res) => {
 // @route   POST /api/goals
 // @access  Private
 const createStudent = asyncHandler(async (req, res) => {
-    console.log(req.body)
     const {
         firstName,
         lastName,
@@ -97,21 +99,30 @@ const createStudent = asyncHandler(async (req, res) => {
         profilePicURL
     } = req.body
 
+    console.debug(`Creating new student '${username}'`)
+
     // can use this if we install isEmail validator
     //if (!isEmail(email)) return res.status(401).send("Invalid");
     // if (password.length < 6) {
     //     return res.status(401).send("Password must be at least 6 characters")
     // }
     if (!firstName || !lastName || !school || !username || !email || !password || !major) {
+        console.debug("Student has not entered all required fields")
         return res.status(400).json({error: "Student has not entered all required fields"})
     }
 
     try{
         let studentExists = await Student.findOne({email: email.toLowerCase()});
-        if (studentExists) return res.status(401).send("Email already in use")
+        if (studentExists) {
+            console.debug(`Email '${email}' already in use`)
+            return res.status(401).send("Email already in use")
+        }
 
         studentExists = await Student.findOne({username: username.toLowerCase()})
-        if (studentExists) return res.status(401).send("Username taken")
+        if (studentExists) {
+            console.debug(`Username '${username}' already in use`)
+            return res.status(401).send("Username taken")
+        }
         
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
@@ -136,7 +147,9 @@ const createStudent = asyncHandler(async (req, res) => {
         if(newStudent){
             generateTokenSetCookie(newStudent._id, res);
             newStudent = await newStudent.save();
-            res.status(201).json({
+
+            console.debug(`Student '${username}' created successfully`)
+            return res.status(201).json({
                 _id: newStudent._id,
                 firstName: newStudent.firstName,
                 lastName: newStudent.lastName,
@@ -150,7 +163,8 @@ const createStudent = asyncHandler(async (req, res) => {
                 profilePicURL: newStudent.profilePicURL,
             })
         } else { 
-            res.status(400).json({error: "Invalid user data"})
+            console.debug("Invalid user data")
+            return res.status(400).json({error: "Invalid user data"})
         }
     } catch (err) {
         console.log("Error in newStudent function", err);
@@ -255,8 +269,10 @@ const deleteStudent = asyncHandler(async (req, res) => {
     try {
         const deletedStudent = await Student.findByIdAndDelete(req.params.id);
         if (!deletedStudent) {
+            console.debug(`Student '${req.params.id}' not found`);
             return res.status(400).send('Student not found'); // Handle not found case
         }
+        console.debug(`Student '${req.params.id}' deleted successfully`);
         res.status(200).json(deletedStudent);
     } catch (err) {
         console.log("Error in deleteStudent function", err);

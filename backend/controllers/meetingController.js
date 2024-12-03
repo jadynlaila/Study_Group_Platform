@@ -143,7 +143,7 @@ const getAllMeetings = asyncHandler(async (request, result) => {
     }
 })
 
-const createMeeting = asyncHandler(async (request, result) => {
+const createMeeting = asyncHandler(async (request, response) => {
     try {
         // Deconstruct the JSON body
         const { name, description, start, end, creatorID, guestIDs, location } = request.body
@@ -152,16 +152,20 @@ const createMeeting = asyncHandler(async (request, result) => {
 
         // Verify that the parameters are not empty
         if (!name) {
-            return request.status(400).json({ error: "Required variable 'name' not provided" });
+            console.error("Required variable 'name' not provided")
+            return response.status(400).json({ error: "Required variable 'name' not provided" });
         }
         if (!start) {
-            return request.status(400).json({ error: "Required variable 'start' not provided" });
+            console.error("Required variable 'start' not provided")
+            return response.status(400).json({ error: "Required variable 'start' not provided" });
         }
         if (!end) {
-            return request.status(400).json({ error: "Required variable 'end' not provided" });
+            console.error("Required variable 'end' not provided")
+            return response.status(400).json({ error: "Required variable 'end' not provided" });
         }
         if (!creatorID) {
-            return request.status(400).json({ error: "Required variable 'creatorID' not provided" });
+            console.error("Required variable 'creatorID' not provided")
+            return response.status(400).json({ error: "Required variable 'creatorID' not provided" });
         }
 
         console.debug("Required variables found")
@@ -186,6 +190,7 @@ const createMeeting = asyncHandler(async (request, result) => {
         // Validate the meeting
         const {isValid, message} = await validateMeeting(newMeeting)
         if (!isValid) {
+            console.error(`Meeting validation failed: ${message}`)
             return request.status(403).json({ error: message })
         }
 
@@ -195,9 +200,9 @@ const createMeeting = asyncHandler(async (request, result) => {
         console.debug(`Meeting ${name} created with an ID of ${savedMeeting._id}`)
 
         // Send/Return the meeting
-        result.status(201).json(savedMeeting)
+        response.status(201).json(savedMeeting)
     } catch (error) {
-        return result.status(500).json({ error: error.message });
+        return response.status(500).json({ error: error.message });
     }
 })
 
