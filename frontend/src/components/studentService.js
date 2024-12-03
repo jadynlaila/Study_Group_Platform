@@ -1,7 +1,7 @@
 // src/studentService.js
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:6789'; // Adjust the base URL as needed
+const BASE_URL = process.env.BACKEND_URI || "http://localhost:6789"; // Adjust the base URL as needed
 
 export const getUserSettings = async (studentId) => {
   try{

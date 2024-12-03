@@ -11,7 +11,7 @@ const cookieParser = require("cookie-parser");
 
 connectDB()
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: process.env.BACKEND_URI || "http://localhost:6789";,
     credentials: true,
   };
 

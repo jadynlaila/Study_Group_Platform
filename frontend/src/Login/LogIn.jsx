@@ -3,7 +3,7 @@ import axios from 'axios';
 import './styles.css'; // Assuming the same CSS file is used
 import logo from './study.svg';
 
-let baseURL = `http://localhost:${process.env.PORT || 6789}`;
+let baseURL = process.env.BACKEND_URI || "http://localhost:6789";
 
 const LoginPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);

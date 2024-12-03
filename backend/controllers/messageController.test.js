@@ -30,7 +30,7 @@ const sampleMessageData = {
 };
 
 describe('messageController', () => {
-    const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
+    const serverAddress = process.env.BACKEND_URI || "http://localhost:6789";
 
     // Test sendMessage
     it('should send a message', async () => {

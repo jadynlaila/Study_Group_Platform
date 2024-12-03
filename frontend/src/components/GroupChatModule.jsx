@@ -6,8 +6,7 @@ import Navbar from './Navbar.jsx';
 import Cookies from 'js-cookie';
 import { useAuthContext } from '../context/AuthContext.jsx';
 
-// axios.defaults.baseURL = `http://localhost:${process.env.PORT || 3000}`
-let baseURL = `http://localhost:${process.env.PORT || 6789}`
+let baseURL = process.env.BACKEND_URI || "http://localhost:6789"
 
 axios.interceptors.request.use(request => {
   console.log('Starting Request', JSON.stringify(request, null, 2))

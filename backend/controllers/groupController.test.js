@@ -45,7 +45,7 @@ function createUser(userData) {
 }
 
 describe('Group Controller', () => {
-    const serverAddress = `localhost:${process.env.EXPRESS_PORT}`;
+    const serverAddress = process.env.BACKEND_URI || "http://localhost:6789";
 
     // Test createGroup
     test('should create a group', async () => {
