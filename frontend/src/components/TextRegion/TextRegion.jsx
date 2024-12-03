@@ -11,6 +11,7 @@ let baseURL = `http://localhost:${process.env.EXPRESS_PORT || 3000}`
 const TextRegion = ({ group }) => {
   const [inputText, setInputText] = useState('');
   const [messages, setMessages] = useState([]);
+  const [isMeetingsOverlayOpen, setIsMeetingsOverlayOpen] = useState(false);
   const {authUser} = useAuthContext();
 
   useEffect(() => {
@@ -46,12 +47,17 @@ const TextRegion = ({ group }) => {
     navigate(`/groupSettings/${group._id}`); // Include the group ID in the path
   };
   
+  const handleMeetingsOverlayClick = () => {
+    console.log(`Changing isMeetingsOverlayOpen from ${isMeetingsOverlayOpen} to ${!isMeetingsOverlayOpen}`)
+    setIsMeetingsOverlayOpen(!isMeetingsOverlayOpen);
+  }
 
   return (
     <div className="text-region">
       <div className="header">
         <h2>{group.name}</h2>
         <button onClick={handleGroupSettingsClick} className="settings-button">Settings</button>
+        <button onClick={handleMeetingsOverlayClick} className="meetings-button">Meetings</button>
       </div>
       <div className="chat-display">
         {messages.map((msg, index) => (

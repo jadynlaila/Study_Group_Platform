@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
 import TextRegion from './TextRegion/TextRegion.jsx'; // Import the TextRegion component
+import MeetingsOverlay from './MeetingsOverlay/MeetingsOverlay.jsx';
 import axios from 'axios';
 import Navbar from './Navbar.jsx';
 import Cookies from 'js-cookie';
@@ -24,6 +25,7 @@ const GroupChatModule = () => {
   const [selectedGroup, setSelectedGroup] = useState(null); // State to track the selected group chat
   const [searchQuery, setSearchQuery] = useState(''); // State to track the search input
   const [filteredChats, setFilteredChats] = useState([]); 
+  const [isMeetingsOverlayOpen, setIsMeetingsOverlayOpen] = useState(false);
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
@@ -140,6 +142,10 @@ const GroupChatModule = () => {
         )}
       </div>
     </div>
+    <MeetingsOverlay isOpen={isMeetingsOverlayOpen} onClose={() => setIsMeetingsOverlayOpen(!isMeetingsOverlayOpen)}>
+      {console.log("Meetings overlay rendered")}
+      <h1>Hello from overlay!</h1>
+    </MeetingsOverlay>
     </div>
   );
 };
