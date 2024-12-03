@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { getUserSettings, updateUserSettings } from '../studentService'; // Import the service functions
 import { useAuthContext } from '../../context/AuthContext';
-import axios from 'axios'; // Corrected import statement
-
 
 const UserSettings = () => {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { authUser  } = useAuthContext();
-  const navigate = useNavigate();
   
   function logout() {
-    console.log("Logging out...")
-
     document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     localStorage.removeItem('student');
-    navigate('/login');
+    window.location.href = '/login';
   }
 
   // Fetch user settings on component mount

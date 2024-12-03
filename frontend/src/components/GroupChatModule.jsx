@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
 import TextRegion from './TextRegion/TextRegion.jsx'; // Import the TextRegion component
 import axios from 'axios';
@@ -26,15 +25,11 @@ const GroupChatModule = () => {
   const [searchQuery, setSearchQuery] = useState(''); // State to track the search input
   const [filteredChats, setFilteredChats] = useState([]); 
   const [groups, setGroups] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (authUser) { 
       console.log("logged in user:", authUser.username)
       fetchUserWithGroups();
-    } else {
-      console.error("User is not logged in. Redirecting to login page...");
-      navigate('/login');
     }
   }, [authUser])
 
