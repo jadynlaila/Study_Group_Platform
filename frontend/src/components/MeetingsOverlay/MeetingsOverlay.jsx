@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 export { MeetingsOverlay, MeetingsComponent };
 
 const axios = require('axios');
@@ -15,9 +16,10 @@ async function getItemFromURL(url) {
 
         return response.data;
     } catch (error) {
-        console.log(`Failed to obtain meetings for group ${groupID}: ${error.message}`);
+        console.log(`Failed to obtain data from ${url}: ${error.message}`);
         return null;
     }
+}
 
 async function getMeetings(groupID) {
     return await getItemFromURL(`${baseURL}/api/group/${groupID}/meetings`);
@@ -39,7 +41,7 @@ function getDateTimeString(inputDate) {
     return new Date(inputDate).toLocaleString();
 }
 
-function IndividualMeetingComponent(meeting) {
+function IndividualMeetingComponent({ meeting }) {
     const [isExpanded, setIsExpanded] = useState(false);
     
     const getMeetingOwner = async () => {
@@ -55,7 +57,10 @@ function IndividualMeetingComponent(meeting) {
     return (
         <div className='individual_meeting_container'>
             <div className='meeting_banner'>
-                <img className='some_identifier_picture' />
+                {/* <img 
+                    className='some_identifier_picture' 
+                    src={}
+                /> */}
                 <div className='meeting_short_details'>
                     <p className='meeting_title'>{meeting.name}</p>
                     <p className='meeting_short_time'></p>
@@ -99,7 +104,7 @@ function IndividualMeetingComponent(meeting) {
                                     <img
                                         class='meeting_owner_profile_pic'
                                         src={meetingOwner.profilePicURL || `${resourcePath}/no-pic.png`}
-                                        alt='Meeting owner profile picture'
+                                        alt='Meeting owner profile icon'
                                     />
                                     <div className='meeting_owner_identifier'>
                                         <div className='meeting_owner_name'>
@@ -119,15 +124,26 @@ function IndividualMeetingComponent(meeting) {
     );
 }
 
-function MeetingsComponent(groupID) {
-    const meetings = async () => {
-        return await getMeetings(groupID);
+function MeetingsComponent({ groupID }) {
+    const [meetings, setMeetings] = useState([]);
+
+    useEffect(() => {
+        const fetchMeetings = async () => {
+            const meetingsData = await getMeetings(groupID);
+            setMeetings(meetingsData);
+        };
+
+        fetchMeetings();
+    }, [groupID]);
+
+    if (!meetings) {
+        return;
     }
     
     return (
         <>
             {
-                meetings().map((meetingItem) => {
+                meetings.map((meetingItem) => {
                     <IndividualMeetingComponent meeting={meetingItem} />
                 })
             }
@@ -136,7 +152,7 @@ function MeetingsComponent(groupID) {
 }
 
 // Taken from https://www.youtube.com/watch?v=D9OJX6sSyYk
-function MeetingsOverlay(isOpen, onClose, groupID) {
+function MeetingsOverlay({ isOpen, onClose, groupID }) {
     console.log("MeetingsOverlay called")
     return (
         <>
