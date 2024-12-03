@@ -191,7 +191,7 @@ const createMeeting = asyncHandler(async (request, response) => {
         const {isValid, message} = await validateMeeting(newMeeting)
         if (!isValid) {
             console.error(`Meeting validation failed: ${message}`)
-            return request.status(403).json({ error: message })
+            return response.status(403).json({ error: message })
         }
 
         // Save the meeting to Mongo
