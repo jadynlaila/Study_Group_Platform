@@ -140,15 +140,9 @@ function MeetingsComponent({ groupID }) {
         return;
     }
     
-    return (
-        <>
-            {
-                meetings.map((meetingItem) => {
-                    <IndividualMeetingComponent meeting={meetingItem} />
-                })
-            }
-        </>
-    );
+    return meetings.map((meetingItem) => {
+        return (<IndividualMeetingComponent meeting={meetingItem} />)
+    });
 }
 
 // Taken from https://www.youtube.com/watch?v=D9OJX6sSyYk
