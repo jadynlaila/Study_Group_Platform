@@ -1,172 +1,290 @@
-// const request = require('supertest');
-// require('dotenv').config();
+const axios = require('axios');
+require('dotenv').config();
 
-// // Sample data
-// const sampleStudentData = {
-//     firstName: "Test",
-//     lastName: "User",
-//     school: "Northern Arizona University",
-//     displayName: "TEST USER",
-//     username: null,
-//     email: null,
-//     password: "password123",
-//     major: "Computer Science"
-// };
+const baseURL = "http://localhost:6789";
 
-// const sampleGroupData = {
-//     name: "JEST Test Group",
-//     description: "This is a test",
-//     courses: "CS386",
-//     majors: "Computer Science",
-//     memberLimit: 10,
-//     ownerID: null,
-//     profilePictureID: null
-// };
+async function sendGet(url, data) {
+    try {
+        const response = await axios.get(url, data);
+        const valid_status_code = 200;
 
-// const sampleMessageData = {
-//     groupID: null,
-//     studentID: null,
-//     message: "Hello world"
-// };
+        if (response.status !== valid_status_code) {
+            throw new Error(`${url} returned a status of ${response.status} instead of ${valid_status_code}`);
+        }
 
-// const sampleMeetingData = {
-//     name: "Test Meeting",
-//     description: "A test meeting",
-//     start: new Date(),
-//     end: new Date(new Date().getTime() + 2 * 60 * 60 * 1000), // 2 hours in the future
-//     creatorID: null,
-// }
+        return response.data;
+    } catch (error) {
+        console.error(`Failed to GET: ${error.message}`);
+    }
+}
 
-// describe('Meeting Controller', () => {
-//     const serverAddress = `http://localhost:${process.env.EXPRESS_PORT}`;
+async function sendPost(url, data) {
+    try {
+        const response = await axios.post(url, data);
+        const valid_status_code = 201;
+        const item_already_exists_code = 401;
 
-//     // Test createMeeting
-//     test('should create a meeting', async () => {
-//         // Create a sample student
-//         let studentData = { ...sampleStudentData };
-//         studentData.username = "testuser_createMeeting";
-//         studentData.email = "createMeeting@test.user"
+        if (response.status === item_already_exists_code) {
+            return;
+        }
 
-//         let studentID;
+        if (response.status !== valid_status_code) {
+            throw new Error(`${url} returned a status of ${response.status} instead of ${valid_status_code}`);
+        }
 
-//         // Create the student
-//         const studentResponse = await request(`${serverAddress}/api/student`).post('/').send(studentData);
-//         studentID = studentResponse.body._id;
+        return response.data;
+    } catch (error) {
+        console.error(`Failed to POST: ${error.message}`);
+    }
+}
+
+async function sendPut(url, data) {
+    try {
+        const response = await axios.put(url, data);
+        const valid_status_code = 201;
+
+        if (response.status !== valid_status_code) {
+            throw new Error(`${url} returned a status of ${response.status} instead of ${valid_status_code}`);
+        }
+
+        return response.data;
+    } catch (error) {
+        console.error(`Failed to PUT: ${error.message}`);
+    }
+}
+
+async function sendDelete(url, data) {
+    try {
+        const response = await axios.delete(url, { data });
+        const valid_status_code = 200;
+
+        if (response.status !== valid_status_code) {
+            throw new Error(`${url} returned a status of ${response.status} instead of ${valid_status_code}`);
+        }
+
+        return response.data;
+    } catch (error) {
+        console.error(`Failed to DELETE: ${error.message}`);
+    }
+}
+
+async function getSampleStudent(studentID) {
+    return await sendGet(`${baseURL}/api/student/${studentID}`);
+}
+
+async function createSampleStudent(username, email) {
+    const response = await sendPost(`${baseURL}/api/student`, {
+        firstName: "Jest",
+        lastName: "Test",
+        school: "Northern Arizona University",
+        displayName: "Jest Test User",
+        username,
+        email,
+        password: "password123",
+        major: "Computer Science"
+    });
+
+    if (!response) {
+        return await getSampleStudent(username);
+    }
+
+    return response;
+}
+
+async function updateSampleStudent(studentID, updateData) {
+    return await sendPut(`${baseURL}/api/student/${studentID}`, updateData);
+}
+
+async function deleteSampleStudent(studentID) {
+    return await sendDelete(`${baseURL}/api/student/${studentID}`);
+}
+
+async function getSampleGroup(groupID) {
+    return await sendGet(`${baseURL}/api/group/${groupID}`);
+}
+
+async function createSampleGroup(name, description, ownerID) {
+    return await sendPost(`${baseURL}/api/group`, {
+        name,
+        description,
+        courses: "CS386",
+        majors: "Computer Science",
+        memberLimit: 6,
+        ownerID
+    });
+}
+
+async function updateSampleGroup(groupID, updateData) {
+    return await sendPut(`${baseURL}/api/group/${groupID}`, updateData);
+}
+
+async function deleteSampleGroup(groupID) {
+    return await sendDelete(`${baseURL}/api/group/${groupID}`);
+}
+
+async function getSampleMeeting(meetingID) {
+    return await sendGet(`${baseURL}/api/meeting/${meetingID}`);
+}
+
+async function createSampleMeeting(groupID, creatorID, name, description, location, start, end) {
+    return await sendPost(`${baseURL}/api/group/${groupID}/meetings`, {
+        groupID,
+        creatorID,
+        name,
+        description,
+        location,
+        start,
+        end
+    });
+}
+
+async function updateSampleMeeting(meetingID, updateData) {
+    return await sendPut(`${baseURL}/api/meeting/${meetingID}`, updateData);
+}
+
+async function deleteSampleMeeting(meetingID, groupID) {
+    return await sendDelete(`${baseURL}/api/meeting/${meetingID}`, { groupID });
+}
+
+describe('Meeting Controller', () => {
+    test('Create a meeting', async () => {
+        // Create sample data
+        const student = await createSampleStudent("jesttest_createmeeting", "create.meeting@jest.test");
+        if (!student) {
+            console.error("Failed to create sample student");
+            return;
+        }
+
+        const group = await createSampleGroup("Jest Test Group - Create Meeting", "Mock data for Creating a Meeting", student._id);
+        if (!group) {
+            console.error("Failed to create sample group");
+            return;
+        }
+
+        // Create a meeting lasting for 2 hours
+        const meeting = await createSampleMeeting(
+            group.groupID, 
+            student._id, 
+            "Jest Test Meeting", 
+            "Mock data for Creating a Meeting", 
+            "Mock Location", 
+            new Date(), 
+            new Date(new Date().getTime() + 2 * 60 * 60 * 1000)
+        );
+
+        const updatedGroup = await getSampleGroup(group.groupID);
+        if (!updatedGroup) {
+            console.error("Failed to get updated group");
+            return;
+        }
+
+        // Clean up before testing
+        await deleteSampleGroup(group.groupID);
+        await deleteSampleStudent(student._id);
+        await deleteSampleMeeting(meeting._id);
+
+        // Verify the meeting was created
+        expect(meeting).toHaveProperty('_id');
+        expect(meeting.name).toBe("Jest Test Meeting");
+        expect(meeting.description).toBe("Mock data for Creating a Meeting");
+        expect(meeting.location).toBe("Mock Location");
+        expect(meeting.creatorID).toBe(student._id);
+        expect(meeting.groupID).toBe(group._id);
+
+        // Verify the group was updated
+        expect(updatedGroup.meetingIDs).toHaveLength(1);
+        expect(updatedGroup.meetingIDs[0]).toBe(meeting._id);
+    });
+
+    test('Get a meeting', async () => {
+        // Create sample data
+        const student = await createSampleStudent("jesttest_deletemeeting", "delete.meeting@jest.test");
+        if (!student) {
+            console.error("Failed to create sample student");
+            return;
+        }
+
+        let group = await createSampleGroup("Jest Test Group - Delete Meeting", "Mock data for Deleting a Meeting", student._id);
+        if (!group) {
+            console.error("Failed to create sample group");
+            return;
+        }
+        const groupID = group.groupID;
+
+        // Create a meeting lasting for 2 hours
+        const meeting = await createSampleMeeting(
+            groupID, 
+            student._id, 
+            "Jest Test Meeting", 
+            "Mock data for Deleting a Meeting", 
+            "Mock Location", 
+            new Date(), 
+            new Date(new Date().getTime() + 2 * 60 * 60 * 1000)
+        );
+
+        // Get the meeting
+        const retrievedMeeting = await getSampleMeeting(meeting._id);
+
+        // Clean up before testing
+        await deleteSampleGroup(groupID);
+        await deleteSampleStudent(student._id);
+        await deleteSampleMeeting(meeting._id);
+
+        // Verify the meeting was retrieved
+        expect(retrievedMeeting).toHaveProperty('_id');
+        expect(retrievedMeeting.name).toBe("Jest Test Meeting");
+        expect(retrievedMeeting.description).toBe("Mock data for Deleting a Meeting");
+        expect(retrievedMeeting.location).toBe("Mock Location");
+        expect(retrievedMeeting.creatorID).toBe(student._id);
         
-//         if (studentResponse.status != 201) {
-//             console.error("Failed to create student: " + studentResponse.body.error);
-//             console.error(studentResponse.body);
-//         }
+    });
 
-//         if (studentID == null || studentID == undefined) {
-//             console.error("Because the student ID is null, we can't continue with the test");
-//             expect(true).toBe(false);   // force the test to fail
-//         }
+
+    test('Delete a meeting', async () => {
+        // Create sample data
+        const student = await createSampleStudent("jesttest_deletemeeting", "delete.meeting@jest.test");
+        if (!student) {
+            console.error("Failed to create sample student");
+            return;
+        }
+
+        let group = await createSampleGroup("Jest Test Group - Delete Meeting", "Mock data for Deleting a Meeting", student._id);
+        if (!group) {
+            console.error("Failed to create sample group");
+            return;
+        }
+        const groupID = group.groupID;
+
+        // Create a meeting lasting for 2 hours
+        const meeting = await createSampleMeeting(
+            groupID, 
+            student._id, 
+            "Jest Test Meeting", 
+            "Mock data for Deleting a Meeting", 
+            "Mock Location", 
+            new Date(), 
+            new Date(new Date().getTime() + 2 * 60 * 60 * 1000)
+        );
         
-//         // Create the test group
-//         let groupData = { ...sampleGroupData };
-//         groupData.ownerID = studentID;
-//         console.debug(groupData)
+        // Delete the meeting
+        const deletedMeeting = await deleteSampleMeeting(meeting._id, group.groupID);
         
-//         const groupResponse = await request(`${serverAddress}/api/group`).post('/').send(groupData);
+        group = await getSampleGroup(group.groupID);
+        if (!group) {
+            console.error("Failed to get updated group");
+            return;
+        }
 
-//         const { groupID, group } = groupResponse.body;
+        // Clean up before testing
+        await deleteSampleGroup(groupID);
+        await deleteSampleStudent(student._id);
 
-//         if (groupResponse.status != 201) {
-//             console.error(groupResponse.body.error);
-//         }
-
-//         // Create the meeting
-//         const meetingData = { ...sampleMeetingData };
-//         meetingData.creatorID = studentID;
-
-//         const meetingResponse = await request(`${serverAddress}/api/group`).put(`/${groupID}/meetings`).send(meetingData);
-//         const meetingID = meetingResponse.body._id;
-
-//         // Delete the data
-//         await request(`${serverAddress}/api/group`).delete(`/${groupID}`);
-//         await request(`${serverAddress}/api/student`).delete(`/${studentID}`);
-//         await request(`${serverAddress}/api/meeting`).delete(`/${meetingID}`);
-
-//         // Run the tests
-//         expect(meetingResponse.statusCode).toBe(201);
-//         expect(meetingResponse.body).toHaveProperty('_id');
-//         expect(meetingResponse.body).toHaveProperty('group', groupID);
-//         expect(meetingResponse.body).toHaveProperty('name', "Test Meeting");
-//         expect(meetingResponse.body).toHaveProperty('description', "A test meeting");
-//         expect(meetingResponse.body).toHaveProperty('start');
-//         expect(meetingResponse.body).toHaveProperty('end');
-//         expect(meetingResponse.body).toHaveProperty('creatorID', studentID);
-//     });
-
-//     // // Test getOneMeeting
-//     // test('should get a meeting', async () => {
-//     //     // Send the get request
-//     //     const response = await request(`${serverAddress}/api/meeting`).get(`/${testGroupID}`);
-
-//     //     // Check the response
-//     //     expect(response.statusCode).toBe(200);
-//     //     expect(response.body).toHaveProperty('_id', testGroupID);
-//     //     expect(response.body).toHaveProperty('group', testGroupID);
-//     //     expect(response.body).toHaveProperty('title', "Test Meeting");
-//     //     expect(response.body).toHaveProperty('description', "A test meeting");
-//     //     expect(response.body).toHaveProperty('date');
-//     //     expect(response.body).toHaveProperty('location', "Test Location");
-//     // });
-
-//     // // Test getAllMeetings
-//     // test('should get all meetings', async () => {
-//     //     // Send the get request
-//     //     const response = await request(`${serverAddress}/api/meeting`).get('/');
-
-//     //     // Check the response
-//     //     expect(response.statusCode).toBe(200);
-//     //     expect(response.body.length).toBeGreaterThan(0);
-//     // });
-
-//     // // Test getMeetings
-//     // test('should get all meetings for a group', async () => {
-//     //     // Send the get request
-//     //     const response = await request(`${serverAddress}/api/meeting`).get(`/group/${testGroupID}`);
-
-//     //     // Check the response
-//     //     expect(response.statusCode).toBe(200);
-//     //     expect(response.body.length).toBeGreaterThan(0);
-//     //     expect(response.body[0]).toHaveProperty('group', testGroupID);
-//     // });
-
-//     // // Test updateMeeting
-//     // test('should update a meeting', async () => {
-//     //     // Send the put request
-//     //     const response = await request(`${serverAddress}/api/meeting`).post(`/${testGroupID}`).send({
-//     //         title: "Updated Meeting",
-//     //         description: "An updated meeting",
-//     //         date: new Date(),
-//     //         location: "Updated Location"
-//     //     });
-
-//     //     // Check the response
-//     //     expect(response.statusCode).toBe(200);
-//     //     expect(response.body).toHaveProperty('_id', testGroupID);
-//     //     expect(response.body).toHaveProperty('group', testGroupID);
-//     //     expect(response.body).toHaveProperty('title', "Updated Meeting");
-//     //     expect(response.body).toHaveProperty('description', "An updated meeting");
-//     //     expect(response.body).toHaveProperty('date');
-//     //     expect(response.body).toHaveProperty('location', "Updated Location");
-//     // });
-
-//     // // Test deleteMeeting
-//     // test('should delete a meeting', async () => {
-//     //     // Send the delete request
-//     //     const response = await request(`${serverAddress}/api/meeting`).delete(`/${testGroupID}`);
-
-//     //     // Check the response
-//     //     expect(response.statusCode).toBe(200);
-//     //     expect(response.body).toHaveProperty('_id', testGroupID);
-//     //     expect(response.body).toHaveProperty('group', testGroupID);
-//     //     expect(response.body).toHaveProperty('title', "Updated Meeting");
-//     //     expect(response.body).toHaveProperty('description', "An updated meeting");
-//     //     expect(response.body).toHaveProperty('date');
-//     //     expect(response.body).toHaveProperty('location', "Updated Location");
-//     // });
-// })
+        // Verify the meeting was deleted
+        expect(deletedMeeting).toHaveProperty('_id');
+        expect(deletedMeeting.name).toBe("Jest Test Meeting");
+        expect(deletedMeeting.description).toBe("Mock data for Deleting a Meeting");
+        expect(deletedMeeting.location).toBe("Mock Location");
+        expect(deletedMeeting.creatorID).toBe(student._id);
+        expect(group.meetingIDs).toHaveLength(0);
+    });
+});
