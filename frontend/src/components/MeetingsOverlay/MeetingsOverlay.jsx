@@ -54,11 +54,16 @@ function getDateTimeString(inputDate) {
 
 function IndividualMeetingComponent({ meeting }) {
     const [isExpanded, setIsExpanded] = useState(false);
-    
-    const getMeetingOwner = async () => {
-        return await getStudent(meeting.ownerID);
-    }
-    const meetingOwner = getMeetingOwner();
+    const [meetingOwner, setMeetingOwner] = useState(null);
+
+    useEffect(() => {
+        const fetchMeetingOwner = async () => {
+            const owner = await getStudent(meeting.creatorID);
+            setMeetingOwner(owner);
+        };
+
+        fetchMeetingOwner();
+    }, [meeting]);
     
 
     if (!meeting) {
@@ -74,7 +79,11 @@ function IndividualMeetingComponent({ meeting }) {
                 /> */}
                 <div className='meeting_short_details'>
                     <p className='meeting_title'>{meeting.name}</p>
-                    <p className='meeting_short_time'></p>
+                    <p className='meeting_short_time'>
+                        {
+                            `${getDateTimeString(meeting.start)}`
+                        }
+                    </p>
                 </div>
                 <div className='meeting_dropdown_arrow'>
                     <img 
@@ -98,7 +107,7 @@ function IndividualMeetingComponent({ meeting }) {
                                 <p className='meeting_location'>{meeting.location}</p>
                             </div>
                             <p className='meeting_time'>
-                                { `${getDateTimeString(meeting.start)} ${getDateTimeString(meeting.end)}` }
+                                { `${getDateTimeString(meeting.start)} to ${getDateTimeString(meeting.end)}` }
                             </p>
                         </div>
                         <div className='meeting_description'>
