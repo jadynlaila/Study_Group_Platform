@@ -44,7 +44,7 @@ router.route("/:groupID/messages")
 // localhost:5678/api/group/<groupID>/meetings
 router.route("/:groupID/meetings")
     .get(getMeetings)
-    .put(createMeeting)
+    .post(createMeeting)
 
 // localhost:5678/api/group/join/<groupID>
 router.route("/join/:groupID")

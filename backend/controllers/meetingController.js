@@ -10,51 +10,61 @@ const localServerAddress = `http://127.0.0.1:${process.env.EXPRESS_PORT}`
 
 async function validateMeeting(meeting) {
     // ensure that the meeting has a name
+    console.debug(`Validating meeting name '${meeting.name}'`)
     if (!meeting.name) {
         return { valid: false, message: "Meeting must have a name" }
     }
 
     // ensure that the meeting start date is before the end date
+    console.debug(`Validating meeting start date '${meeting.start}' and end date '${meeting.end}'`);
     if (meeting.start >= meeting.end) {
         return { valid: false, message: "Meeting start date must be before the end date" }
     }
 
     // ensure that the frequency is valid
+    console.debug(`Validating meeting frequency '${meeting.frequency}'`);
     if (meeting.frequency && !['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'].includes(meeting.frequency)) {
         return { valid: false, message: "Meeting frequency must be null, DAILY, WEEKLY, MONTHLY, or YEARLY" }
     }
 
     // ensure that frequency is not null if until, count, interval, or byday are provided
+    console.debug(`Validating meeting frequency '${meeting.frequency}' with until '${meeting.until}', count '${meeting.count}', interval '${meeting.interval}', and byday '${meeting.byday}'`);
     if (!meeting.frequency && (meeting.until || meeting.count || meeting.interval || meeting.byday)) {
         return { valid: false, message: "Meeting frequency must be provided if until, count, interval, or byday are provided" }
     }
 
     // ensure that the until date is after the start date
+    console.debug(`Validating meeting until date '${meeting.until}' and start date '${meeting.start}'`);
     if (meeting.until && meeting.until <= meeting.start) {
         return { valid: false, message: "Meeting until date must be after the start date" }
     }
 
     // ensure that the byday is valid
+    console.debug(`Validating meeting byday '${meeting.byday}'`);
     if (meeting.byday && !['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'].includes(meeting.byday)) {
         return { valid: false, message: "Meeting byday must be null, SU, MO, TU, WE, TH, FR, or SA" }
     }
 
     // ensure that the interval is valid
+    console.debug(`Validating meeting interval '${meeting.interval}'`);
     if (meeting.interval && meeting.interval < 1) {
         return { valid: false, message: "Meeting interval must be null or greater than 0" }
     }
 
     // ensure that the count is valid
+    console.debug(`Validating meeting count '${meeting.count}'`);
     if (meeting.count && meeting.count < 1) {
         return { valid: false, message: "Meeting count must be null or greater than 0" }
     }
 
     // ensure that the meeting creator is a valid user
+    console.debug(`Validating meeting creator '${meeting.creatorID}'`);
     const creator = await Student.findById(meeting.creatorID)
     if (!creator) {
         return { valid: false, message: "Meeting creator is not a valid user" }
     }
 
+    console.debug(`Meeting validation passed`);
     return { valid: true, message: null }
 }
 
@@ -67,31 +77,32 @@ const getMeetings = asyncHandler(async (request, result) => {
 
         // Verify that the parameters are not empty
         if (!groupID) {
-            return request.status(400).json({ error: "Required variable 'groupID' not provided" })
+            console.error("Required variable 'groupID' not provided")
+            return result.status(400).json({ error: "Required variable 'groupID' not provided" })
         }
 
         console.debug("Required variables found")
 
         // Get the user and group from Mongo
-        const searchedGroup = await Group.findById(groupID)
-        if (!searchedGroup) {
-            return request.status(403).json({ error: `Group with ID ${groupID} was not found` })
+        const group = await Group.findById(groupID)
+        if (!group) {
+            return result.status(403).json({ error: `Group with ID ${groupID} was not found` })
         }
 
-        console.debug(`Group ${groupID} found: ${searchedGroup.name}`)
+        console.debug(`Group ${groupID} found: ${group.name}`)
 
         // Convert the message IDs into an array of Message objects
         const meetings = await Promise.all(
-            searchedGroup.meetingIDs.map(async (meetingID) => {
-                const meeting = await Meeting.findById(meetingID);
-                return meeting;
-            })
+            group.meetingIDs.map(async (messageID) => await Meeting.findById(messageID))
         );
+
+        console.debug(`Meeting IDs: ${group.meetingIDs}`)
+        console.debug(`Meetings: ${meetings}`)
 
         console.debug("Returning meetings...")
 
         // Send/Return the meetings
-        result.status(200).json(meetings)
+        return result.status(200).json(meetings);
         
     } catch (error) {
         return result.status(500).json({ error: error.message });
@@ -106,7 +117,7 @@ const getOneMeeting = asyncHandler(async (request, result) => {
 
         // Verify that the parameters are not empty
         if (!meetingID) {
-            return request.status(400).json({ error: "Required variable 'meetingID' not provided" });
+            return result.status(400).json({ error: "Required variable 'meetingID' not provided" });
         }
 
         console.debug("Required variables found")
@@ -114,7 +125,7 @@ const getOneMeeting = asyncHandler(async (request, result) => {
         // Get the meeting from Mongo
         const searchedMeeting = await Meeting.findById(meetingID)
         if (!searchedMeeting) {
-            return request.status(403).json({ error: `Meeting with ID ${meetingID} was not found` })
+            return result.status(403).json({ error: `Meeting with ID ${meetingID} was not found` })
         }
 
         console.debug(`Meeting ${meetingID} found`)
@@ -147,6 +158,7 @@ const createMeeting = asyncHandler(async (request, response) => {
     try {
         // Deconstruct the JSON body
         const { name, description, start, end, creatorID, guestIDs, location } = request.body
+        const groupID = request.params.groupID;
 
         console.debug(`\n\nCreating meeting ${name}`)
 
@@ -186,22 +198,34 @@ const createMeeting = asyncHandler(async (request, response) => {
             interval: request.body.interval || null,
             byday: request.body.byday || null
         })
-
-        // Validate the meeting
-        const {isValid, message} = await validateMeeting(newMeeting)
-        if (!isValid) {
-            console.error(`Meeting validation failed: ${message}`)
-            return request.status(403).json({ error: message })
+        
+        // Get the group from Mongo
+        let groupChat = await Group.findById(groupID)
+        if (!groupChat){
+            console.error(`Group chat with id ${groupID} not found`)
+            return response.status(404).json({ error: "Group chat doesn't exist" });
         }
 
-        // Save the meeting to Mongo
-        const savedMeeting = await newMeeting.save()
+        // Validate the meeting
+        const {valid: isValid, message} = await validateMeeting(newMeeting)
+        if (!isValid) {
+            console.error(`Meeting validation failed: ${message}`)
+            return response.status(403).json({ error: message })
+        }
 
-        console.debug(`Meeting ${name} created with an ID of ${savedMeeting._id}`)
-
-        // Send/Return the meeting
-        response.status(201).json(savedMeeting)
+        // Save the meeting to the database
+        await newMeeting.save();
+        
+        //append the newMeeting to the group chat meetings array
+        console.debug(`Attempting to push message id ${newMeeting._id}`)
+        groupChat.meetingIDs.push(newMeeting._id);
+        await groupChat.save();
+        
+        // Return the saved meeting in the response
+        console.debug('Meeting created!')
+        return response.status(201).json(newMeeting);
     } catch (error) {
+        console.error(`Failed to create meeting: ${error.message}`);
         return response.status(500).json({ error: error.message });
     }
 })
@@ -214,7 +238,7 @@ const updateMeeting = asyncHandler(async (request, result) => {
 
         // Verify that the parameters are not empty
         if (!meetingID) {
-            return request.status(400).json({ error: "Required variable 'meetingID' not provided" });
+            return result.status(400).json({ error: "Required variable 'meetingID' not provided" });
         }
 
         console.debug("Required variables found")
@@ -223,7 +247,7 @@ const updateMeeting = asyncHandler(async (request, result) => {
         // Get the meeting from Mongo
         const searchedMeeting = await Meeting.findById(meetingID)
         if (!searchedMeeting) {
-            return request.status(403).json({ error: `Meeting with ID ${meetingID} was not found` })
+            return result.status(403).json({ error: `Meeting with ID ${meetingID} was not found` })
         }
 
         // Update the memory instance of meeting for validation purposes
@@ -256,7 +280,7 @@ const updateMeeting = asyncHandler(async (request, result) => {
         // Validate the meeting
         const {isValid, message} = await validateMeeting(searchedMeeting)
         if (!isValid) {
-            return request.status(403).json({ error: message })
+            return result.status(403).json({ error: message })
         }
 
         // Save the meeting to Mongo
@@ -273,36 +297,54 @@ const updateMeeting = asyncHandler(async (request, result) => {
 
 const deleteMeeting = asyncHandler(async (request, result) => {
     try {
-        const meetingID = request.params.meetingID
+        const meetingID = request.params.meetingID;
+        const { groupID } = request.body;
 
         console.debug(`\n\nDeleting meeting ${meetingID}`)
+        console.debug(request.body); // <-- please work or not, either works lmao
 
         // Verify that the parameters are not empty
         if (!meetingID) {
-            return request.status(400).json({ error: "Required variable 'meetingID' not provided" });
+            console.error("Required variable 'meetingID' not provided")
+            return result.status(400).json({ error: "Required variable 'meetingID' not provided" });
+        }
+        if (!groupID) {
+            console.error("Required variable 'groupID' not provided");
+            return result.status(400).json({ error: "Required variable 'groupID' not provided" });
         }
 
         console.debug("Required variables found")
 
         // Get the meeting from Mongo
-        const searchedMeeting = await Meeting.findById(meetingID)
-        if (!searchedMeeting) {
-            return request.status(403).json({ error: `Meeting with ID ${meetingID} was not found` })
+        console.debug(`Searching for meeting ${meetingID}`)
+        let meeting = await Meeting.findById(meetingID);
+        if (!meeting) {
+            console.error(`Meeting ${meetingID} not found`);
+            return result.status(404).json({ error: `Meeting ${meetingID} not found` });
+        }
+        
+        // Get the group from Mongo
+        console.debug(`Searching for group ${groupID}`)
+        let group = await Group.findById(groupID);
+        if (!group) {
+            console.error(`Group ${groupID} not found`);
+            return result.status(404).json({ error: `Group ${groupID} not found` });
         }
 
-        // remove the meeting from the group
-        const response = axios.put(`${localServerAddress}/api/groups/${searchedMeeting.groupID}`, { 
-            meetingIDs: searchedMeeting.meetingIDs.filter(id => id !== meetingID) 
-        })
-
-        // Delete the meeting from Mongo
-        await searchedMeeting.deleteOne()
-
-        console.debug(`Meeting ${meetingID} deleted`)
+        // Perform the delete
+        console.debug(`Deleting meeting ${meetingID} and removing from group ${groupID}`);
+        meeting.deleteOne();
+        console.debug(`Before deletion: ${group.meetingIDs}`)
+        group.meetingIDs = group.meetingIDs.filter((id) => id.toString() !== meetingID.toString());
+        console.debug(`After deletion: ${group.meetingIDs}`)
+        group.save();
 
         // Send/Return the meeting
-        result.status(200).json({ message: `Meeting ${meetingID} deleted` })
+        console.debug(`Meeting ${meetingID} deleted`)
+        result.status(200).json(meeting)  // will this return the deleted meeting?
+        
     } catch (error) {
+        console.error(`Failed to delete meeting: ${error.message}`);
         return result.status(500).json({ error: error.message });
     }
 })
