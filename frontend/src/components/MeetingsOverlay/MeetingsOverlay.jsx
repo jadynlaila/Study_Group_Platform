@@ -89,7 +89,7 @@ function IndividualMeetingComponent({ meeting }) {
                 <div className='meeting_dropdown_arrow'>
                     <img 
                         src={arrowDownImage}
-                        style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(180deg)' }} 
+                        style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }} 
                         alt='Toggle Arrow' 
                         onClick={() => setIsExpanded(!isExpanded)}
                         />
