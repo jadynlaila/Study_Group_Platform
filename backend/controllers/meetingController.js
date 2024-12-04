@@ -157,7 +157,7 @@ const getAllMeetings = asyncHandler(async (request, result) => {
 const createMeeting = asyncHandler(async (request, response) => {
     try {
         // Deconstruct the JSON body
-        const { name, description, start, end, creatorID, guestIDs, location } = request.body
+        let { name, description, start, end, creatorID, guestIDs, location } = request.body
         const groupID = request.params.groupID;
 
         console.debug(`\n\nCreating meeting ${name}`)
@@ -182,6 +182,23 @@ const createMeeting = asyncHandler(async (request, response) => {
 
         console.debug("Required variables found")
         console.debug(request.body)
+
+        // Convert the start and end dates to Date objects
+        console.debug(`Converting start date '${start}' and end date '${end}' to Date objects`)
+        start = new Date(start);
+        end = new Date(end);
+        console.debug(`Start date: ${start}`)
+        console.debug(`End date: ${end}`)
+
+        // Test if the start and end dates are valid
+        if (isNaN(start.getTime())) {
+            console.error(`Invalid start date: ${start}`)
+            return response.status(400).json({ error: "Invalid start date" });
+        }
+        if (isNaN(end.getTime())) {
+            console.error(`Invalid end date: ${end}`)
+            return response.status(400).json({ error: "Invalid end date" });
+        }
 
         // Create the meeting
         const newMeeting = new Meeting({

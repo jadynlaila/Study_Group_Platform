@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+import './MeetingsOverlay.css';
+import arrowDownImage from '../Public/arrow_down.svg';
+import pinImage from '../Public/pin.svg';
+import personImage from '../Public/person.svg';
+import noPicImage from '../Public/no-pic.png';
+
 export { MeetingsOverlay, MeetingsComponent };
 
-const axios = require('axios');
-
 const baseURL = `http://localhost:6789`;
-const resourcePath = '../Public'
 
 async function getItemFromURL(url) {
     try {
@@ -22,10 +27,16 @@ async function getItemFromURL(url) {
 }
 
 async function getMeetings(groupID) {
+    if (!groupID) {
+        return;
+    }
     return await getItemFromURL(`${baseURL}/api/group/${groupID}/meetings`);
 }
 
 async function getStudent(studentID) {
+    if (!studentID) {
+        return;
+    }
     return await getItemFromURL(`${baseURL}/api/student/${studentID}`);
 }
 
@@ -67,10 +78,10 @@ function IndividualMeetingComponent({ meeting }) {
                 </div>
                 <div className='meeting_dropdown_arrow'>
                     <img 
-                        src={`${resourcePath}/arrow_down.svg`}
+                        src={arrowDownImage}
                         style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(180deg)' }} 
                         alt='Toggle Arrow' 
-                        onClick={setIsExpanded(!isExpanded)}
+                        onClick={() => setIsExpanded(!isExpanded)}
                         />
                 </div>
             </div>
@@ -81,10 +92,10 @@ function IndividualMeetingComponent({ meeting }) {
                             <div className='meeting_location_container'>
                                 <img
                                     className='meeting_location_icon'
-                                    src={`${resourcePath}/pin.svg`}
+                                    src={pinImage}
                                     alt='Pin icon'
                                     />
-                                <p className='meeting_location'>{meeting.description}</p>
+                                <p className='meeting_location'>{meeting.location}</p>
                             </div>
                             <p className='meeting_time'>
                                 { `${getDateTimeString(meeting.start)} ${getDateTimeString(meeting.end)}` }
@@ -97,13 +108,13 @@ function IndividualMeetingComponent({ meeting }) {
                             meetingOwner ? 
                                 <div className='meeting_owner'>
                                     <img
-                                        class='meeting_owner_descriptor_icon'
-                                        src={`${resourcePath}/person.svg`}
+                                        className='meeting_owner_descriptor_icon'
+                                        src={personImage}
                                         alt='Person'
                                     />
                                     <img
-                                        class='meeting_owner_profile_pic'
-                                        src={meetingOwner.profilePicURL || `${resourcePath}/no-pic.png`}
+                                        className='meeting_owner_profile_pic'
+                                        src={meetingOwner.profilePicURL || noPicImage}
                                         alt='Meeting owner profile icon'
                                     />
                                     <div className='meeting_owner_identifier'>
