@@ -4,8 +4,8 @@ import TextRegion from './TextRegion/TextRegion.jsx'; // Import the TextRegion c
 import axios from 'axios';
 import Navbar from './Navbar.jsx';
 import Cookies from 'js-cookie';
-import { useAuthContext } from '../context/AuthContext';
-import GroupSearchModule from './groupSearchModule';
+import { useAuthContext } from '../context/AuthContext.jsx';
+import GroupSearchModule from './groupSearchModule.jsx';
 
 // testing for pull requerst
 // axios.defaults.baseURL = `http://localhost:${process.env.PORT || 3000}`
@@ -126,11 +126,10 @@ const GroupChatModule = () => {
             onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
           />
           <button
-              onClick={() => setIsAddingGroup(!isAddingGroup)}
-              className="toggleButton"
-            >
-              {isAddingGroup ? 'Close search -' : ' Find groups +'}
-            </button>
+            onClick={() => setIsAddingGroup(!isAddingGroup)}
+            className="toggleButton">
+            {isAddingGroup ? '-' : '+'}
+          </button>
         </div>
         <ul className="listContent">
           {filteredChats.map((item) => (

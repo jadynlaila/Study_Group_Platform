@@ -5,10 +5,11 @@ html, body {
 
 .group-search-page {
   display: flex;
-  justify-content: center; /* Center align the content horizontally */
-  height: 100vh; /* Full viewport height */
+  /* justify-content: center; */
+  height: 100%; /* Full viewport height */
   width: 100%;
-  padding: 0; /* Remove padding */
+  padding: 16px; /* Remove padding */
+  border-radius: 16px;
   flex-direction: column; /* Stack items vertically */
   align-items: center; /* Center align the content */
   background-color: #4a4a4a; /* Background color for the middle column */
@@ -33,7 +34,7 @@ html, body {
   display: flex; /* Use flex to stack items */
   flex-direction: column; /* Stack items vertically */
   align-items: stretch; /* Make items stretch to full width */
-  max-height: 650px; /* Set a maximum height for the group list */
+  /* max-height: 650px; */
   overflow-y: auto; /* Enable vertical scrolling */
   padding: 10px; /* Add some padding */
   background-color: #363535; /* Background color for the list */

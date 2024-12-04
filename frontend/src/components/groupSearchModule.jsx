@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './GroupSearchModule.css';
-import GroupCreationModule from './groupCreationModule';
+import GroupCreationModule from './groupCreationModule.jsx';
 import axios from 'axios';
 
 let baseURL = `http://localhost:${process.env.PORT || 6789}`;
@@ -42,6 +42,7 @@ const GroupSearchModule = ({ user }) => {
       group.name.toLowerCase().includes(e.target.value.toLowerCase()) &&
       !user.groups.includes(group._id)
     );
+
     setFilteredGroups(filtered);
   };
 
@@ -70,13 +71,9 @@ const GroupSearchModule = ({ user }) => {
     }
   };
 
-  const getAvailableGroups = (groups, userGroups) => {
-  return groups.filter(group => !userGroups.includes(group._id));
-};
-
-
   return (
     <div className="group-search-page">
+      <h2 className="searchTitle">Add a Group</h2>
       {isCreatingGroup ? (
         <GroupCreationModule user={user} /> // Reference the form from GroupCreationPage.jsx
       ) : (
