@@ -67,3 +67,21 @@
     display: flex; /* Use flexbox for chat content */
     flex-direction: column; /* Stack elements vertically */
   }
+  
+  .toggleButton {
+    background: linear-gradient(60deg, #22aad0, #9000ff); /* Multi-color gradient */
+  border-radius: 10px; /* Rounded edges */
+  color: white;
+  padding: 20px; /* Increased padding for more height */
+  font-size: 18px; /* Font size */
+  font-weight: bold; /* Bold text */
+  border: none; /* Remove border */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Transition effect */
+  text-align: center; /* Center text */
+  width: 100%; /* Full width of the container */
+  margin: 0; /* Remove any default margin */
+  margin-bottom: 10px; /* Space below the button */
+  margin-top: 15px;
+
+  }

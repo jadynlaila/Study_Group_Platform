@@ -51,7 +51,7 @@ const GroupChatModule = () => {
   };
 
   // Filtered group chats based on the search query
-
+  // if button is triggered 
 
   // Fetch the list of students from the API
   const fetchMessages = async () => {
@@ -125,6 +125,12 @@ const GroupChatModule = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
           />
+          <button
+              onClick={() => setIsAddingGroup(!isAddingGroup)}
+              className="toggleButton"
+            >
+              {isAddingGroup ? 'Close search -' : ' Find groups +'}
+            </button>
         </div>
         <ul className="listContent">
           {filteredChats.map((item) => (

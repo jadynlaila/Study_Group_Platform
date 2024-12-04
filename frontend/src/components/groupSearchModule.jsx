@@ -70,6 +70,11 @@ const GroupSearchModule = ({ user }) => {
     }
   };
 
+  const getAvailableGroups = (groups, userGroups) => {
+  return groups.filter(group => !userGroups.includes(group._id));
+};
+
+
   return (
     <div className="group-search-page">
       {isCreatingGroup ? (
