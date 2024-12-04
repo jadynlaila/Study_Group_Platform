@@ -25,7 +25,7 @@ const GroupSearchModule = ({ user }) => {
       console.log('groups', groups);
       console.log('user', user.username);
       const availableGroups = groups.filter(group =>
-        !user.groups.includes(group._id)
+        !user.groups.includes(group.groupId)
       );
 
       setAllGroups(groups);
