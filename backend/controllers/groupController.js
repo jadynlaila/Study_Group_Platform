@@ -315,8 +315,8 @@ const joinGroup = asyncHandler(async (request, result) => {
         console.debug(`${searchedStudent.username} is not already a member of the group. Proceeding to perform join operations...`)
 
         // Link the group and user objects
-        searchedGroup.memberIDs += studentID
-        searchedStudent.groups += groupID
+        searchedGroup.memberIDs.push(studentID);
+        searchedStudent.groups.push(groupID);
 
         // Save the data to mongo
         await searchedGroup.save();
