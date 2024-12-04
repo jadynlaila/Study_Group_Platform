@@ -48,8 +48,8 @@ const GroupSearchModule = ({ user }) => {
   const addGroup = async (groupId) => {
     try {
       // Update the user's groups in the backend
-      await axios.put(`${baseURL}/api/student/${user._id}`, {
-        groups: [...user.groups, groupId]
+      const response = await axios.put(`${baseURL}/api/group/join/${groupId}`, {
+        studentID: user._id,
       });
 
       // Fetch the updated user data to ensure the local state is in sync
@@ -64,7 +64,7 @@ const GroupSearchModule = ({ user }) => {
       setFilteredGroups(filteredGroups.filter(group => group._id !== groupId));
 
       // Optionally, you can refresh the page if you want to ensure everything is reloaded
-      // window.location.reload(); // Uncomment this if you want to refresh the page
+      window.location.reload(); // Uncomment this if you want to refresh the page
     } catch (error) {
       console.error('Error adding group', error);
     }
