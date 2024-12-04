@@ -27,7 +27,7 @@ const NavBar = ({group, user}) => {
       if (groupChat) groupChat.removeEventListener('click', handleGroupClick);
     };
 
-  }, []);
+  }, [group, user]);
 
   return (
     <nav className="navbar">

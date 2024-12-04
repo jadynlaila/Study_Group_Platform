@@ -6,7 +6,9 @@ import axios from 'axios';
 import Navbar from './Navbar.jsx';
 import Cookies from 'js-cookie';
 import { useAuthContext } from '../context/AuthContext.jsx';
+import GroupSearchModule from './groupSearchModule.jsx';
 
+// testing for pull requerst
 // axios.defaults.baseURL = `http://localhost:${process.env.PORT || 3000}`
 let baseURL = `http://localhost:${process.env.PORT || 6789}`
 
@@ -25,6 +27,7 @@ const GroupChatModule = () => {
   const [selectedGroup, setSelectedGroup] = useState(null); // State to track the selected group chat
   const [searchQuery, setSearchQuery] = useState(''); // State to track the search input
   const [filteredChats, setFilteredChats] = useState([]); 
+  const [isAddingGroup, setIsAddingGroup] = useState(true);
   const [isMeetingsOverlayOpen, setIsMeetingsOverlayOpen] = useState(false);
   const [groups, setGroups] = useState([]);
 
@@ -41,6 +44,7 @@ const GroupChatModule = () => {
       const groupDetails = await getGroup(groupId);
       if (groupDetails) { 
         setSelectedGroup(groupDetails); 
+        setIsAddingGroup(false);
         console.log(`Group details: `, JSON.stringify(groupDetails, null, 2))
       }
     }catch (error) { 
@@ -49,7 +53,7 @@ const GroupChatModule = () => {
   };
 
   // Filtered group chats based on the search query
-
+  // if button is triggered 
 
   // Fetch the list of students from the API
   const fetchMessages = async () => {
@@ -123,6 +127,11 @@ const GroupChatModule = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
           />
+          <button
+            onClick={() => setIsAddingGroup(!isAddingGroup)}
+            className="toggleButton">
+            {isAddingGroup ? '-' : '+'}
+          </button>
         </div>
         <ul className="listContent">
           {filteredChats.map((item) => (
@@ -136,11 +145,17 @@ const GroupChatModule = () => {
       </div>
 
       {/* Render the chat component if a group is selected */}
-      <div className="chatContainer">
-        {selectedGroup && (
-          <TextRegion key={selectedGroup.id} group={selectedGroup} />
-        )}
-      </div>
+      {
+        isAddingGroup ? (
+          <GroupSearchModule user={authUser}/>
+        ) : (
+          <div className="chatContainer">
+            {selectedGroup && (
+              <TextRegion key={selectedGroup.id} group={selectedGroup} />
+            )}
+          </div>
+        )
+      }
     </div>
     </div>
   );

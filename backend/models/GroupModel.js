@@ -17,12 +17,12 @@ const GroupSchema = new mongoose.Schema({
     description: {
         type: String,
     },
-    courses: {
+    courses: [{
         type: String
-    },
-    majors: {
+    }],
+    majors: [{
         type: String
-    },
+    }],
     memberLimit: {
         type: Number
     },

@@ -6,6 +6,8 @@ import GroupSettings from './components/GroupSettings/GroupSettings.jsx';
 import LoginPage from './Login/LogIn';
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuthContext } from "./context/AuthContext.jsx";
+import axios from 'axios';
+
 
 const App = () => {
   const { authUser , setAuthUser  } = useAuthContext(); 
