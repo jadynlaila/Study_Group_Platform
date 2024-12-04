@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './GroupChatModuleStyle.css'; // Import styles from the separate CSS file
 import TextRegion from './TextRegion/TextRegion.jsx'; // Import the TextRegion component
-import MeetingsOverlay from './MeetingsOverlay/MeetingsOverlay.jsx';
+import { MeetingsOverlay, MeetingsComponent } from './MeetingsOverlay/MeetingsOverlay.jsx';
 import axios from 'axios';
 import Navbar from './Navbar.jsx';
 import Cookies from 'js-cookie';
@@ -138,7 +138,8 @@ const GroupChatModule = () => {
       {/* Render the chat component if a group is selected */}
       <div className="chatContainer">
         {selectedGroup && (
-          <TextRegion key={selectedGroup.id} group={selectedGroup} />
+          // <TextRegion key={selectedGroup.id} group={selectedGroup} />
+          <MeetingsComponent groupID={selectedGroup._id} />
         )}
       </div>
     </div>
