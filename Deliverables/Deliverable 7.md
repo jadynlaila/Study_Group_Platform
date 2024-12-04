@@ -7,12 +7,77 @@ Provide 1-2 paragraphs to describe your system. This will help us to remember wh
 *Grading criteria (1 point): completeness, language.*
 
 # 2. Validation (user evaluation)
-Validation aims to ensure that you developed the right product. At the beginning of the semester, you talked to the clients/potential users to understand their needs. Now it is time to check if you are on the right track by conducting some user evaluation on the actual system. Include in this deliverable the following information:
 
-Script: The script should have the tasks that you gave to the user, what data you collected, and the questions you asked. In particular, do not forget to add questions about the users’ general impressions. You can ask open questions (e.g., How would you describe the homepage of our app? How do you compare our system to the competitor X?) or closed questions (On a scale of 1 to 10, how would you rate the layout of our application? On the same scale, how likely would you use the system in its current state?). Take a look at the inception and requirements deliverables to help create the script. Design a script to check if you are achieving your initial goals and if the features are implemented in a satisfactory way.
+### Script
+* Make an account, include as much information as you would like. It can be changed. 
+* Sign in with Username and Password.
+* Navigate to the join group and select a group you would like to join
+* Send messages to the group
+* exit the group, then create one of your own. 
+*  Navigate to the settings of the group you just made by opening the group, pressing settings, then make an edit to the group settings.
+*  Navigate to your user information in the top right. Makes some changes to your user settings, for example change your display name to something silly.  
+*  First impression?
+*  Likes?
+*  Dislikes?
+*  What we should change?
+*  Feautures we should add?
 
-Results: Conduct the user evaluation with at least 3 users. Report the data that you collected.
 
-Reflections: Reflect on what you observed. Some questions that you can explore: What features worked well? What can be changed? How is the learning curve of your system? Did the users perform the tasks as you expected? Did the users’ actions produce the results they expected? What did the users like the most? Is your value proposition accomplished?
+### Feedback
 
-*Grading criteria (29 points): adequate script, adequate report of the results, results from at least 3 potential users, adequate reflection, and language.*
+Talon Pryke :
+
+Dislikes:
+* Messages don't work
+* Join group tab remains after user is in group
+* Can't create meeting
+* Too Barebones 
+  
+Likes:
+
+* Like the dark theme
+* Good colors
+* Like the open groups
+* Likes simple list format
+* Easy to navigate 
+
+Suggestions:
+
+* Add colors for group to ‘color coordinate’
+* Invite option, create a link for a group. 
+* Advance the chat to have more functionality, Images, @ mention. 
+* List school in the group information in the join section
+* Member count limits when scaling up. If a user is inactive for a long period of time, the user is kicked from the group for inactivity to free space. 
+* Limit some groups to school, but also have larger groups. 
+  
+
+Ethan Klement: 
+
+Dislikes:
+* No meetings available
+* Cannot send messages to see colors
+* doesn't like main page, too plain
+
+Likes:
+
+* Like the dark mode
+* Good color choice
+* Likes simple format
+* Likes name and logo
+
+Suggestions:
+
+* Add roles for users, to have a group leader
+* Invite option, create a link for a group. 
+* Improve settings UI to make it more user friendly, and allow for Profile Pictures to be displayed better
+  
+### Reflections: 
+* seemed easy to navigate for the user
+* user performed tasks correctly based off instruction
+* User likes the design / color, but it is barebones.
+* User like the ability to find new people, thinks private groups would remove the point of 'finding' a group. 
+* needs more functionality, but user likes the simplicity of the current UI.
+* expand user roles
+* value proposition is met,however it needs to be deployed and polished so it can be used widely
+
+
