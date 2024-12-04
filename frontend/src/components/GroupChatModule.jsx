@@ -26,6 +26,7 @@ const GroupChatModule = () => {
   const [selectedGroup, setSelectedGroup] = useState(null); // State to track the selected group chat
   const [searchQuery, setSearchQuery] = useState(''); // State to track the search input
   const [filteredChats, setFilteredChats] = useState([]); 
+  const [isAddingGroup, setIsAddingGroup] = useState(true);
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
@@ -41,6 +42,7 @@ const GroupChatModule = () => {
       const groupDetails = await getGroup(groupId);
       if (groupDetails) { 
         setSelectedGroup(groupDetails); 
+        setIsAddingGroup(false);
         console.log(`Group details: `, JSON.stringify(groupDetails, null, 2))
       }
     }catch (error) { 
@@ -136,14 +138,17 @@ const GroupChatModule = () => {
       </div>
 
       {/* Render the chat component if a group is selected */}
-      <div className='groupSearchContainer'>
-        <GroupSearchModule user={authUser}/>
-      </div>
-      <div className="chatContainer">
-        {selectedGroup && (
-          <TextRegion key={selectedGroup.id} group={selectedGroup} />
-        )}
-      </div>
+      {
+        isAddingGroup ? (
+          <GroupSearchModule user={authUser}/>
+        ) : (
+          <div className="chatContainer">
+            {selectedGroup && (
+              <TextRegion key={selectedGroup.id} group={selectedGroup} />
+            )}
+          </div>
+        )
+      }
     </div>
     </div>
   );
