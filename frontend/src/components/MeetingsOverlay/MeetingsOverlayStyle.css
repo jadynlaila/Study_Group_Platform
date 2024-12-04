@@ -1,0 +1,162 @@
+.individual_meeting_container {
+    background-color: rgb(39, 39, 39);
+    border-radius: 16px;
+    padding: 20px 0;
+}
+
+.meeting_banner {
+    background-color: rgb(164, 40, 32);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    padding: 2px 20px;
+}
+
+.meeting_short_details {
+
+}
+
+.meeting_title {
+    display: flex;
+    line-height: 16px;
+    text-align: center;
+    font-size: large;
+    padding-top: 16px;
+}
+
+.meeting_short_time {
+
+}
+
+.meeting_dropdown_arrow {
+    margin-left: auto;
+
+    background-color: rgb(207, 64, 54);
+    border-radius: 50%;
+    padding: 8px;
+}
+
+.meeting_details {
+
+}
+
+.meeting_time_and_location {
+    display: block;
+    gap: 10px;
+    align-items: center;
+    
+    background-color: rgb(49, 49, 49);
+    border-radius: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+}
+
+.meeting_location_container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.meeting_location_icon {
+    
+}
+
+.meeting_location {
+    font-size: 16px;
+    font-weight: bold;;
+}
+
+.meeting_time {
+
+}
+
+.meeting_description {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    background-color: rgb(49, 49, 49);
+    border-radius: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+}
+
+.meeting_description_contents {
+    padding-top: 8px;
+}
+
+.meeting_owner {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    background-color: rgb(49, 49, 49);
+    border-radius: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+}
+
+.meeting_owner_descriptor_icon {
+
+}
+
+.meeting_owner_profile_pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.meeting_owner_identifier {
+
+}
+
+.meeting_owner_name {
+
+}
+
+.meeeting_owner_username {
+
+}
+
+.meeting_generic_widget {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    background-color: rgb(49, 49, 49);
+    border-radius: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+}
+
+.overlay {
+    background-color: rgb(39, 39, 39);
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.overlay_controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px
+}
+
+.overlay_close {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.overlay_title {
+    font-size: 24px;
+    font-weight: bold;
+
+    text-align: left;
+    padding-left: 8px;
+}
