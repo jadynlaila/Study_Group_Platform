@@ -138,15 +138,10 @@ const GroupChatModule = () => {
       {/* Render the chat component if a group is selected */}
       <div className="chatContainer">
         {selectedGroup && (
-          // <TextRegion key={selectedGroup.id} group={selectedGroup} />
-          <MeetingsComponent groupID={selectedGroup._id} />
+          <TextRegion key={selectedGroup.id} group={selectedGroup} />
         )}
       </div>
     </div>
-    <MeetingsOverlay isOpen={isMeetingsOverlayOpen} onClose={() => setIsMeetingsOverlayOpen(!isMeetingsOverlayOpen)}>
-      {console.log("Meetings overlay rendered")}
-      <h1>Hello from overlay!</h1>
-    </MeetingsOverlay>
     </div>
   );
 };

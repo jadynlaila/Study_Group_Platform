@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import './MeetingsOverlay.css';
+import './MeetingsOverlayStyle.css';
 import arrowDownImage from '../Public/arrow_down.svg';
+import notesImage from '../Public/notes.svg';
+import noPicImage from '../Public/no-pic.png';
 import pinImage from '../Public/pin.svg';
 import personImage from '../Public/person.svg';
-import noPicImage from '../Public/no-pic.png';
 
 export { MeetingsOverlay, MeetingsComponent };
 
@@ -104,13 +105,18 @@ function IndividualMeetingComponent({ meeting }) {
                                     src={pinImage}
                                     alt='Pin icon'
                                     />
-                                <p className='meeting_location'>{meeting.location}</p>
+                               <p className='meeting_location'>{meeting.location}</p>
                             </div>
                             <p className='meeting_time'>
                                 { `${getDateTimeString(meeting.start)} to ${getDateTimeString(meeting.end)}` }
                             </p>
                         </div>
                         <div className='meeting_description'>
+                            <img
+                                className='meeting_description_icon'
+                                src={notesImage}
+                                alt='Notes icon'
+                            />
                             <p className='meeting_description_contents'>{meeting.description}</p>
                         </div>
                         {
@@ -166,21 +172,17 @@ function MeetingsComponent({ groupID }) {
 }
 
 // Taken from https://www.youtube.com/watch?v=D9OJX6sSyYk
-function MeetingsOverlay({ isOpen, onClose, groupID }) {
+function MeetingsOverlay({ onClose, groupID }) {
     console.log("MeetingsOverlay called")
     return (
-        <>
-            isOpen ? (
-                <div className='overlay'>
-                    <div className='overlay_background' onClick={onClose} />
-                    <div className='overlay_container'>
-                        <div className='overlay_controls'>
-                            <button className='overlay_close' type='button' onClick={onClose} />
-                        </div>
-                        <MeetingsComponent groupID={groupID} />
-                    </div>
+        <div className='overlay'>
+            <div className='overlay_container'>
+                <div className='overlay_controls'>
+                    <h1 className='overlay_title'>Meetings</h1>
+                    <button className='overlay_close' type='button' onClick={onClose}>Close</button>
                 </div>
-            ) : null;
-        </>
+                <MeetingsComponent groupID={groupID} />
+            </div>
+        </div>
     )
 }

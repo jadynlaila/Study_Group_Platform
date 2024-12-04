@@ -1,9 +1,27 @@
 /* TextRegionStyle.css */
+.text-region-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 30px;
+}
+
 .text-region {
   display: flex;
   padding: 10px;
   flex-direction: column;
   height: 90vh; /* Full height */
+  width: 100%
+}
+
+.text-region-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.meetings-overlay {
+  min-width: 300px;
 }
 
 .chat-display {
@@ -78,4 +96,13 @@
   .chat-message {
     max-width: 90%; /* Allow messages to take more width */
   }
+}
+
+.modal {
+  height: 100%;
+  width: 3vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

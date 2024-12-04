@@ -1,7 +1,6 @@
 .individual_meeting_container {
     background-color: rgb(39, 39, 39);
     border-radius: 16px;
-    margin: 20px 0;
     padding: 20px 0;
 }
 
@@ -30,6 +29,14 @@
 
 }
 
+.meeting_dropdown_arrow {
+    margin-left: auto;
+
+    background-color: rgb(207, 64, 54);
+    border-radius: 50%;
+    padding: 8px;
+}
+
 .meeting_details {
 
 }
@@ -52,11 +59,12 @@
 }
 
 .meeting_location_icon {
-
+    
 }
 
 .meeting_location {
-
+    font-size: 16px;
+    font-weight: bold;;
 }
 
 .meeting_time {
@@ -75,7 +83,7 @@
 }
 
 .meeting_description_contents {
-
+    padding-top: 8px;
 }
 
 .meeting_owner {
@@ -120,4 +128,35 @@
     border-radius: 16px;
     padding: 10px 20px;
     margin: 10px;
+}
+
+.overlay {
+    background-color: rgb(39, 39, 39);
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.overlay_controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px
+}
+
+.overlay_close {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.overlay_title {
+    font-size: 24px;
+    font-weight: bold;
+
+    text-align: left;
+    padding-left: 8px;
 }
