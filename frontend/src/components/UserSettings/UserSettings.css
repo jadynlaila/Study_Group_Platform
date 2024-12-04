@@ -4,12 +4,22 @@
     display: flex;
     flex-direction: column;
     align-items: center; /* Center horizontally */
-    justify-content: flex-start; /* Align to the top */
+    justify-content: center; /* Center vertically */
+    height: 100vh; /* Take the full viewport height */
     padding: 20px;
     font-family: Arial, sans-serif; /* Use a clean font */
     background-color: #f9f9f9; /* Light background color */
 }
-
+.back-button {
+    position: absolute; /* Place the back button in a fixed position */
+    top: 20px; /* Adjust vertical placement */
+    left: 20px; /* Adjust horizontal placement */
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 1.5rem; /* Slightly smaller size */
+    color: rgb(38, 138, 215); /* Match the primary button color */
+    cursor: pointer; /* Pointer cursor on hover */
+}
 .user-settings-title {
     font-size: 2rem; /* Larger font size for the title */
     margin: 20px 0; /* Space around the title */
@@ -23,8 +33,10 @@
     padding: 20px; /* Padding inside the form */
     width: 100%; /* Full width */
     max-width: 600px; /* Max width for the form */
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+    align-items: center; /* Center form fields horizontally */
 }
-
 .user-settings-form div {
     margin-bottom: 15px; /* Space between form fields */
     display: flex; /* Align label and button in a row */
@@ -47,7 +59,7 @@
 }
 
 .edit-button {
-    background-color: #007bff; /* Primary color for the button */
+    background-color: rgb(38, 138, 215); /* Primary color for the button */
     color: white; /* White text color */
     border: none; /* No border */
     border-radius: 4px; /* Slightly rounded corners */
