@@ -55,7 +55,7 @@ async function sendPut(url, data) {
 
 async function sendDelete(url, data) {
     try {
-        const response = await axios.delete(url, data);
+        const response = await axios.delete(url, { data });
         const valid_status_code = 200;
 
         if (response.status !== valid_status_code) {
@@ -142,15 +142,24 @@ async function updateSampleMeeting(meetingID, updateData) {
     return await sendPut(`${baseURL}/api/meeting/${meetingID}`, updateData);
 }
 
-async function deleteSampleMeeting(meetingID) {
-    return await sendDelete(`${baseURL}/api/meeting/${meetingID}`);
+async function deleteSampleMeeting(meetingID, groupID) {
+    return await sendDelete(`${baseURL}/api/meeting/${meetingID}`, { groupID });
 }
 
 describe('Meeting Controller', () => {
     test('Create a meeting', async () => {
         // Create sample data
         const student = await createSampleStudent("jesttest_createmeeting", "create.meeting@jest.test");
+        if (!student) {
+            console.error("Failed to create sample student");
+            return;
+        }
+
         const group = await createSampleGroup("Jest Test Group - Create Meeting", "Mock data for Creating a Meeting", student._id);
+        if (!group) {
+            console.error("Failed to create sample group");
+            return;
+        }
 
         // Create a meeting lasting for 2 hours
         const meeting = await createSampleMeeting(
@@ -164,6 +173,10 @@ describe('Meeting Controller', () => {
         );
 
         const updatedGroup = await getSampleGroup(group.groupID);
+        if (!updatedGroup) {
+            console.error("Failed to get updated group");
+            return;
+        }
 
         // Clean up before testing
         await deleteSampleGroup(group.groupID);
@@ -181,5 +194,53 @@ describe('Meeting Controller', () => {
         // Verify the group was updated
         expect(updatedGroup.meetingIDs).toHaveLength(1);
         expect(updatedGroup.meetingIDs[0]).toBe(meeting._id);
+    });
+
+    test('Delete a meeting', async () => {
+        // Create sample data
+        const student = await createSampleStudent("jesttest_deletemeeting", "delete.meeting@jest.test");
+        if (!student) {
+            console.error("Failed to create sample student");
+            return;
+        }
+
+        let group = await createSampleGroup("Jest Test Group - Delete Meeting", "Mock data for Deleting a Meeting", student._id);
+        if (!group) {
+            console.error("Failed to create sample group");
+            return;
+        }
+        const groupID = group.groupID;
+
+        // Create a meeting lasting for 2 hours
+        const meeting = await createSampleMeeting(
+            groupID, 
+            student._id, 
+            "Jest Test Meeting", 
+            "Mock data for Deleting a Meeting", 
+            "Mock Location", 
+            new Date(), 
+            new Date(new Date().getTime() + 2 * 60 * 60 * 1000)
+        );
+        
+        // Delete the meeting
+        const deletedMeeting = await deleteSampleMeeting(meeting._id, group.groupID);
+        
+        group = await getSampleGroup(group.groupID);
+        if (!group) {
+            console.error("Failed to get updated group");
+            return;
+        }
+
+        // Clean up before testing
+        await deleteSampleGroup(groupID);
+        await deleteSampleStudent(student._id);
+
+        // Verify the meeting was deleted
+        expect(deletedMeeting).toHaveProperty('_id');
+        expect(deletedMeeting.name).toBe("Jest Test Meeting");
+        expect(deletedMeeting.description).toBe("Mock data for Deleting a Meeting");
+        expect(deletedMeeting.location).toBe("Mock Location");
+        expect(deletedMeeting.creatorID).toBe(student._id);
+        expect(group.meetingIDs).toHaveLength(0);
     });
 });
