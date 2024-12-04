@@ -32,7 +32,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "start": "concurrently npm:frontend npm:backend",
+    "start": "concurrently -c yellow,magenta npm:frontend npm:backend",
     "frontend": "cd frontend && npm start",
     "backend": "node server.js",
     "server": "nodemon server.js"

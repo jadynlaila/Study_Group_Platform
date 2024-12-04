@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { getUserSettings, updateUserSettings } from '../studentService'; // Import the service functions
 import { useAuthContext } from '../../context/AuthContext';
-import axios from 'axios'; // Corrected import statement
 
 const UserSettings = () => {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { authUser  } = useAuthContext();
+  
+  function logout() {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    localStorage.removeItem('student');
+    window.location.href = '/login';
+  }
 
   // Fetch user settings on component mount
   useEffect(() => {
@@ -52,6 +57,13 @@ const UserSettings = () => {
       const updatedData = await updateUserSettings(studentId, settings); // Call the function to update user settings
       setSettings(updatedData);
       alert('Settings updated successfully!');
+
+      // Update the token data so that the user information is updated.
+      localStorage.setItem("student", JSON.stringify(updatedData));
+
+      // Redirect back to the main page
+      window.location.href = '/'
+
     } catch (err) {
       setError(err.message);
     }
@@ -114,6 +126,7 @@ const UserSettings = () => {
           />
         </label>
       </div>
+      <button type="button" onClick={logout}>Log out</button>
       <button type="submit">Update Settings</button>
  </form>
   );

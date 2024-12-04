@@ -22,6 +22,7 @@ function scrubPrivateStudentInfo(studentObject) {
         firstName: studentObject.firstName,
         lastName: studentObject.lastName,
         username: studentObject.username,
+        email: studentObject.email,
         school: studentObject.school,
         displayName: studentObject.displayName,
         major: studentObject.major,
@@ -100,6 +101,7 @@ const createStudent = asyncHandler(async (req, res) => {
     } = req.body
 
     console.debug(`Creating new student '${username}'`)
+    console.debug(req.body)
 
     // can use this if we install isEmail validator
     //if (!isEmail(email)) return res.status(401).send("Invalid");
@@ -143,6 +145,7 @@ const createStudent = asyncHandler(async (req, res) => {
             profilePicURL: profilePicURL != null ? profilePicURL : defaultProfilePic
         })
 
+        console.debug(newStudent);
 
         if(newStudent){
             generateTokenSetCookie(newStudent._id, res);

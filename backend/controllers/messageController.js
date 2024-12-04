@@ -83,7 +83,7 @@ const deleteMessage = asyncHandler(async (req,res) => {
         }
 
         // Check if the user is the sender or an admin in the group
-        isSender = message.author.toString() == senderID.toString()
+        const isSender = message.author.toString() === senderID.toString()
 
         if(!isSender){
             console.error(`User with id ${senderID} tried and failed to delete message with id ${messageID}`);
