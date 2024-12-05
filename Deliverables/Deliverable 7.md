@@ -71,11 +71,34 @@ Suggestions:
 * Invite option, create a link for a group. 
 * Improve settings UI to make it more user friendly, and allow for Profile Pictures to be displayed better
   
+
+Taylor Daine:
+
+Likes: 
+
+* Straight forward design
+* Overall concept of the site
+* Color theme
+* Ease of use
+
+Dislikes: 
+
+* Current state is very barebones
+* Messaging is not yet implemented
+* Design isn't cohesive
+
+Suggestions: 
+
+* Allowing users to 'friend' each other 
+* Notification center for incoming messages/meetings
+* Ability to invite users to groups
+* Ability to make groups public or private
+
 ### Reflections: 
 * seemed easy to navigate for the user
 * user performed tasks correctly based off instruction
 * User likes the design / color, but it is barebones.
-* User like the ability to find new people, thinks private groups would remove the point of 'finding' a group. 
+* User like the ability to find new people, thinks too many private groups would remove the point of 'finding' a group. 
 * needs more functionality, but user likes the simplicity of the current UI.
 * expand user roles
 * value proposition is met,however it needs to be deployed and polished so it can be used widely
