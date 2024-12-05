@@ -102,12 +102,13 @@ Suggestions:
 * Ability to make groups public or private
 
 ### Reflections: 
-* seemed easy to navigate for the user
-* user performed tasks correctly based off instruction
+* Seemed easy to navigate for the user.
+* User performed tasks correctly based off instruction.
 * User likes the design / color, but it is barebones.
 * User like the ability to find new people, thinks too many private groups would remove the point of 'finding' a group. 
-* needs more functionality, but user likes the simplicity of the current UI.
-* expand user roles
-* value proposition is met,however it needs to be deployed and polished so it can be used widely
+* Needs more functionality, but user likes the simplicity of the current UI.
+* Expand user roles.
+* Value proposition is met,however it needs to be deployed and polished so it can be used widely.
+* UI overall good design.
 
 
