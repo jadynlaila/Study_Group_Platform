@@ -1,12 +1,19 @@
-# Instructions
-Structure your deliverable according to the following sections. See the “Team Project Instructions” for details about formatting. Check the lecture materials and perform additional research to produce a high-quality deliverable. As usual, if you have any questions, let me know.
+# Deliverable 7
+## 1. Description
 
-# 1. Description
-Provide 1-2 paragraphs to describe your system. This will help us to remember what your system is about. 
+StudySphere is a web-based platform designed to foster academic success and build a sense of community among college students by facilitating the creation and management of study groups. The idea behind this project is to create a tool for students by students. There exists an unspoken challenge that university students face, which is the difficulty in connecting with peers for study collaboration. Our purpose of this projcect is to promote community and boost academic success. 
 
-*Grading criteria (1 point): completeness, language.*
+Our app is powered by technologies such as React, Express.js, MongoDB, and Node.js. For testing purposes we used JWT (JSON Web Token) and Axios. We approached this project by defining a minimum viable product that consists of a user friendly UI, that follows a simple structure with a minimal page implementation. What makes our app special is the filter by university as it allows you to connect with people in your university that take the same classes as you. Our web app consists of the following components:
+- Log In / Sign Up 
+- Group search
+- Join Group
+- Create a group
+- Create Meeting
+- Messaging
+- Settings
 
-# 2. Validation (user evaluation)
+
+## 2. Validation (user evaluation)
 
 ### Script
 * Make an account, include as much information as you would like. It can be changed. 
